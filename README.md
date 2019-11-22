@@ -7,8 +7,12 @@ This repo holds binaries for the CodeQL CLI.
 # Getting started
 
 1. Go to the [Releases page](https://github.com/github/codeql-cli-binaries/releases).
-1. Find the latest release, select Assets, and download the zip file containing the CLI.
-1. Read the [CodeQL CLI documentation](https://help.semmle.com/codeql/codeql-cli.html).
+2. Find the latest release, select Assets, and download the zip file containing the CLI.
+3. You'll also want to clone https://github.com/Semmle/ql to get the CodeQL queries and support
+   libraries. Please take note of the
+   [set-up instructions](https://help.semmle.com/codeql/codeql-cli/procedures/get-started.html)
+   for placing it in a location where the CLI can find it.
+4. Read the rest of the [CodeQL CLI documentation](https://help.semmle.com/codeql/codeql-cli.html).
 
 # License
 
