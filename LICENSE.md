@@ -29,10 +29,10 @@ for any of the following:
     non-OSI-approved open source license, unless it is to perform
     academic research or to demonstrate the Software); or**
 
-  * **For automated analysis, continuous integration or continuous
-    delivery, whether as part of normal software engineering processes
-    or otherwise.**
-  
+  * **To generate CodeQL databases for or during automated analysis,
+    continuous integration or continuous delivery, whether as part
+    of normal software engineering processes or otherwise.**
+
 Further, except (and only to the extent) permitted by applicable law
 or applicable third-party license, you will not (and have no right
 to):
