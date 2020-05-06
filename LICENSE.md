@@ -1,6 +1,5 @@
 GitHub CodeQL Terms and Conditions
 ==================================
-
 These GitHub CodeQL Terms and Conditions ("**Terms**") are a legal
 agreement between you (either as an individual or on behalf of an
 entity) and GitHub, Inc. regarding your use of the GitHub CodeQL
@@ -16,22 +15,26 @@ The Software is licensed on a per user basis. You may use the Software
 for any of the following:
 
   * To perform analysis on any codebase that is released under an Open
-    Source Initiative (OSI)-approved open source software license;
+    Source Initiative (OSI)-approved open source software license (an
+    “Open Source Codebase”);
+
+  * To generate CodeQL databases for or during automated analysis,
+    continuous integration (CI) or continuous delivery (CD) in the
+    following cases: (1) on any Open Source Codebase hosted and
+    maintained on GitHub.com, and (2) to test CodeQL queries you have
+    released under an OSI-approved open source software license to
+    confirm that new versions of those queries continue to find the
+    right vulnerabilities;
 
   * To perform academic research on any codebase; and
 
   * To demonstrate the Software.
 
-**These Terms do not authorize, and the Software cannot be used:**
-
-  * **For any purpose not expressly set forth above (for example, you
-    cannot use the Software on a code base that is released under a
-    non-OSI-approved open source license, unless it is to perform
-    academic research or to demonstrate the Software); or**
-
-  * **To generate CodeQL databases for or during automated analysis,
-    continuous integration or continuous delivery, whether as part
-    of normal software engineering processes or otherwise.**
+**These Terms do not authorize, and the Software cannot be used, for
+any purpose not expressly set forth above, including to generate any
+CodeQL database for or during automated analysis, CI or CD, whether as
+part of normal engineering processes or otherwise, except in the
+express cases set forth above.**
 
 Further, except (and only to the extent) permitted by applicable law
 or applicable third-party license, you will not (and have no right
