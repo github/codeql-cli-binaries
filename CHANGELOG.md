@@ -1,5 +1,28 @@
 # CodeQL CLI changelog
 
+## Release 2.2.4 (2020-06-29)
+
+-   The bundled extractors are updated to match the versions currently
+    used on LGTM.com. These are newer than the last release (1.24) of
+    LGTM Enterprise. If you plan to upload databases to an LGTM
+    Enterprise 1.24 instance, you need to create them with release
+    2.1.4.
+
+### Bugs fixed
+
+- QL packs found through the `--search-path` option, or in a sibling
+  directory to the unpacked CLI would erroneously take precedence over
+  the content of the workspace when using the CodeQL extension for 
+  Visual Studio Code. This is now fixed such that the workspace
+  takes priority.
+
+- Two command-line options that control the amount of disk space that
+  the QL evaluator will try to keep free of disk cache are now called
+  `--min-disk-free` and `--min-disk-free-pct`.  Previously they were
+  called `--max-disk-free` instead, which made no sense. The old names
+  are still recognized such as not to break existing scripts, but are
+  now undocumented and deprecated.
+
 ## Release 2.2.3 (2020-06-15)
 
 CodeQL CLI 2.2.3 is the same as version 2.2.2, but re-released with a new
