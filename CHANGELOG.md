@@ -1,5 +1,34 @@
 # CodeQL CLI changelog
 
+## Release 2.2.5 (2020-08-21)
+
+  - The bundled extractors are updated to match the versions currently
+    used on LGTM.com. These are newer than the last release (1.24) of
+    LGTM Enterprise. If you plan to upload databases to an LGTM
+    Enterprise 1.24 instance, you need to create them with release
+    2.1.4.
+
+  - Updated license terms with a rewritten description of what is and
+    is not allowed.  No substantive changes are intended, but the new
+    text is hopefully easier to understand.
+
+### New features
+
+  - The CLI can now execute queries that use QL's `external predicate`
+    feature.  All subcommands that execute queries have a new
+    `--external` option to specify the value set for those predicates.
+
+  - A new `codeql bqrs diff` command can be used to compute the
+    difference between two binary query result sets.
+
+  - `codeql test run` has some new options to improve support for
+    testing of extractors:
+    - `--check-databases` which will run `codeql dataset check` on
+      every test database produced during a run.
+    - `--consistency-queries` which will run a set of additional
+      queries over _all_ the test databases produced during a run.
+    - `--show-extractor-output`
+
 ## Release 2.2.4 (2020-06-29)
 
 -   The bundled extractors are updated to match the versions currently
