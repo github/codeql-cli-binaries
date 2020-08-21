@@ -4,52 +4,81 @@ These GitHub CodeQL Terms and Conditions ("**Terms**") are a legal
 agreement between you (either as an individual or on behalf of an
 entity) and GitHub, Inc. regarding your use of the GitHub CodeQL
 software and associated documentation (collectively, the
-"**Software**"). By using the Software, you accept these Terms. If you
-do not accept these Terms, do not download, install, use, or copy the
-Software.
+"**Software**"). By using the Software, you accept these Terms.
+**Please read all of these Terms;** in many cases, provisions set
+forth later in the Terms limit and qualify provisions set forth
+earlier in the Terms.  If you do not accept these Terms, do not
+download, install, use, or copy the Software.
+
+Definitions
+-----------
+
+In these Terms:
+
+  * "OSI-approved License" means an Open Source Initiative
+    (OSI)-approved open source software license.
+
+  * "Open Source Codebase" means a codebase that is released under an
+    OSI-approved License.
 
 Use Rights; Scope of License
 ----------------------------
 
-The Software is licensed on a per user basis. You may use the Software
-for any of the following:
+The Software is licensed on a per user basis. Here's what you may do
+with the Software, but subject to License Restrictions provisions
+below:
 
-  * To perform analysis on any codebase that is released under an Open
-    Source Initiative (OSI)-approved open source software license (an
-    “Open Source Codebase”);
+  * Use the Software to perform academic research.
 
-  * To generate CodeQL databases for or during automated analysis,
-    continuous integration (CI) or continuous delivery (CD) in the
-    following cases: (1) on any Open Source Codebase hosted and
-    maintained on GitHub.com, and (2) to test CodeQL queries you have
-    released under an OSI-approved open source software license to
-    confirm that new versions of those queries continue to find the
-    right vulnerabilities;
+  * Use the Software to demonstrate the Software.
 
-  * To perform academic research on any codebase; and
+  * Test CodeQL queries that are released under an OSI-approved
+    Licence to confirm that new versions of those queries continue to
+    find the right vulnerabilities.
 
-  * To demonstrate the Software.
+Here's what you may also do with the Software, but only with an Open
+Source Codebase and subject to the License Restrictions provisions
+below:
 
-**These Terms do not authorize, and the Software cannot be used, for
-any purpose not expressly set forth above, including to generate any
-CodeQL database for or during automated analysis, CI or CD, whether as
-part of normal engineering processes or otherwise, except in the
-express cases set forth above.**
+  * Perform analysis on the Open Source Codebase.
 
-Further, except (and only to the extent) permitted by applicable law
-or applicable third-party license, you will not (and have no right
+  * If the Open Source Codebase is hosted and maintained on
+    GitHub.com, generate CodeQL databases for or during automated
+    analysis, CI, or CD.
+
+License Restrictions
+--------------------
+
+These Terms do not authorize, and the Software may not be used for any
+purpose not expressly set forth above, including:
+
+  * To otherwise or in any other context generate any CodeQL database
+    for or during automated analysis, CI or CD, whether as part of
+    normal engineering processes or another context.
+
+  * To otherwise or in any other context use the Software in
+    connection with any codebase that is not an Open Source Codebase
+    (e.g., code in a private repo in GitHub).
+
+_**Please note:** if your use of the Software is under a paid customer
+license for GitHub Advanced Security, the restrictions with respect to
+automated analysis, CI, and CD and use in connection with non-Open
+Source Codebases do not apply._
+
+At all times, except (and only to the extent) permitted by applicable
+law or applicable third-party license, you will not (and have no right
 to):
 
   * work around any technical limitations in the Software that only
     allow you to use it in certain ways;
 
   * reverse engineer, decompile or disassemble the Software;
-  
+
   * remove, minimize, block, or modify any notices of GitHub or its
     suppliers in the Software;
-  
+
   * use the Software in any way that is against the law; or
-  
+
   * share, publish, distribute or lend the Software, provide or make
     available the Software as a hosted solution (whether on a
     standalone basis or combined, incorporated or integrated with
@@ -144,11 +173,12 @@ software licenses referenced above, constitutes the entire agreement
 between you and GitHub regarding your use of the Software, superseding
 any prior agreements between you and GitHub (including, but not
 limited to, any prior versions of these Terms) regarding such use.
-Governing Law. You agree that these Terms and your use of the Software
-are governed by the laws of the State of California and any dispute
-relating to the Software or your use thereof must be brought in a
-tribunal of competent jurisdiction located in or near San Francisco,
-California.
+
+_Governing Law._ You agree that these Terms and your use of the
+Software are governed by the laws of the State of California and any
+dispute relating to the Software or your use thereof must be brought
+in a tribunal of competent jurisdiction located in or near San
+Francisco, California.
 
 _Modifications._ These Terms may only be modified by a written
 amendment signed by an authorized representative of GitHub, or by the
