@@ -1,5 +1,16 @@
 # CodeQL CLI changelog
 
+## Release 2.2.6 (2020-09-11)
+
+This release corresponds to release 1.25.x of LGTM Enterprise, and
+should be used when creating databases that will be uploaded to it.
+Future CLI releases (numbered 2.3.x) may produce databases that are not
+backwards compatible with this version of LGTM Enterprise.
+
+For all purposes other than creating databases for LGTM Enterprise we
+recommend that you continue upgrading to newer CLI releases as they
+become available.
+
 ## Release 2.2.5 (2020-08-21)
 
   - The bundled extractors are updated to match the versions currently
@@ -410,4 +421,3 @@ become available.
 ## Release 2.0.0 (2019-11-14)
 
 -   First public release.
-
