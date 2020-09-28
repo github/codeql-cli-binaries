@@ -1,5 +1,49 @@
 # CodeQL CLI changelog
 
+## Release 2.3.0 (2020-09-28)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.25) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.25 instance, you need to create them with release
+  2.2.6.
+
+### Potentially breaking changes
+
+- The Java extractor no longer supports builds running on a Java 6
+  JRE. The minimum supported version is Java 7.
+
+- The interpretation of binding set annotations in QL has changed
+  subtly.  In rare cases, existing QL code that contains explicit
+  binding set annotations on overriding class predicates may now be
+  rejected with errors of the form "... is not bound to a value". You
+  can fix this by adding explicit binding sets to the overridden
+  predicate, or to the abstract class itself in the case of the
+  characteristic predicate.  For more information about binding sets,
+  see [Annotations](https://help.semmle.com/QL/ql-handbook/annotations.html#binding-sets)
+  in the QL language reference.
+
+### QL language improvements
+
+- You can now use binding sets on class bodies. This lets you
+  explicitly annotate dynamically dispatched characteristic
+  predicates.
+
+### New features
+
+- Query authors can use the new subcommand `codeql generate query-help` to 
+  validate query help files and render the files as Markdown. For more information, 
+  see [Testing query help files](https://help.semmle.com/codeql/codeql-cli/procedures/testing-query-help-files.html).
+
+- The new subcommand `codeql bqrs hash` computes a stable hash of a
+  BQRS file.
+
+- `codeql query decompile` now accepts a `--kind` flag. This allows
+  advanced users to choose which intermediate representation to show
+  for a compiled QL query. `--kind dil` shows the Datalog
+  representation while `--kind ra` shows the relational algebra
+  representation used by the evaluator.
+
 ## Release 2.2.6 (2020-09-11)
 
 This release corresponds to release 1.25.x of LGTM Enterprise, and
