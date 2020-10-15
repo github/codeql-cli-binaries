@@ -1,5 +1,27 @@
 # CodeQL CLI changelog
 
+## Release 2.3.1 (2020-10-15)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.25) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.25 instance, you need to create them with release
+  2.2.6.
+
+### Features added
+
+- `codeql database create` now accepts a `--working-dir` option, which
+  allows the working directory for extractor scripts to differ from
+  the source root. This is useful in some specialized integration
+  situations.
+
+- `codeql database create` will now pass a `--compiler-spec` option on
+  to `codeql database trace-command`. This allows adapting the build
+  tracing process when unusual compiler toolchains are used.
+
+- `codeql database init` accepts an `--allow-missing-source-root`
+  option, which is useful in some specialized integration situations.
+
 ## Release 2.3.0 (2020-09-28)
 
 - The bundled extractors are updated to match the versions currently
