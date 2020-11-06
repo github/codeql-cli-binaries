@@ -1,5 +1,22 @@
 # CodeQL CLI changelog
 
+## Release 2.3.3 (2020-11-06)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.25) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.25 instance, you need to create them with release
+  2.2.6.
+
+- Fixed bug in `codeql test run` where the `--json` and
+  `--failing-exitcode` options would not work reliably when `--ram`
+  was also given
+
+- The `$CODEQL_JAVA_HOME` environment variable will now be passed to
+  extractors such that extractors implemented in Java can be affected
+  too. Beware that this variable will override the JVM that executes
+  the main `codeql` process. It should not normally be set explicitly.
+
 ## Release 2.3.2 (2020-10-27)
 
 - The bundled extractors are updated to match the versions currently
