@@ -8,7 +8,7 @@
   Enterprise 1.25 instance, you need to create them with release
   2.2.6.
 
-- Fixed bug in `codeql test run` where the `--json` and
+- Fixed bug in `codeql test run` where the `--format` and
   `--failing-exitcode` options would not work reliably when `--ram`
   was also given
 
