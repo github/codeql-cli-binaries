@@ -1,5 +1,23 @@
 # CodeQL CLI changelog
 
+## Release 2.4.0 (2020-11-25)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.25) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.25 instance, you need to create them with release
+  2.2.6.
+
+- Much of the work done by `codeql database upgrade` now happens
+  implicitly (and reversibly) as part of ordinary query evaluation.
+  This should make it much rarer to need to run `codeql database
+  upgrade` explicitly, though there are still some corner cases that
+  will require it, particularly for very old databases.
+
+- `codeql test run` with a `--threads` argument will now _compile_
+  test queries in parallel even if they belong to the same single
+  test directory. This can speed up localized testing considerably.
+
 ## Release 2.3.3 (2020-11-06)
 
 - The bundled extractors are updated to match the versions currently
