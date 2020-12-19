@@ -1,5 +1,40 @@
 # CodeQL CLI changelog
 
+## Release 2.4.1 (2020-12-19)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.26) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.26 instance, you need to create them with release
+  2.3.4.
+
+### Features added
+
+- `codeql query format` now checks all files rather than stopping
+  after the first failure when the `--check-only` option is given.
+
+- `codeql resolve database` will produce a `languages` key giving the
+  language the database was created for. This can be useful in IDEs to
+  help describe the database and suggest default actions or queries.
+  For databases created by earlier versions, the result will be a
+  best-effort guess.
+
+- `codeql database interpret-results` can now produce Graphviz `.dot`
+  files from queries with `@kind graph`.
+
+### Features removed
+
+- `codeql test run` had some special compatibility support for running
+  unit tests for the "code duplication" extractor features of certain
+  discontinued Semmle products. Those tests have since been removed
+  from the [public QL repository](https://github.com/github/codeql),
+  so the compatibility support for them has been removed. This should
+  not affect any external users (since the extractor feature in
+  question was never supported by `codeql database create` anyway),
+  but if you run `codeql test run` against the unit tests belonging to
+  an _old_ checkout of the repository, you may now see some failures
+  among `Metrics` tests.
+
 ## Release 2.3.4 (2020-12-15)
 
 This release corresponds to release 1.26.x of LGTM Enterprise, and
@@ -20,9 +55,9 @@ recommend that you upgrade to CLI releases numbered 2.4.x or later.
 
 - Much of the work done by `codeql database upgrade` now happens
   implicitly (and reversibly) as part of ordinary query evaluation.
-  This should make it much rarer to need to run `codeql database
-  upgrade` explicitly, though there are still some corner cases that
-  will require it, particularly for very old databases.
+  This should make the need to explicitly run `codeql database
+  upgrade` much less common. However there are still some corner cases
+  that will require it, particularly for very old databases.
 
 - `codeql test run` with a `--threads` argument will now _compile_
   test queries in parallel even if they belong to the same single
