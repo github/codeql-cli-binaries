@@ -1,5 +1,13 @@
 # CodeQL CLI changelog
 
+## Release 2.4.2 (2021-01-22)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.26) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.26 instance, you need to create them with release
+  2.3.4.
+
 ## Release 2.4.1 (2020-12-19)
 
 - The bundled extractors are updated to match the versions currently
