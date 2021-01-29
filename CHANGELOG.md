@@ -1,5 +1,31 @@
 # CodeQL CLI changelog
 
+## Release 2.4.3 (2021-01-29)
+
+Fixes several bugs introduced in 2.4.2, related to searching the disk for
+QL packs:
+
+- In many cases the search would scan through more of the file system
+  than it should. Often the only effect of this was that the scan would
+  take longer time (sometimes significantly longer) but in some corner
+  cases it could lead to packs being found that _shouldn't_ be found,
+  which could lead to compilation failure if different versions of the same
+  pack exists on disk.
+
+- The search would terminate a fatal error if it met a directory without
+  read permission.
+
+- A `provide` entry in `.codeqlmanifest.json` that ended with `*` would
+  erroneously not match a `.codeqlmanifest.json` in a subdirectory.
+
+As a consequence of the latter fix, the semantics of
+`.codeqlmanifest.json` files has changed slightly: Directory names
+that start with a dot used not to be matched by the pattern elements
+`*` and `**`, whereas now even dotted directories match such a pattern
+element. The previous behavior was never documented, and only very few
+users have `.codeqlmanifest.json` files of their own in the first
+place, so this change is expected to have minimal practical effect.
+
 ## Release 2.4.2 (2021-01-22)
 
 - The bundled extractors are updated to match the versions currently
