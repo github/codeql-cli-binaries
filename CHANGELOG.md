@@ -1,5 +1,44 @@
 # CodeQL CLI changelog
 
+## Release 2.4.4 (2021-02-12)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.26) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.26 instance, you need to create them with release
+  2.3.4.
+
+### Potentially breaking changes
+
+- The `name` property in `qlpack.yml` must now meet the following requirements:
+  - Only lowercase ASCII letters, ASCII digits, and hyphens (`-`) are allowed.
+  - A hyphen is not allowed as the first or last character of the name.
+  - The name must be at least one character long, and no longer than 128 characters.
+
+### New features
+
+- Alert and path queries can now give a score to each alert they
+  produce. You can incorporate alert scores in an alert or path query
+  by first adding the `@scored` property to the query metadata. You
+  can then introduce a new numeric column at the end of the `select`
+  statement structure to represent the score of each alert.
+  Alert scores are exposed in the SARIF output of commands like
+  `codeql database analyze` as the `score` property in the property
+  bags of result objects.
+
+### Bugs fixed
+
+- The default value of the `--working-dir` options for the
+  `index-files` and `trace-command` subcommands of `codeql database`
+  has been fixed to match the documentation; previously, it would
+  erroneously use the process' current working directory rather than
+  the database source root.
+
+- `codeql test run` will not crash if database extraction in a test
+  directory fails. Instead only the tests in that directory will be
+  marked as failing, and tests in other directories will continue
+  executing.
+
 ## Release 2.4.3 (2021-01-29)
 
 Fixes several bugs introduced in 2.4.2, related to searching the disk for
@@ -7,10 +46,10 @@ QL packs:
 
 - In many cases the search would scan through more of the file system
   than it should. Often the only effect of this was that the scan would
-  take longer time (sometimes significantly longer) but in some corner
+  take longer (sometimes significantly longer) but in some corner
   cases it could lead to packs being found that _shouldn't_ be found,
   which could lead to compilation failure if different versions of the same
-  pack exists on disk.
+  pack exist on disk.
 
 - The search would terminate a fatal error if it met a directory without
   read permission.
@@ -20,7 +59,7 @@ QL packs:
 
 As a consequence of the latter fix, the semantics of
 `.codeqlmanifest.json` files has changed slightly: Directory names
-that start with a dot used not to be matched by the pattern elements
+that start with a dot used to not be matched by the pattern elements
 `*` and `**`, whereas now even dotted directories match such a pattern
 element. The previous behavior was never documented, and only very few
 users have `.codeqlmanifest.json` files of their own in the first
