@@ -1,5 +1,23 @@
 # CodeQL CLI changelog
 
+## Release 2.4.6 (2021-03-19)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.26) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.26 instance, you need to create them with release
+  2.3.4.
+
+- Fixed a bug in `codeql test run` that causes tests to fail messily
+  if the freshly-extracted test database needed to be upgraded in
+  order to be compatible with the QL source under test.  This would
+  happen more often at the _end_ of a release cycle, after updates to
+  the QL repository had happened.
+
+- `codeql github upload-results` should now work correctly against
+  GitHub Enterprise Server instances that are configured with a path
+  prefix.
+
 ## Release 2.4.5 (2021-03-08)
 
 - The bundled extractors are updated to match the versions currently
