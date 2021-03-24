@@ -2,11 +2,10 @@
 
 ## Release 2.4.6 (2021-03-19)
 
-- The bundled extractors are updated to match the versions currently
-  used on LGTM.com. These are newer than the last release (1.26) of
-  LGTM Enterprise. If you plan to upload databases to an LGTM
-  Enterprise 1.26 instance, you need to create them with release
-  2.3.4.
+This release corresponds to release 1.27.x of LGTM Enterprise, and
+should be used when creating databases that will be uploaded to it.
+Future CLI releases (numbered 2.5.x) may produce databases that are not
+backwards compatible with this version of LGTM Enterprise.
 
 - Fixed a bug in `codeql test run` that causes tests to fail messily
   if the freshly-extracted test database needed to be upgraded in
