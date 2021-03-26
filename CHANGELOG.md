@@ -1,5 +1,37 @@
 # CodeQL CLI changelog
 
+## Release 2.5.0 (2021-03-29)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Potentially breaking changes
+
+- By default, `codeql test` now performs additional compiler
+  checks when extracting test code written in Java.
+  Existing Java tests that previously passed may therefore fail due
+  to this change, if they do not compile using the `javac` compiler.
+  To allow time to migrate existing tests, the new behavior can be
+  disabled by setting the environment variable
+  `CODEQL_EXTRACTOR_JAVA_FLOW_CHECKS=false`.
+
+### Features added
+
+- Log files that contain output from build processes will now prefix
+  it with `[build-stdout]` and `[build-stderr]` instead of `[build]`
+  and `[build-err]`.  In particular the latter sometimes caused
+  confusion.
+
+### QL language improvements
+
+- The QL language now recognizes new `pragma[only_bind_into](...)` and
+  `pragma[only_bind_out](...)` annotations on expressions. Advanced users
+  may use these annotations to provide hints to the compiler to influence
+  binding behavior and thus indirectly performance.
+
 ## Release 2.4.6 (2021-03-19)
 
 This release corresponds to release 1.27.x of LGTM Enterprise, and
