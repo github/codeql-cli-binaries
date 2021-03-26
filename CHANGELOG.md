@@ -1,6 +1,6 @@
 # CodeQL CLI changelog
 
-## Release 2.5.0 (2021-03-29)
+## Release 2.5.0 (2021-03-26)
 
 - The bundled extractors are updated to match the versions currently
   used on LGTM.com. These are newer than the last release (1.27) of
