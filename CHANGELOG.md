@@ -1,5 +1,62 @@
 # CodeQL CLI changelog
 
+## Release 2.5.1 (2021-04-19)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Potentially breaking changes
+
+- The QL compiler will now reject queries where the query metadata (if
+  present) at the top of the `.ql` file is inconsistent with the
+  output format of the query.  This check can be disabled by giving
+  the `--no-metadata-verification` flag.  (The flag already existed
+  but has not had any effect until now.)
+
+### Bugs fixed
+
+- Environment variables required for Java extraction are now
+  propagated by the tracer. This may resolve issues with tracing and
+  extraction in the context of certain build systems such as Bazel.
+
+- A number of `--check-CONDITION` options to `codeql database
+  finalize` and `codeql dataset import` designed to look for
+  consistency errors in the intermediate "TRAP" output from extractors
+  erroneously did nothing. They will now actually print warnings if
+  errors are found.  The warnings become fatal errors if the new
+  `--fail-on-trap-errors` option is also given.
+
+### Features added
+
+- `codeql resolve qlref` is a new command that takes in a `.qlref`
+  file for a CodeQL test case and returns the path of the `.ql` file
+  it references.
+
+- `codeql database analyze` and `codeql database interpret-results`
+  have a new `--sarif-group-rules-by-pack` option which will place the
+  SARIF rule object for each query underneath its corresponding query
+  pack in `runs[].tool.extensions`.
+
+- `codeql database finalize` and `codeql dataset import` have a new
+  `--fail-on-trap-errors` option that will make database creation fail
+  if extractors produce ill-formatted "TRAP" data for inclusion into a
+  database. This is not enabled by default because some of the
+  existing extractors have minor output bugs that cause the check to
+  fail.
+
+- `codeql database finalize` and `codeql dataset import` have a new
+  `--check-undefined-labels` option that enables stricter consistency
+  checks on the "TRAP" output from extractors.
+
+### QL language improvements
+
+- `super` may now be used unqualified, e.g. `super.predicateName()`,
+  when the declaring class has multiple super types, as long as the
+  call itself is unambiguous.
+
 ## Release 2.5.0 (2021-03-26)
 
 - The bundled extractors are updated to match the versions currently
