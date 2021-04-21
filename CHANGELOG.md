@@ -1,5 +1,15 @@
 # CodeQL CLI changelog
 
+## Release 2.5.2 (2021-04-21)
+
+This release is identical to release 2.5.1, except that an internal
+incompatibility with the CodeQL action (and the codeql-runner that
+some customers use for CI integrations) has been fixed.
+
+The fix does not affect any use cases where the CLI is downloaded from
+github/codeql-cli-binaries, so if you're seeing this release there,
+there's no need to upgrade from 2.5.1.
+
 ## Release 2.5.1 (2021-04-19)
 
 - The bundled extractors are updated to match the versions currently
