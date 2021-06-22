@@ -17,6 +17,67 @@
      you know what to do).
 -->
 
+## Release 2.5.6 (2021-06-22)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Features added
+
+- `codeql database create` (and the plumbing commands it comprises)
+  now supports creating databases for a source tree with several
+  languages while tracing a single build. This is enabled by a new
+  `--db-cluster` option. Once created, the multiple databases must be
+  _analyzed_ one by one.
+
+- `codeql database create` and `codeql database init` now accept an
+  `--overwrite` argument which will lead existing CodeQL databases to
+  be overwritten.
+
+- `codeql database analyze` now supports "diagnostic" queries (tagged
+  `@kind diagnostic`), which are intended to report information about
+  the analysis process itself rather than problems with the analyzed
+  code. The results of these queries will be summarized in a table
+  printed to the terminal when `codeql database analyze` finishes.
+
+  They are also included in the analysis results in SARIF output
+  formats as [notification objects][2] so they can be displayed by
+  subsequent tooling such as the Code Scanning user interface.
+
+  - For SARIF v2.1.0, a reporting descriptor object for each
+    diagnostic query is output to output to
+    `runs[].tool.driver.notifications`, or
+    `runs[].tool.extensions[].notifications` if running with
+    `--sarif-group-rules-by-pack`. A rule object for each diagnostic
+    query is output to `runs[].resources[].rules` for SARIF v2, or to
+    `runs[].rules` for SARIF v1.
+
+  - Results of diagnostic queries are exported to the
+    `runs[].invocations[].toolExecutionNotifications` property in
+    SARIF v2.1.0, the `runs[].invocations[].toolNotifications`
+    property in SARIF v2, and the `runs[].toolNotifications` property
+    in SARIF v1.
+
+  SARIF v2.1.0 output will now also contain version information for
+  query packs in `runs[].tool.extensions[].semanticVersion`, if the
+  Git commit the queries come from is known.
+
+  [2]: https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317894
+
+- `codeql github upload-results` has a `--checkout-path` option which
+  will attempt to automatically configure upload target parameters.
+  When this is given, the `--commit` option will be taken from the
+  HEAD of the checkout Git repository, and if there is precisely one
+  remote configured in the local repository, the `--repository` and
+  `--github-url` options will also be automatically configured.
+
+- The CodeQL C++ extractor includes beta support for C++20.
+  This is only available when building codebases with GCC on Linux.
+  C++20 modules are **not** supported.
+
 ## Release 2.5.5 (2021-05-17)
 
 - The bundled extractors are updated to match the versions currently
@@ -51,7 +112,7 @@
 
   [1]: https://docs.oasis-open.org/sarif/sarif/v2.1.0/csprd01/sarif-v2.1.0-csprd01.html#_Toc10541300
 
-- `codeql database analyze` now outputs a table that summarises the
+- `codeql database analyze` now outputs a table that summarizes the
   results of metric queries that were part of the analysis. This can
   be suppressed by passing the `--no-print-metrics-summary` flag.
 
@@ -83,7 +144,12 @@
   Enterprise 1.27 instance, you need to create them with release
   2.4.6.
 
-### Features added
+### Next release: Features added
+
+- When tracing a C/C++ build, the C compiler entries in compiler-settings
+  must now specify `order compiler,extractor`. The default configuration
+  already does this, so no change is necessary if using the default
+  configuration.
 
 - `codeql database analyze` and `codeql database interpret-results`
   now report the results of summary metric queries in the
