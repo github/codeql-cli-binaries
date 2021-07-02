@@ -17,6 +17,38 @@
      you know what to do).
 -->
 
+## Release 2.5.7 (2021-07-02)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### New features
+
+- `codeql database create` and `codeql database init` can now
+  automatically recognise the languages present in checkouts of GitHub
+  repositories by making an API call to the GitHub server. This
+  requires a PAT token to either be set in the `GITHUB_TOKEN`
+  environment variable, or passed by stdin with the
+  `--github-auth-stdin` argument.
+
+- Operations that make outgoing HTTP calls (that is, `codeql github
+  upload-results` and the language-detection feature described above)
+  now support the use of HTTP proxies. To use a proxy, specify an
+  `$https_proxy` environment variable for HTTPS requests or a
+  `$http_proxy` environment variable for HTTP requests. If the
+  `$no_proxy` variable is also set, these variables will be ignored
+  and requests will be made without a proxy.
+
+### New language features
+
+- The QL language now has a new method `toUnicode` on the `int`
+  type. This method converts Unicode codepoint to a one-character string.
+  For example, `65.toUnicode() = "A"`, `128512.toUnicode()` results in
+  a smiley, and `any(int i | i.toUnicode() = "A") = 65`.
+
 ## Release 2.5.6 (2021-06-22)
 
 - The bundled extractors are updated to match the versions currently
