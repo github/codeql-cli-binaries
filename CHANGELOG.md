@@ -17,6 +17,29 @@
      you know what to do).
 -->
 
+## Release 2.5.8 (2021-07-26)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Potentially breaking changes
+- The QL compiler now verifies that `@security-severity` query metadata is numeric. You can disable
+  this verification by passing the `--no-metadata-verification` flag.
+
+### New features
+  
+- The `database index-files` and `database trace-command` CLI commands now 
+  support `--threads` and `--ram` options, which are passed to extractors as 
+  suggestions.
+- The `database finalize` CLI command now supports the `--ram` option, which 
+  controls memory usage for finalization.
+- The `database create` CLI command now supports the `--ram` option, which 
+  controls memory usage for database creation.
+- The `generate query-help` CLI command now support rendering query help in SARIF format.
+
 ## Release 2.5.7 (2021-07-02)
 
 - The bundled extractors are updated to match the versions currently
