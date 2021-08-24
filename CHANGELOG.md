@@ -17,6 +17,89 @@
      you know what to do).
 -->
 
+## Release 2.6.0 (2021-08-24)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Bugs fixed
+
+- The `physicalLocation.artifactLocation.uri` fields in SARIF output
+  are now properly encoded as specified by RFC 3986.
+
+- The `--include-extension` option to the `codeql database
+  index-files` command no longer includes directories that are named
+  with the provided extension. For example, if the option
+  `--include-extension=.rb` is provided, then a directory named
+  `foo.rb/` will be excluded from the indexing.
+
+### New features
+
+- A new `codeql database unbundle` subcommand performs the reverse of
+  `codeql database bundle` and extracts a CodeQL database from an
+  archive.
+
+- The CLI now understands per-codebase configuration files in [the
+  format already supported by the CodeQL Action][3].  The
+  configuration file must be given in a `--codescanning-config` option
+  to `codeql database create` or `codeql database init`. For some
+  languages, this configuration can contain pathname filters that
+  control which parts of the codebase is analysed; the configuration
+  file is the only way this functionality is exposed. The
+  configuration file can also control which queries are run, including
+  custom queries from repositories that must first be downloaded. To
+  actually use those queries, run `codeql database analyze` without
+  any query-selection arguments.
+
+  [3]: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#example-configuration-files
+
+- The CLI now supports the "sandwiched tracing" feature that has
+  previously only been offered through the separate CodeQL Runner.
+  This feature is intended for use with CI systems that cannot be
+  configured to wrap build actions with `codeql database
+  trace-command`. Instead the CI system must be able to set custom
+  environment variables for each build action; the required
+  environment variables are output by `codeql database init` when
+  given a `--begin-tracing` argument.
+
+  On Windows, `codeql database init --begin-tracing` will also inject
+  build-tracing code into the calling process or an ancestor; there
+  are additional options to control this.
+
+- This version contains _beta_ support for a new packaging and
+  publishing system for third-party QL queries and libraries. It
+  comprises the following new commands:
+
+  - `codeql pack init`: Creates an empty CodeQL pack from a template.
+
+  - `codeql pack add`: Adds a dependency to a CodeQL pack.
+
+  - `codeql pack install`: Installs all pack dependencies specified in
+    the `qlpack.yml` file.
+
+  - `codeql pack download`: Downloads one or more pack dependencies
+    into the global package cache.
+
+  - `codeql pack publish`: Publishes a package to the GitHub Container
+    Registry.
+
+  - (Plumbing) `codeql pack bundle`: Builds a `.zip` file for a CodeQL
+    query or library pack from sources. Used by `codeql pack publish`.
+
+  - (Plumbing) `codeql pack create`: Creates a compiled CodeQL query
+    or library pack from sources. Used by `codeql pack bundle`.
+
+  - (Plumbing) `codeql pack packlist`: Lists all files in a local
+    CodeQL pack that will be included in the pack's bundle. Used by
+    `codeql pack create`.
+
+  - (Plumbing) `codeql pack resolve-dependencies`: Resolves all
+    transitive dependencies of a local CodeQL pack. Used by `codeql
+    pack install`.
+
 ## Release 2.5.9 (2021-08-09)
 
 - The bundled extractors are updated to match the versions currently
