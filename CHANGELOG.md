@@ -17,6 +17,109 @@
      you know what to do).
 -->
 
+## Release 2.6.1 (2021-09-07)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Potentially breaking changes
+
+- The `codeql resolve qlref` command will now throw an error when the
+  target is ambiguous.
+
+  The qlref resolution rules are now as follows:
+
+  1. If the target of a qlref is in the same qlpack, then that target is
+     always returned.
+
+  2. If multiple targets of the qlref are found in dependent packs, this
+     is an error.
+
+  Previously, the command would have arbitrarily chosen one of the targets
+  and ignored any ambiguities.
+
+- The `qlpack` directive in query suites has its semantics changed.
+  Previously, this directive would return all queries in the qlpack. Now,
+  the directive returns only those queries matched by the `defaultSuite`
+  directive in the query pack. Here is an example:
+
+  Consider a `qlpack.yml` like the following:
+
+  ```yml
+  name: codeql/my-qlpack
+  version: 0.0.1
+  defaultSuite:
+    queries: standard
+  ```
+
+  And the directory structure is the following:
+
+  ```text
+  qlpack.yml
+  standard/
+    a.ql
+  experimental/
+    b.ql
+  ```
+
+  A query suite `suite.qls` like this:
+
+  ```yml
+  - qlpack: codeql/my-qlpack
+  ```
+
+  Previously, would return all the queries in all subdirectories (i.e,
+  `standard/a.ql` and `experimental/b.ql`). Now, it only returns
+  `standard/a.ql`, since that is the only query matched by its default
+  suite.
+
+  If you want to have the same behavior as before, you must update your
+  query suites to use the `queries` directive with a `from` attribute,
+  like this:
+
+  ```yml
+  - queries: .
+    from: codeql/my-qlpack
+  ```
+
+### New features
+
+- Commands that evaluate CodeQL queries now support an additional option
+  `--evaluator-log=path/to/log.json` that will result in the evaluator
+  producing a structured log (in JSON format) of events that occurred
+  during evaluation in order to aid debugging of query performance. The
+  format of these logs will be subject to change with no notice as we
+  make modifications to the evaluator.
+
+  There is also a new CLI command `codeql generate log-summary` that will
+  produce a summary of the predicates that were evaluated from these event
+  logs. We will aim to keep this summary format more stable, although it
+  is also subject to change. Unless you have a good reason to use the
+  event logs directly, it is strongly recommended you use this command to
+  produce summary logs and use these instead.
+
+  For further information on these new logs and additional options to
+  configure their format and verbosity, please refer to the CLI
+  documentation.
+
+### New language features
+
+- QL classes can now be non-extending subtypes via the `instanceof`
+  keyword, allowing for a form of private subtyping that is not visible
+  externally. Methods of the supertype are accessible from within a
+  non-extending subtype class through extended semantics of the `super`
+  keyword.
+
+  ```
+  class Foo instanceof int {
+    Foo() { this in [1 .. 10] }
+    string toString() { result = "foo" + super.toString() }
+  }
+  ```
+
 ## Release 2.6.0 (2021-08-24)
 
 - The bundled extractors are updated to match the versions currently
