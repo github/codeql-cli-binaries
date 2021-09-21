@@ -17,6 +17,57 @@
      you know what to do).
 -->
 
+## Release 2.6.2 (2021-09-21)
+
+- CodeQL CLI 2.6.2 includes the same functionality as **the CodeQL runner**,
+  which is being deprecated. For more information, see [CodeQL runner
+  deprecation][5].
+
+  [5]: https://github.blog/changelog/2021-09-21-codeql-runner-deprecation/
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.27) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.27 instance, you need to create them with release
+  2.4.6.
+
+### Bugs fixed
+
+- A bug where `codeql generate log-summary` would sometimes crash with
+  a `JsonMappingException` has been fixed.
+
+### New features
+
+- The CodeQL CLI now counts the lines of code found under `--source-root`
+  when `codeql database init` or `codeql database create` is called. This
+  information can be viewed later by either the new
+  `codeql database print-baseline` command or the new `--print-baseline-loc`
+  argument to `codeql database interpret-results`.
+- `qlpack.yml` files now support an additional field `include` in which
+  glob patterns of additional files that should be included (or excluded)
+  when creating a given CodeQL pack can be specified.
+- QL packs created by the experimental `codeql pack create` command will
+  now include some information about the build in a new `buildMetadata`
+  field of their `qlpack.yml` file.
+- `codeql database create` now supports the same flags as `codeql database init`
+  for automatically recognizing the languages present in checkouts of GitHub
+  repositories:
+  - `--github-url` accepts the URL of a custom GitHub instance (previously
+    only `github.com` was supported).
+  - `--github-auth-stdin` allows a personal access token to be provided
+    through standard input (previously only the `GITHUB_TOKEN` environment
+    variable was supported).
+
+### Notable documentation changes
+
+- Documentation has been added detailing how to use the "indirect build
+  tracing" feature, which is enabled by using the `--begin-tracing` flag
+  provided by `codeql database init`. The new documentation can be found
+  [here][4]. This feature was temporarily described as "sandwiched tracing"
+  in the 2.6.0 release notes.
+
+  [4]: https://aka.ms/codeql-docs/indirect-tracing
+
 ## Release 2.6.1 (2021-09-07)
 
 - The bundled extractors are updated to match the versions currently
