@@ -17,6 +17,49 @@
      you know what to do).
 -->
 
+## Release 2.6.3 (2021-10-06)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Potentially breaking changes
+- The option `--compiler-spec` accepted by some subcommands of `codeql database` is deprecated.
+  It will be removed in a later version (earliest 2.7.0).
+  If you need this option, please file a public issue in https://github.com/github/codeql-cli-binaries, or open a private ticket with GitHub support and request an escalation to engineering.
+- By default, databases created using the CodeQL CLI will now have their underlying datasets finalized, meaning that no
+  further data can be subsequently imported into them. This change should not affect most users.
+- The `codeql resolve qlref` command will now throw an error when the target is ambiguous. 
+  The qlref resolution rules are now as follows:
+  1. If the target of a qlref is in the same qlpack, then that target is always returned.
+  2. If multiple targets of the qlref are found in dependent packs, this is an error.
+  
+  Previously, the command would have arbitrarily chosen one of the targets and ignored any
+  ambiguities.
+
+
+### Bugs fixed
+- Linux/MacOS: When tracing a build that involves an `execvp`/`execvpe` (Linux-only)/`posix_spawnp` syscall
+  where `PATH` was not set in the environment, CodeQL sometimes would break the build.
+  Now, CodeQL uses the correct, platform-specific fallback for `PATH` instead.
+- Linux/MacOS: When tracing a build that involves an `execvpe` (Linux-only)/`posix_spawnp` syscall,
+  the `PATH` lookup of the executable wrongly took place in the environment provided via `envp`,
+  instead of the environment of the process calling `execvpe`/`posix_spawnp`.
+  Now, the correct environment is used for the `PATH` lookup.
+- A bug where query compilation would sometimes fail with a `StackOverflowError` when compiling a query that
+  uses `instanceof` has now been fixed.
+
+
+### New features
+
+-  The `codeql query compile` command now accepts a `--keep-going` or `-k` option, which indicates that the compiler should continue compiling queries even if one of the queries has a compile error in it.
+- CLI commands now run default queries if none are specified. If no queries are specified, the `codeql database analyze`, `codeql database run-queries`,
+  and `codeql database interpret-results` commands will now run the default suite for the language being analyzed.
+- `codeql pack publish` now copies the published package to the local package cache. In addition to publishing to a remote repository, the `codeql pack publish` command will also copy the published package to the local package cache.
+
+
 ## Release 2.6.2 (2021-09-21)
 
 - CodeQL CLI 2.6.2 includes the same functionality as **the CodeQL runner**,
