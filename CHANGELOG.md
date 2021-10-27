@@ -17,6 +17,24 @@
      you know what to do).
 -->
 
+## Release 2.7.0 (2021-10-27)
+
+- The extractor for Ruby is now included. CodeQL analysis for Ruby is
+  currently in beta. During the beta, analysis of Ruby will not be as
+  comprehensive as CodeQL analysis of other languages. The source code
+  of the extractor and the queries can be found in the
+  [`github/codeql`](https://github.com/codeql) repository.
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Bugs fixed
+
+- Fixed a bug where indirect tracing would sometimes not manage to observe
+  build processes if certain environment variables were unset during the build.
+
 ## Release 2.6.3 (2021-10-06)
 
 - The bundled extractors are updated to match the versions currently
