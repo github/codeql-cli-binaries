@@ -23,7 +23,7 @@
   currently in beta. During the beta, analysis of Ruby will not be as
   comprehensive as CodeQL analysis of other languages. The source code
   of the extractor and the queries can be found in the
-  [`github/codeql`](https://github.com/codeql) repository.
+  [`github/codeql`](https://github.com/github/codeql) repository.
 - The bundled extractors are updated to match the versions currently
   used on LGTM.com. These are newer than the last release (1.28) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
