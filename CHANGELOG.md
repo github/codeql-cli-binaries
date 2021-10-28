@@ -87,10 +87,10 @@
   [5]: https://github.blog/changelog/2021-09-21-codeql-runner-deprecation/
 
 - The bundled extractors are updated to match the versions currently
-  used on LGTM.com. These are newer than the last release (1.27) of
+  used on LGTM.com. These are newer than the last release (1.28) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
-  Enterprise 1.27 instance, you need to create them with release
-  2.4.6.
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
 
 ### Bugs fixed
 
@@ -132,10 +132,10 @@
 ## Release 2.6.1 (2021-09-07)
 
 - The bundled extractors are updated to match the versions currently
-  used on LGTM.com. These are newer than the last release (1.27) of
+  used on LGTM.com. These are newer than the last release (1.28) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
-  Enterprise 1.27 instance, you need to create them with release
-  2.4.6.
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
 
 ### Potentially breaking changes
 
@@ -235,10 +235,10 @@
 ## Release 2.6.0 (2021-08-24)
 
 - The bundled extractors are updated to match the versions currently
-  used on LGTM.com. These are newer than the last release (1.27) of
+  used on LGTM.com. These are newer than the last release (1.28) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
-  Enterprise 1.27 instance, you need to create them with release
-  2.4.6.
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
 
 ### Bugs fixed
 
@@ -317,11 +317,10 @@
 
 ## Release 2.5.9 (2021-08-09)
 
-- The bundled extractors are updated to match the versions currently
-  used on LGTM.com. These are newer than the last release (1.27) of
-  LGTM Enterprise. If you plan to upload databases to an LGTM
-  Enterprise 1.27 instance, you need to create them with release
-  2.4.6.
+This release corresponds to release 1.28.x of LGTM Enterprise, and
+should be used when creating databases that will be uploaded to it.
+Future CLI releases (numbered 2.6.x) may produce databases that are not
+backwards compatible with this version of LGTM Enterprise.
 
 ## Release 2.5.8 (2021-07-26)
 
