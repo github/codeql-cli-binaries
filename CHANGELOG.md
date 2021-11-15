@@ -17,6 +17,167 @@
      you know what to do).
 -->
 
+## Release 2.7.1 (2021-11-15)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Potentially breaking changes
+
+- Previously, `codeql test run` would fall back to looking for an
+  accompanying `queries.xml` file if it found a `qlpack.yml` that did
+  not declare an extractor to use when extracting a test database.
+  This has been removed because the internal use case that
+  neccessitated the fallback are now removed. If you suddenly
+  encounter errors that complain of missing extractor declarations,
+  check whether you had a `queries.xml` you were inadvertently relying
+  on.
+
+- When queries are specified by naming a directory to scan for `*.ql`
+  files, subdirectories named `.codeql` will now be ignored.  The new
+  QL packaging support uses subdirectories with this name of various
+  scratch and caching purposes, so they may contain `*.ql` files that
+  are not intended to be directly user-visible.
+
+- When copying dependencies for CodeQL packages into a query pack
+  bundle, `*.ql` files in these dependencies will now be included
+  inside of the query pack's `.codeql` directory.
+
+- The tables printed by `codeql database analyze` to summarize the
+  results of diagnostic and metric queries that were part of the
+  analysis have a new format and contains less (but hopefully more
+  pertinent) information. We recommend against attempting to parse
+  this human-readable output programmatically. Instead, use the
+  `runs[].tool.driver.invocations[].toolExecutionNotifications`
+  property in the SARIF output.
+
+- The experimental plumbing command `codeql pack packlist` has a new
+  format for its JSON results. Previously, the results were a list of
+  paths. Now, the results are an object with a single property `paths`
+  that contains the list of paths.
+
+### Deprecations
+
+- The output formats SARIF v1.0.0 and SARIF v2.0.0 (Committee
+  Specification Draft 1) have been deprecated.  They will be removed
+  in a later version (earliest 2.8.0).  If you need this
+  functionality, please file a public issue against
+  https://github.com/github/codeql-cli-binaries, or open a private
+  ticket with GitHub Support and request an escalation to engineering.
+
+- The `qlpack:` instruction in query suite definitions has been
+  deprecated due to uncertainty about whether it is intended to
+  include _all_ the `*.ql` files in the named pack, or only the pack's
+  "default query suite".  The behavior of the instruction is
+  determined by whether the named pack declares any default query
+  suite, but this means that a pack _starting_ to declare such a suite
+  may break the behavior of existing query suites that reference the
+  pack from outside.
+
+  We recommend replacing `qlpack:` by one of
+  ```yaml
+  - queries: '.' # import all *.ql files
+    from: some/pack-name
+    version: 1.2.3 # optional
+  ```
+  or
+  ```yaml
+  - import: path/to/actual/suite.ql # just that suite
+    from: some/pack-name
+    version: 1.2.3 # optional
+  ```
+
+  A warning will now be printed when a `qlpack:` instruction resolves
+  to a default suite, because that is the case where the effect may
+  not be what the query suite author intended.
+
+### Bugs fixed
+
+- Fixed a bug where the `paths` and `paths-ignore` properties of a
+  Code Scanning config file specified using `--codescanning-config`
+  were being interpreted the wrong way around.
+
+- Fixed a bug where queries specified using the
+  `--codescanning-config` option could not be run after an explicit
+  call to `codeql database finalize`.
+
+- Fixed a bug where `-J` options would erroneously be recognized even
+  after `--` on the command line.
+
+- When running `codeql database analyze` and `codeql database
+  interpret-results` without the `--sarif-group-rules-by-pack` flag,
+  the SARIF output did not include baseline lines-of-code counts. This
+  is now fixed.
+
+- Fixed a bug where expansion of query suites would sometimes fail if
+  a query suite in a compiled query pack referenced that pack itself
+  explicitly.
+
+### New language features
+
+- [Set literal expressions][9] can now optionally contain a trailing
+  comma after the last element.
+
+  [9]: https://codeql.github.com/docs/ql-language-reference/expressions/#set-literal-expressions
+
+### New features
+
+- Beta support for database creation on Apple Silicon has been added.
+  It depends on the following requirements:
+
+  - [Rosetta 2][8] needs to be installed
+
+    [8]: https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment
+
+  - Developer tools need to be installed. CodeQL requires the `lipo`,
+    `codesign`, and `install_name_tool` tools to be present.
+
+  - Build systems invoking `csh` may experience [intermittent
+    crashes][7].
+
+    [7]: https://openradar.appspot.com/radar?id=4936797431791616
+
+- `codeql database analyze` can now include query-specific help texts
+  for alerts in the SARIF output (for SARIF v2.1.0 or later). The help
+  text must be located in an `.md` file next to (and with the same
+  basename as) the `.ql` file for each query. Since this can
+  significantly increase SARIF file size, the feature is not enabled
+  by default; give a `--sarif-add-query-help` option to enable it.
+
+- The query metadata validator now knows about queries that produce
+  alert scores, so these queries no longer need to be run with a
+  `--no-metadata-verification` flag.
+
+- `codeql database create` and `codeql-finalize` have a new flag
+  `--skip-empty` that will cause a language with no extracted source
+  code to be ignored with a warning instead of treated like a fatal
+  error. This can be useful with `--db-cluster` where not all of the
+  languages may exist in the source tree.  It will not be possible to
+  run queries against the skipped database.
+
+- `codeql resolve extractor` and `codeql resolve languages` now
+  support an extended output format `--format=betterjson` wich
+  includes information about each extractor's language-specific
+  options.
+
+- This release introduces rudimentary support for parallelizing
+  database creation by importing unfinished databases (or database
+  clusters) into another unfinished database (or cluster) under
+  creation. This is implemented by the new flag `--additional-dbs` for
+  `codeql database finalize`, or the new plumbing command `codeql
+  database import`.
+
+- `codeql database create`, `codeql database index-files`, and `codeql
+  database trace-command` support a [unified syntax for passing
+  language-specific options][6] to the extractor with the new
+  `--extractor-option` and `--extractor-options-file` options.
+  (The extractors do not make use of this yet, though).
+
+  [6]: https://codeql.github.com/docs/codeql-cli/extractor-options
+
 ## Release 2.7.0 (2021-10-27)
 
 - The extractor for Ruby is now included. CodeQL analysis for Ruby is
@@ -24,6 +185,7 @@
   comprehensive as CodeQL analysis of other languages. The source code
   of the extractor and the queries can be found in the
   [`github/codeql`](https://github.com/github/codeql) repository.
+
 - The bundled extractors are updated to match the versions currently
   used on LGTM.com. These are newer than the last release (1.28) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
@@ -32,8 +194,9 @@
 
 ### Bugs fixed
 
-- Fixed a bug where indirect tracing would sometimes not manage to observe
-  build processes if certain environment variables were unset during the build.
+- Fixed a bug where indirect tracing would sometimes not manage to
+  observe build processes if certain environment variables were unset
+  during the build.
 
 ## Release 2.6.3 (2021-10-06)
 
@@ -44,45 +207,73 @@
   2.5.9.
 
 ### Potentially breaking changes
-- The option `--compiler-spec` accepted by some subcommands of `codeql database` is deprecated.
-  It will be removed in a later version (earliest 2.7.0).
-  If you need this option, please file a public issue in https://github.com/github/codeql-cli-binaries, or open a private ticket with GitHub support and request an escalation to engineering.
-- By default, databases created using the CodeQL CLI will now have their underlying datasets finalized, meaning that no
-  further data can be subsequently imported into them. This change should not affect most users.
-- The `codeql resolve qlref` command will now throw an error when the target is ambiguous. 
-  The qlref resolution rules are now as follows:
-  1. If the target of a qlref is in the same qlpack, then that target is always returned.
-  2. If multiple targets of the qlref are found in dependent packs, this is an error.
+
+- The option `--compiler-spec` accepted by some subcommands of `codeql
+  database` is deprecated.  It will be removed in a later version
+  (earliest 2.7.0).  If you need this option, please file a public
+  issue in https://github.com/github/codeql-cli-binaries, or open a
+  private ticket with GitHub support and request an escalation to
+  engineering.
+
+- By default, databases created using the CodeQL CLI will now have
+  their underlying datasets finalized, meaning that no further data
+  can be subsequently imported into them. This change should not
+  affect most users.
+
+- The `codeql resolve qlref` command will now throw an error when the
+  target is ambiguous.  The qlref resolution rules are now as follows:
+
+  1. If the target of a qlref is in the same qlpack, then that target
+     is always returned.
+
+  2. If multiple targets of the qlref are found in dependent packs,
+     this is an error.
   
   Previously, the command would have arbitrarily chosen one of the targets and ignored any
   ambiguities.
 
-
 ### Bugs fixed
-- Linux/MacOS: When tracing a build that involves an `execvp`/`execvpe` (Linux-only)/`posix_spawnp` syscall
-  where `PATH` was not set in the environment, CodeQL sometimes would break the build.
-  Now, CodeQL uses the correct, platform-specific fallback for `PATH` instead.
-- Linux/MacOS: When tracing a build that involves an `execvpe` (Linux-only)/`posix_spawnp` syscall,
-  the `PATH` lookup of the executable wrongly took place in the environment provided via `envp`,
-  instead of the environment of the process calling `execvpe`/`posix_spawnp`.
-  Now, the correct environment is used for the `PATH` lookup.
-- A bug where query compilation would sometimes fail with a `StackOverflowError` when compiling a query that
-  uses `instanceof` has now been fixed.
 
+- Linux/MacOS: When tracing a build that involves an
+  `execvp`/`execvpe` (Linux-only)/`posix_spawnp` syscall where `PATH`
+  was not set in the environment, CodeQL sometimes would break the
+  build.  Now, CodeQL uses the correct, platform-specific fallback for
+  `PATH` instead.
+
+- Linux/MacOS: When tracing a build that involves an `execvpe`
+  (Linux-only)/`posix_spawnp` syscall, the `PATH` lookup of the
+  executable wrongly took place in the environment provided via
+  `envp`, instead of the environment of the process calling
+  `execvpe`/`posix_spawnp`.  Now, the correct environment is used for
+  the `PATH` lookup.
+
+- A bug where query compilation would sometimes fail with a
+  `StackOverflowError` when compiling a query that uses `instanceof`
+  has now been fixed.
 
 ### New features
 
--  The `codeql query compile` command now accepts a `--keep-going` or `-k` option, which indicates that the compiler should continue compiling queries even if one of the queries has a compile error in it.
-- CLI commands now run default queries if none are specified. If no queries are specified, the `codeql database analyze`, `codeql database run-queries`,
-  and `codeql database interpret-results` commands will now run the default suite for the language being analyzed.
-- `codeql pack publish` now copies the published package to the local package cache. In addition to publishing to a remote repository, the `codeql pack publish` command will also copy the published package to the local package cache.
+- The `codeql query compile` command now accepts a `--keep-going` or
+  `-k` option, which indicates that the compiler should continue
+  compiling queries even if one of the queries has a compile error in
+  it.
 
+- CLI commands now run default queries if none are specified. If no
+  queries are specified, the `codeql database analyze`, `codeql
+  database run-queries`, and `codeql database interpret-results`
+  commands will now run the default suite for the language being
+  analyzed.
+
+- `codeql pack publish` now copies the published package to the local
+  package cache. In addition to publishing to a remote repository, the
+  `codeql pack publish` command will also copy the published package
+  to the local package cache.
 
 ## Release 2.6.2 (2021-09-21)
 
-- CodeQL CLI 2.6.2 includes the same functionality as **the CodeQL runner**,
-  which is being deprecated. For more information, see [CodeQL runner
-  deprecation][5].
+- CodeQL CLI 2.6.2 includes the same functionality as **the CodeQL
+  runner**, which is being deprecated. For more information, see
+  [CodeQL runner deprecation][5].
 
   [5]: https://github.blog/changelog/2021-09-21-codeql-runner-deprecation/
 
@@ -99,33 +290,39 @@
 
 ### New features
 
-- The CodeQL CLI now counts the lines of code found under `--source-root`
-  when `codeql database init` or `codeql database create` is called. This
-  information can be viewed later by either the new
-  `codeql database print-baseline` command or the new `--print-baseline-loc`
-  argument to `codeql database interpret-results`.
-- `qlpack.yml` files now support an additional field `include` in which
-  glob patterns of additional files that should be included (or excluded)
-  when creating a given CodeQL pack can be specified.
-- QL packs created by the experimental `codeql pack create` command will
-  now include some information about the build in a new `buildMetadata`
-  field of their `qlpack.yml` file.
-- `codeql database create` now supports the same flags as `codeql database init`
-  for automatically recognizing the languages present in checkouts of GitHub
-  repositories:
-  - `--github-url` accepts the URL of a custom GitHub instance (previously
-    only `github.com` was supported).
-  - `--github-auth-stdin` allows a personal access token to be provided
-    through standard input (previously only the `GITHUB_TOKEN` environment
-    variable was supported).
+- The CodeQL CLI now counts the lines of code found under
+  `--source-root` when `codeql database init` or `codeql database
+  create` is called. This information can be viewed later by either
+  the new `codeql database print-baseline` command or the new
+  `--print-baseline-loc` argument to `codeql database
+  interpret-results`.
+
+- `qlpack.yml` files now support an additional field `include` in
+  which glob patterns of additional files that should be included (or
+  excluded) when creating a given CodeQL pack can be specified.
+
+- QL packs created by the experimental `codeql pack create` command
+  will now include some information about the build in a new
+  `buildMetadata` field of their `qlpack.yml` file.
+
+- `codeql database create` now supports the same flags as `codeql
+  database init` for automatically recognizing the languages present
+  in checkouts of GitHub repositories:
+
+  - `--github-url` accepts the URL of a custom GitHub instance
+    (previously only `github.com` was supported).
+
+  - `--github-auth-stdin` allows a personal access token to be
+    provided through standard input (previously only the
+    `GITHUB_TOKEN` environment variable was supported).
 
 ### Notable documentation changes
 
-- Documentation has been added detailing how to use the "indirect build
-  tracing" feature, which is enabled by using the `--begin-tracing` flag
-  provided by `codeql database init`. The new documentation can be found
-  [here][4]. This feature was temporarily described as "sandwiched tracing"
-  in the 2.6.0 release notes.
+- Documentation has been added detailing how to use the "indirect
+  build tracing" feature, which is enabled by using the
+  `--begin-tracing` flag provided by `codeql database init`. The new
+  documentation can be found [here][4]. This feature was temporarily
+  described as "sandwiched tracing" in the 2.6.0 release notes.
 
   [4]: https://aka.ms/codeql-docs/indirect-tracing
 
@@ -154,9 +351,9 @@
   and ignored any ambiguities.
 
 - The `qlpack` directive in query suites has its semantics changed.
-  Previously, this directive would return all queries in the qlpack. Now,
-  the directive returns only those queries matched by the `defaultSuite`
-  directive in the query pack. Here is an example:
+  Previously, this directive would return all queries in the
+  qlpack. Now, the directive returns only those queries matched by the
+  `defaultSuite` directive in the query pack. Here is an example:
 
   Consider a `qlpack.yml` like the following:
 
@@ -199,19 +396,20 @@
 
 ### New features
 
-- Commands that evaluate CodeQL queries now support an additional option
-  `--evaluator-log=path/to/log.json` that will result in the evaluator
-  producing a structured log (in JSON format) of events that occurred
-  during evaluation in order to aid debugging of query performance. The
-  format of these logs will be subject to change with no notice as we
-  make modifications to the evaluator.
+- Commands that evaluate CodeQL queries now support an additional
+  option `--evaluator-log=path/to/log.json` that will result in the
+  evaluator producing a structured log (in JSON format) of events that
+  occurred during evaluation in order to aid debugging of query
+  performance. The format of these logs will be subject to change with
+  no notice as we make modifications to the evaluator.
 
-  There is also a new CLI command `codeql generate log-summary` that will
-  produce a summary of the predicates that were evaluated from these event
-  logs. We will aim to keep this summary format more stable, although it
-  is also subject to change. Unless you have a good reason to use the
-  event logs directly, it is strongly recommended you use this command to
-  produce summary logs and use these instead.
+  There is also a new CLI command `codeql generate log-summary` that
+  will produce a summary of the predicates that were evaluated from
+  these event logs. We will aim to keep this summary format more
+  stable, although it is also subject to change. Unless you have a
+  good reason to use the event logs directly, it is strongly
+  recommended you use this command to produce summary logs and use
+  these instead.
 
   For further information on these new logs and additional options to
   configure their format and verbosity, please refer to the CLI
@@ -220,10 +418,10 @@
 ### New language features
 
 - QL classes can now be non-extending subtypes via the `instanceof`
-  keyword, allowing for a form of private subtyping that is not visible
-  externally. Methods of the supertype are accessible from within a
-  non-extending subtype class through extended semantics of the `super`
-  keyword.
+  keyword, allowing for a form of private subtyping that is not
+  visible externally. Methods of the supertype are accessible from
+  within a non-extending subtype class through extended semantics of
+  the `super` keyword.
 
   ```
   class Foo instanceof int {
@@ -331,19 +529,24 @@ backwards compatible with this version of LGTM Enterprise.
   2.4.6.
 
 ### Potentially breaking changes
-- The QL compiler now verifies that `@security-severity` query metadata is numeric. You can disable
-  this verification by passing the `--no-metadata-verification` flag.
+
+- The QL compiler now verifies that `@security-severity` query
+  metadata is numeric. You can disable this verification by passing
+  the `--no-metadata-verification` flag.
 
 ### New features
   
-- The `database index-files` and `database trace-command` CLI commands now 
-  support `--threads` and `--ram` options, which are passed to extractors as 
-  suggestions.
-- The `database finalize` CLI command now supports the `--ram` option, which 
-  controls memory usage for finalization.
-- The `database create` CLI command now supports the `--ram` option, which 
-  controls memory usage for database creation.
-- The `generate query-help` CLI command now support rendering query help in SARIF format.
+- The `database index-files` and `database trace-command` CLI commands
+  now support `--threads` and `--ram` options, which are passed to
+  extractors as suggestions.
+
+- The `database finalize` CLI command now supports the `--ram` option,
+  which controls memory usage for finalization.
+
+- The `database create` CLI command now supports the `--ram` option,
+  which controls memory usage for database creation.  - The `generate
+  query-help` CLI command now support rendering query help in SARIF
+  format.
 
 ## Release 2.5.7 (2021-07-02)
 
@@ -373,9 +576,9 @@ backwards compatible with this version of LGTM Enterprise.
 ### New language features
 
 - The QL language now has a new method `toUnicode` on the `int`
-  type. This method converts Unicode codepoint to a one-character string.
-  For example, `65.toUnicode() = "A"`, `128512.toUnicode()` results in
-  a smiley, and `any(int i | i.toUnicode() = "A") = 65`.
+  type. This method converts Unicode codepoint to a one-character
+  string.  For example, `65.toUnicode() = "A"`, `128512.toUnicode()`
+  results in a smiley, and `any(int i | i.toUnicode() = "A") = 65`.
 
 ## Release 2.5.6 (2021-06-22)
 
