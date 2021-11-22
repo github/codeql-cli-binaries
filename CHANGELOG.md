@@ -17,6 +17,49 @@
      you know what to do).
 -->
 
+## Release 2.7.2 (2021-11-22)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Potentially breaking changes
+
+- The Java extractor now defaults to extracting all XML documents under
+  10MB in size, a change from the previous default of only extracting
+  documents with particular well-known names (e.g. `pom.xml`). However,
+  if the source tree contains more than 50MB of XML in total, it prints
+  a warning and falls back to the old default behaviour.
+  Set the environment variable `LGTM_INDEX_XML_MODE` to `byname` to get
+  the old default behaviour, or `all` to extract all documents under
+  10MB regardless of total size.
+
+- The experimental command-line option `--native-library-path` that was
+  introduced to support internal experiments has been removed.
+
+- The beta `codeql pack publish` command will now prevent accidental
+  publishing of packages with pre-release version qualifiers. Prerelease
+  versions are those that include a `-` after the major, minor, and patch
+  versions such as `1.2.3-dev`. To avoid this change, use the
+  `--allow-prerelease` option.
+
+### Bugs fixed
+
+- Fixed an issue when using the `--evaluator-log` option where a
+  `NullPointerException` could sometimes occur non-deterministically.
+
+- Fixed bugs observed when using indirect build tracing using a CodeQL
+  distribution unpacked to a path containing spaces or on Arch Linux.
+
+### New features
+
+- CodeQL databases now contain metadata about how and when they were
+  created. This can be found in the `creationMetadata` field of the
+  `codeql-database.yml` file within the CodeQL database directory. More
+  information may be added to this field in future releases.
+
 ## Release 2.7.1 (2021-11-15)
 
 - The bundled extractors are updated to match the versions currently
@@ -228,7 +271,7 @@
 
   2. If multiple targets of the qlref are found in dependent packs,
      this is an error.
-  
+
   Previously, the command would have arbitrarily chosen one of the targets and ignored any
   ambiguities.
 
@@ -535,7 +578,7 @@ backwards compatible with this version of LGTM Enterprise.
   the `--no-metadata-verification` flag.
 
 ### New features
-  
+
 - The `database index-files` and `database trace-command` CLI commands
   now support `--threads` and `--ram` options, which are passed to
   extractors as suggestions.
