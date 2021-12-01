@@ -101,6 +101,30 @@
   format for its JSON results. Previously, the results were a list of
   paths. Now, the results are an object with a single property `paths`
   that contains the list of paths.
+  
+- The internal `qlpacks` directory of the CodeQL bundle available on the
+  [CodeQL Action releases page](https://github.com/github/codeql-action/releases/)
+  has a new structure. This directory is internal to the CLI and can change without notice in future releases.
+
+  The currently-shipped `qlpacks` directory mirrors the structure of [CodeQL package](https://github.blog/changelog/2021-07-28-introducing-the-codeql-package-manager-public-beta/) caches and looks like this:
+
+  ```text
+  qlpacks
+    - codeql
+      - {lang}-all
+        - {version}
+          - qlpack contents
+      - {lang}-examples
+        - {version}
+          - qlpack contents
+      - {lang}-queries
+        - {version}
+          - qlpack contents
+      - {lang}-upgrades
+        - {version}
+          - qlpack contents
+      - ... and so on for all languages
+  ```
 
 ### Deprecations
 
