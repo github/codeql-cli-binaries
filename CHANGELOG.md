@@ -17,6 +17,54 @@
      you know what to do).
 -->
 
+## Release 2.7.3 (2021-12-06)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Potentially breaking changes
+
+- The experimental command-line option `--ml-model-path` that was
+  introduced to support internal experiments has been removed.
+
+### Bugs fixed
+
+- Editing support (content assist, code navigation, etc.) in files
+  under the `.github` directory will now work properly. This is
+  because files under the `.github` directory will now be indexed and
+  processed by the CodeQL language server. Other hidden directories
+  that start with `.` will remain un-indexed. This affects the
+  vscode-codeql extension and any other IDE extension that uses
+  the CodeQL language server.
+
+- Fixed authentication with GitHub package registries via the
+  `GITHUB_TOKEN` environment variable and the `--github-auth-stdin`
+  flag when downloading and publishing packs.
+
+- Fixed an incompatibility with glibc version 2.34 on Linux, where
+  build tracing failed with an error message.
+
+- Fixed a bug where `codeql generate log-summary` could sometimes fail
+  with a `JsonMappingException`.
+
+### New features
+
+- The CodeQL CLI for Mac OS now ships with a native Java virtual machine for M1 Macs,
+  and this will be used by default where applicable to run the CodeQL
+  engine, thus improving performance.
+  [Rosetta 2](https://support.apple.com/en-us/HT211861) is still
+  required as not all components of the CodeQL CLI are natively compiled.
+
+- Commands that execute queries will now exit with status code 34 if
+  certain errors that prevent the evaluation of one or more
+  individual queries are detected. Previously some of these errors
+  would crash the evaluator and exit with status code 100.
+
+  (This is currently used for "external predicate not found" errors).
+
 ## Release 2.7.2 (2021-11-22)
 
 - The bundled extractors are updated to match the versions currently
@@ -101,10 +149,11 @@
   format for its JSON results. Previously, the results were a list of
   paths. Now, the results are an object with a single property `paths`
   that contains the list of paths.
-  
+
 - The internal `qlpacks` directory of the CodeQL bundle available on the
   [CodeQL Action releases page](https://github.com/github/codeql-action/releases/)
-  has a new structure. This directory is internal to the CLI and can change without notice in future releases.
+  has a new structure. This directory is internal to the CLI and can change without
+  notice in future releases.
 
   The currently-shipped `qlpacks` directory mirrors the structure of [CodeQL package](https://github.blog/changelog/2021-07-28-introducing-the-codeql-package-manager-public-beta/) caches and looks like this:
 
