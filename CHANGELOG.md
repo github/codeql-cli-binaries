@@ -17,6 +17,59 @@
      you know what to do).
 -->
 
+## Release 2.7.5 (2022-01-17)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Deprecation
+
+- The CodeQL Action versions up to and including version 1.0.22 are
+  now deprecated for use with CodeQL CLI 2.7.5 and later.  The CLI
+  will emit a warning if it detects that it is being used by a
+  deprecated version of the codeql-action.  This warning will become a
+  fatal error with version 2.8.0 of the CLI.
+
+### New feature
+
+- The `codeql github upload-results` command will now print the API
+  response body in JSON format if a `--format=json` flag is
+  given. Otherwise the command will print the URL of the SARIF
+  upload. This URL can be used to get status information for the
+  upload.
+
+  See also: https://docs.github.com/en/rest/reference/code-scanning
+
+### Documentation fixes
+
+- The documentation for the `--trace-process-level` flag of `codeql
+  database init` (which is used with indirect build tracing on
+  Windows) was erroneous.
+
+  The help text previously claimed that `--trace-process-level=1`
+  would inject CodeQL's build tracer into the calling process. This is
+  actually what `--trace-process-level=0` achieves. The help text has
+  now been corrected to match the actual (unchanged) behavior.
+
+  Also, some log messages incorrectly stated which process CodeQL was
+  injected into. These have also been corrected.
+
+### Other changes
+
+- For commands that run queries, the `--timeout` option now controls
+  the maximal time it may take to evaluate a "layer" of a query rather
+  than a "stage".  There are usually many "layers" in each "stage",
+  but it is usually a single one of the layers in a stage that uses
+  most of the time, so there is no need to reduce existing timeout
+  values as a result of this change.
+
+## Release 2.7.4
+
+This release was skipped.
+
 ## Release 2.7.3 (2021-12-06)
 
 - The bundled extractors are updated to match the versions currently
