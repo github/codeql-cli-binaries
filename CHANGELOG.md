@@ -17,6 +17,27 @@
      you know what to do).
 -->
 
+## Release 2.7.6 (2022-01-24)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.28) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.28 instance, you need to create them with release
+  2.5.9.
+
+### Bug fixed
+
+- A bug where creation of a CodeQL database could sometimes fail with
+  a `NegativeArraySizeException` has now been fixed.
+
+### New feature
+
+- The CLI and evaluator contain a number of new features in support of
+  internal machine learning experiments. This includes an experimental
+  `resolve ml-models` subcommand and new `mlModels` metadata in pack
+  definition files. As these new features are not yet ready for general
+  use, they should be ignored by external CodeQL users.
+
 ## Release 2.7.5 (2022-01-17)
 
 - The bundled extractors are updated to match the versions currently
