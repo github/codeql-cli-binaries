@@ -17,6 +17,43 @@
      you know what to do).
 -->
 
+## Release 2.8.0 (2022-02-04)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.29) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.29 instance, you need to create them with release
+  2.6.3.
+
+### Breaking change
+
+- The CodeQL Action versions up to and including version 1.0.22 are
+  not compatible with the CodeQL CLI 2.8.0 and later. The CLI
+  will emit an error if it detects that it is being used by an
+  incompatible version of the codeql-action.
+
+### New features
+
+- A new extractor option has been added to the Java extractor. The
+  flag `--extractor-option exclude='<glob>'` allows specifying a glob
+  that describes which paths need to be excluded from extraction but
+  still need to be compiled. This is useful when some files are necessary
+  for a successful build but are uninteresting for analysis.
+
+  See also: https://codeql.github.com/docs/codeql-cli/extractor-options/
+
+- Summary metrics can now associate messages with their results, for
+  instance to report the name and number of uses of a particular API
+  endpoint within a repository. To associate messages with summary
+  metrics, define a query with `@kind metric` and `@tags summary` metadata
+  and use either the `location, message, value` or the `message, value`
+  results pattern.
+
+### Bug fixed
+
+- Fixed a bug where `codeql resolve upgrades` ignores the
+  `--target-dbscheme` option.
+
 ## Release 2.7.6 (2022-01-24)
 
 - The bundled extractors are updated to match the versions currently
