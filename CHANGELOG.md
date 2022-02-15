@@ -16,6 +16,67 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.8.1 (2022-02-15)
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.29) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.29 instance, you need to create them with release
+  2.6.3.
+
+### New Features
+
+- Commands that find or run queries now allow you to refer to queries within a named CodeQL
+  pack. For example:
+
+    ```sh
+    # Analyze a database using all queries in the experimental/Security folder within the codeql/cpp-queries
+    # CodeQL query pack.
+    codeql database analyze --format=sarif-latest --output=results <db> \
+        codeql/cpp-queries:experimental/Security
+
+    # Analyse using only the RedundantNullCheckParam.ql query in the codeql/cpp-queries CodeQL query pack.
+    codeql database analyze --format=sarif-latest --output=results <db> \
+        'codeql/cpp-queries:experimental/Likely Bugs/RedundantNullCheckParam.ql'
+
+    # Analyse using the cpp-security-and-quality.qls query suite in the codeql/cpp-queries CodeQL query pack.
+    codeql database analyze --format=sarif-latest --output=results <db> \
+        'codeql/cpp-queries:codeql-suites/cpp-security-and-quality.qls'
+
+    # Analyse using the cpp-security-and-quality.qls query suite from a version of the codeql/cpp-queries pack
+    # that is >= 0.0.3 and < 0.1.0 (the highest compatible version will be chosen).
+    # All valid semver ranges are allowed. See https://docs.npmjs.com/cli/v6/using-npm/semver#ranges
+    codeql database analyze --format=sarif-latest --output=results <db> \
+        'codeql/cpp-queries@~0.0.3:codeql-suites/cpp-security-and-quality.qls'
+    ```
+
+    The complete way to specify a set of queries is in the form `scope/name@range:path`, where:
+
+  - `scope/name` is the qualified name of a CodeQL pack.
+  - `range` is a [semver range](https://docs.npmjs.com/cli/v6/using-npm/semver#ranges).
+  - `path` is a file system path
+
+    If a `scope/name` is specified, the `range` and `path` are optional. A missing `range`
+    implies the latest version of the specified pack. A missing `path` implies the default
+    query suite of the specified pack.
+
+    The `path` can be one of a `*.ql` query file, a directory containing one or more queries, or a
+    `.qls` query suite file. If there is no pack name specified, then a `path` must be provided, and will
+    be interpreted relative to the current working directory of the current process.
+
+    If a `scope/name` and `path` are specified, then the `path` cannot be absolute. It is considered
+    relative to the root of the CodeQL pack.
+
+    The relevant commands are:
+    - `codeql database analyze`
+    - `codeql database run-queries`
+    - `codeql execute queries`
+    - `codeql resolve queries`
+
+### Bugs fixed
+
+- Fixed a bug that would sometimes lead to query evaluation on
+  M1-based Macs to crash with `Did not preallocate enough
+  memory` error.
 
 ## Release 2.8.0 (2022-02-04)
 
