@@ -16,7 +16,31 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.8.2 (2022-02-28)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.29) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.29 instance, you need to create them with release
+  2.6.3.
+
+### Breaking change
+
+- The support for the output formats SARIF v1.0.0 and SARIF v2.0.0
+  (Committee Specification Draft 1) that were deprecated in 2.7.1 has
+  been removed. If you need this functionality, please file a public
+  issue against https://github.com/github/codeql-cli-binaries, or open
+  a private ticket with GitHub Support and request an escalation to
+  engineering.
+
+### New Features
+
+- The CodeQL CLI is now compatible with Windows 11 and Windows Server
+  2022, including building databases for compiled languages.
+
 ## Release 2.8.1 (2022-02-15)
+
 - The bundled extractors are updated to match the versions currently
   used on LGTM.com. These are newer than the last release (1.29) of
   LGTM Enterprise. If you plan to upload databases to an LGTM
@@ -25,8 +49,8 @@
 
 ### New Features
 
-- Commands that find or run queries now allow you to refer to queries within a named CodeQL
-  pack. For example:
+- Commands that find or run queries now allow you to refer to queries
+  within a named CodeQL pack. For example:
 
     ```sh
     # Analyze a database using all queries in the experimental/Security folder within the codeql/cpp-queries
@@ -49,22 +73,27 @@
         'codeql/cpp-queries@~0.0.3:codeql-suites/cpp-security-and-quality.qls'
     ```
 
-    The complete way to specify a set of queries is in the form `scope/name@range:path`, where:
+  The complete way to specify a set of queries is in the form
+  `scope/name@range:path`, where:
 
   - `scope/name` is the qualified name of a CodeQL pack.
-  - `range` is a [semver range](https://docs.npmjs.com/cli/v6/using-npm/semver#ranges).
+  - `range` is a [semver range][10].
   - `path` is a file system path
 
-    If a `scope/name` is specified, the `range` and `path` are optional. A missing `range`
-    implies the latest version of the specified pack. A missing `path` implies the default
-    query suite of the specified pack.
+    If a `scope/name` is specified, the `range` and `path` are
+    optional. A missing `range` implies the latest version of the
+    specified pack. A missing `path` implies the default query suite
+    of the specified pack.
 
-    The `path` can be one of a `*.ql` query file, a directory containing one or more queries, or a
-    `.qls` query suite file. If there is no pack name specified, then a `path` must be provided, and will
-    be interpreted relative to the current working directory of the current process.
+    The `path` can be one of a `*.ql` query file, a directory
+    containing one or more queries, or a `.qls` query suite file. If
+    there is no pack name specified, then a `path` must be provided,
+    and will be interpreted relative to the current working directory
+    of the current process.
 
-    If a `scope/name` and `path` are specified, then the `path` cannot be absolute. It is considered
-    relative to the root of the CodeQL pack.
+    If a `scope/name` and `path` are specified, then the `path` cannot
+    be absolute. It is considered relative to the root of the CodeQL
+    pack.
 
     The relevant commands are:
     - `codeql database analyze`
@@ -72,11 +101,13 @@
     - `codeql execute queries`
     - `codeql resolve queries`
 
+  [10]: https://docs.npmjs.com/cli/v6/using-npm/semver#ranges
+
 ### Bugs fixed
 
 - Fixed a bug that would sometimes lead to query evaluation on
-  M1-based Macs to crash with `Did not preallocate enough
-  memory` error.
+  M1-based Macs to crash with `Did not preallocate enough memory`
+  error.
 
 ## Release 2.8.0 (2022-02-04)
 
