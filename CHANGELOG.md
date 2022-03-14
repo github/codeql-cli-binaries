@@ -17,6 +17,34 @@
      you know what to do).
 -->
 
+## Release 2.8.3 (2022-03-14)
+
+- This release of CodeQL (and all future ones) will not include the
+  CodeQL runner, which is now deprecated. For more information, and
+  instructions on how to migrate to using the CodeQL CLI, see
+  [CodeQL runner deprecation][11].
+
+  [11]: https://github.blog/changelog/2021-09-21-codeql-runner-deprecation/
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.29) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.29 instance, you need to create them with release
+  2.6.3.
+
+### New features
+
+- Executable binaries for Windows are now digitally signed by a GitHub
+  certificate.
+
+### Other changes
+
+- The evaluator logs produced by `--evaluator-log` now default to the
+  maximum verbosity level and will therefore contain more information
+  (and, accordingly, grow larger). The verbosity level can still be
+  configured with `--evaluator-log-level`. In particular,
+  `--evaluator-log-level=1` will restore the previous default behavior.
+
 ## Release 2.8.2 (2022-02-28)
 
 - The bundled extractors are updated to match the versions currently
