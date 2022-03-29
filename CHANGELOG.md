@@ -17,6 +17,23 @@
      you know what to do).
 -->
 
+## Release 2.8.4 (2022-03-29)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.29) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.29 instance, you need to create them with release
+  2.6.3.
+
+### Bugs fixed
+
+- Fixed an error where running out of memory during query evaluation
+  would cause `codeql` to exit with status 34 instead of the 99 that
+  is documented for this condition.
+
+- Fixed a bug in our handling of Clang's header maps, which caused
+  missing files for Xcode-based projects on macOS (e.g. WebKit).
+
 ## Release 2.8.3 (2022-03-14)
 
 - This release of CodeQL (and all future ones) will not include the
