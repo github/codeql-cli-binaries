@@ -17,6 +17,16 @@
      you know what to do).
 -->
 
+## Release 2.8.5 (2022-04-07)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+- There are no user-facing changes in this release.
+
 ## Release 2.8.4 (2022-03-29)
 
 - The bundled extractors are updated to match the versions currently
