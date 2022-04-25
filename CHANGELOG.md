@@ -17,6 +17,40 @@
      you know what to do).
 -->
 
+## Release 2.9.0 (2022-04-26)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### New features
+
+- `codeql database create` now supports the `--[no-]-count-lines`
+  option, which was previously only available with `codeql database
+  init`.
+
+- `codeql resolve files` and `codeql database index-files` has a new
+  `--also-match` option, which allows users to specify glob patterns
+  that are applied in conjunction with the existing `--include`
+  option.
+
+### New language features
+
+- This release introduces experimental support for parameterized QL
+  modules. This language feature is still subject to change and should
+  not be used in production yet.
+
+### Bugs fixed
+
+- Fixed a bug that would prevent resolution of a query suite in a
+  published CodeQL query pack that has a reference to the pack itself.
+
+- Fixed inaccurate documentation of what the `--include-extension`
+  option to `codeql resolve files` and `codeql database index-files`
+  does. The actual behavior is unchanged.
+
 ## Release 2.8.5 (2022-04-07)
 
 - The bundled extractors are updated to match the versions currently
