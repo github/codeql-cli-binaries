@@ -17,7 +17,7 @@
      you know what to do).
 -->
 
-## Release 2.9.1 (2022-05-05)
+## Release 2.9.2 (2022-05-16)
 
 - The bundled extractors are updated to match the versions currently
   used on LGTM.com. These are newer than the last release (1.30) of
@@ -25,6 +25,44 @@
   Enterprise 1.30 instance, you need to create them with release
   2.7.6.
 
+### Features removed
+
+- The table printed by `codeql database analyze` to summarize the
+  results of metric queries that were part of the analysis now reports
+  a single row per metric name independently of the verbosity level of
+  the command. Previously, at higher verbosity levels, this table
+  would contain multiple rows for metric names with multiple values.
+
+### New features
+
+- The tables produced by `codeql database analyze` summarizing the
+  results of any diagnostic and metric queries that were run now
+  exclude the results of queries tagged `telemetry`.
+
+- Uploading SARIF results using the `codeql github upload-results`
+  command now has a timeout of 5 minutes.
+
+- Downloading CodeQL packs using the `codeql pack download`,
+  `codeql pack install` and related commands now have a timeout of
+  5 minutes and will retry 3 times before failing. Similar behavior
+  has been added to the `codeql pack publish` command.
+
+- The `codeql generate log-summary` command will now print progress
+  updates to `stderr`.
+
+### Bugs fixed
+
+- Fixed a bug that could make it unpredictable whether the QL compiler
+  reports problems about query metadata tags, and thereby make `codeql
+  test run` fail spuriously in some cases.
+
+## Release 2.9.1 (2022-05-05)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
 
 ## Release 2.9.0 (2022-04-26)
 
