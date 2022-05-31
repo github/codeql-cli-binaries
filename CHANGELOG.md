@@ -17,6 +17,51 @@
      you know what to do).
 -->
 
+## Release 2.9.3 (2022-05-31)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### New features
+
+- Users can now use CodeQL Packaging Beta to publish and download
+  CodeQL packs on GitHub Enterprise Server (GHES) versions 3.6 and
+  later.
+
+  To authenticate to a package registry on GHES 3.6+, first create a
+  `~/.codeql/qlconfig.yml` file. For example, the following file
+  specifies that all CodeQL packages should be uploaded to the GHES
+  instance with the hostname `GHE_HOSTNAME`:
+
+  ```yml
+  registries:
+  - packages: '*'
+    url: https://containers.GHE_HOSTNAME/v2/
+  ```
+
+  You can now download public packages from GHES using
+  `codeql pack download`.
+
+  To publish any package or download private packages, authenticate to
+  GHES by specifying registry/token pairs in the
+  `CODEQL_REGISTRIES_AUTH` environment variable. You can authenticate
+  using either a GitHub Apps token or a personal access token. For
+  example,
+  `https://containers.GHEHOSTNAME1/v2/=TOKEN1,https://containers.GHEHOSTNAME2/v2/=TOKEN2`
+  will authenticate the CLI to the `GHEHOSTNAME1` and `GHEHOSTNAME2`
+  GHES instances.
+
+### Bugs Fixed
+
+- Fixed a bug where precompiled CodeQL packages in the CodeQL bundle were
+  being recompiled if they were in a read-only directory.
+
+- Fixed a bug where new versions of the VS Code extension wouldn't run two
+  queries in parallel against one database.
+
 ## Release 2.9.2 (2022-05-16)
 
 - The bundled extractors are updated to match the versions currently
