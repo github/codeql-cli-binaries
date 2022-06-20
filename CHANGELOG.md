@@ -17,6 +17,23 @@
      you know what to do).
 -->
 
+## Release 2.9.4 (2022-06-20)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### New features
+
+- Users of CodeQL Packaging Beta can now optionally authenticate to
+  Container registries on GitHub Enterprise Server (GHES) versions 3.6
+  and later using standard input instead of the `CODEQL_REGISTRIES_AUTH`
+  environment variable. To authenticate via standard input, pass
+  `--registries-auth-stdin`. The value you provide will override the
+  value of the `CODEQL_REGISTRIES_AUTH` environment variable.
+
 ## Release 2.9.3 (2022-05-31)
 
 - The bundled extractors are updated to match the versions currently
