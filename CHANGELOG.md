@@ -17,6 +17,68 @@
      you know what to do).
 -->
 
+## Release 2.10.0 (2022-06-27)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### Breaking changes
+
+- The `--format=stats` option of `codeql generate log-summary` has been
+  renamed to `--format=overall`. It now produces a richer JSON object
+  that, in addition to the previous statistics about the run (which can
+  be found in the `stats` property) also records the most expensive
+  predicates in the evaluation run.
+
+### Potentially breaking changes
+
+- The `codeql resolve ml-model` command now requires one or more query
+  specifications as command line arguments in order to determine the set
+  of starting packs from which to initiate the resolution process. The
+  command will locate all ML models in any qlpack that is a transitive
+  dependency of any of the starting packs. Also, the output of the
+  command has been expanded to include for each model the containing
+  package's name, version, and path.
+
+- The `buildMetadata` inside of compiled CodeQL packs no longer contains
+  a `creationTime` property. This was removed in order to ensure that
+  the content of a CodeQL pack is identical when it is re-compiled.
+
+- The `codeql pack download` command, when used with the `--dir` option,
+  now downloads requested packs in directories corresponding to their
+  version numbers. Previously,
+  `codeql pack download --dir ./somewhere codeql/java-queries@0.1.2`
+  would download the pack into the `./somewhere/codeql/java-queries`
+  directory. Now, it will download the pack into the
+  `./somewhere/codeql/java-queries/0.1.2` directory. This allows you to
+  download multiple versions of the same pack using a single command.
+
+### New features
+
+- You can now include diagnostic messages in the summary produced by
+  the `--print-diagnostics-summary` option of the
+  `codeql database interpret-results` and `codeql database analyze`
+  commands by running these commands at high verbosity levels.
+
+### Bugs fixed
+
+- Fixed a bug where `codeql pack download`, when used with the `--dir`
+  option, would not download a pack that is in the global package cache.
+
+- Fixed a bug where some versions of a CodeQL package could not be
+  downloaded if there are more than 100 versions of this package in the
+  package registry.
+
+- Fixed a bug where the `--also-match` option for `codeql resolve files`
+  and `codeql database index-files` does not work with relative paths.
+
+- Fixed a bug that caused `codeql query decompile` to ignore the
+  `--output` option when producing bytecode output (`--kind=bytecode`),
+  writing only to `stdout`.
+
 ## Release 2.9.4 (2022-06-20)
 
 - The bundled extractors are updated to match the versions currently
