@@ -17,6 +17,19 @@
      you know what to do).
 -->
 
+## Release 2.10.1 (2022-07-19)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### New features
+
+- Improved error message from `codeql database analyze` when a query is
+  missing `@id` or `@kind` query metadata.
+
 ## Release 2.10.0 (2022-06-27)
 
 - The bundled extractors are updated to match the versions currently
