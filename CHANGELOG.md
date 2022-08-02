@@ -17,6 +17,49 @@
      you know what to do).
 -->
 
+## Release 2.10.2 (2022-08-02)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### Breaking change
+
+- The option `--compiler-spec` to `codeql database create` (and
+  `codeql database trace-command`) no longer works. It is replaced by
+  `--extra-tracing-config`, which accepts a tracer configuration file
+  in the new, Lua-based tracer configuration format instead. See
+  `tools/tracer/base.lua` for the precise API available. If you need
+  help help porting your existing compiler specification files, please
+  file a public issue in https://github.com/github/codeql-cli-binaries,
+  or open a private ticket with GitHub support and request an
+  escalation to engineering.
+
+### Potentially breaking changes
+
+- Versions of the CodeQL extension for Visual Studio Code released
+  before February 2021 may not work correctly with this CLI, in
+  particular if database upgrades are necessary. We recommend keeping
+  your VS Code extension up-to-date.
+
+### Deprecation
+
+- The experimental `codeql resolve ml-models` command has been
+  deprecated. Advanced users calling this command should use the new
+  `codeql resolve extensions` command instead.
+
+### New features
+
+- The `codeql github upload-sarif` command now supports a `--merge`
+  option. If this option is provided, the command will accept the paths
+  to multiple SARIF files, and will merge those files before uploading
+  them as a single analysis. This option is recommended _only_ for
+  backwards compatibility with old analyses produced by the CodeQL
+  Runner, which combined the results for multiple languages into a
+  single analysis.
+
 ## Release 2.10.1 (2022-07-19)
 
 - The bundled extractors are updated to match the versions currently
