@@ -17,6 +17,27 @@
      you know what to do).
 -->
 
+## Release 2.10.3 (2022-08-15)
+
+- The bundled extractors are updated to match the versions currently
+  used on LGTM.com. These are newer than the last release (1.30) of
+  LGTM Enterprise. If you plan to upload databases to an LGTM
+  Enterprise 1.30 instance, you need to create them with release
+  2.7.6.
+
+### New features
+
+- When called with `--start-tracing`, the `codeql database init` command
+  now accepts extractor options for the indirect tracing environment via
+  `--extractor-option`. Users should continue to specify extractor options
+  for direct tracing environments by passing them to
+  `codeql database trace-command` invocations.
+
+### Other changes
+
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.4.
+
 ## Release 2.10.2 (2022-08-02)
 
 - The bundled extractors are updated to match the versions currently
