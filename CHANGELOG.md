@@ -73,7 +73,7 @@
 
 ### New features
 
-- The `codeql github upload-sarif` command now supports a `--merge`
+- The `codeql github upload-results` command now supports a `--merge`
   option. If this option is provided, the command will accept the paths
   to multiple SARIF files, and will merge those files before uploading
   them as a single analysis. This option is recommended _only_ for
