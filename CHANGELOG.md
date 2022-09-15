@@ -19,7 +19,11 @@
 
 ## Release 2.10.5 (2022-09-13)
 
-- This release does not include any user-facing changes.
+### New features
+
+- You can now define which registries should be used for downloading and publishing CodeQL packs on a
+  per-workspace basis by creating a `codeql-workspace.yml` file and addinga `registries` block. For
+  more infomation, see [About CodeQL Workspaces](https://codeql.github.com/docs/codeql-cli/about-codeql-workspaces/).
 
 ## Release 2.10.4 (2022-08-31)
 
