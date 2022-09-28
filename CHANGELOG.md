@@ -17,6 +17,20 @@
      you know what to do).
 -->
 
+## Release 2.11.0 (2022-09-28)
+
+### Deprecation
+
+- The CodeQL CLI now uses Python 3 to extract both Python 2 and Python 3
+  databases. Correspondingly, support for using Python 2 to extract
+  Python databases is now deprecated. Starting with version 2.11.3, you
+  will need to install Python 3 to extract Python databases.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.4.
+
 ## Release 2.10.5 (2022-09-13)
 
 ### New features
