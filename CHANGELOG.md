@@ -17,6 +17,45 @@
      you know what to do).
 -->
 
+## Release 2.11.1 (2022-10-11)
+
+## Breaking changes
+
+- Pack installation using the CodeQL Packaging beta will now fail if a
+  compatible version cannot be found. This replaces the previous
+  behavior where `codeql pack download` and related commands would
+  instead install the latest version of the pack in this situation.
+
+## Deprecations
+
+- The `--[no-]count-lines` option to `codeql database create` and
+  related commands is now deprecated and will be removed in a future
+  release of the CodeQL CLI (earliest 2.12.0). It is replaced by
+  `--[no-]calculate-baseline` to reflect the additional baseline
+  information that is now captured as of this release.
+
+### New features
+
+- Subcommands that compile QL accept a new `--no-release-compatibility`
+  option. It does nothing for now, but in the future it will be used
+  to control a trade-off between query performance and compatibility
+  with older/newer releases of the QL evaluator.
+- `codeql database analyze` and related commands now support absolute 
+  paths containing the `@` or `:` characters when specifying which queries 
+  to run. To reference a query file, directory, or suite whose path contains 
+  a literal `@` or `:`, prefix the query specifier with `path:`, for example:
+  ```shell
+      codeql database analyze --format=sarif-latest --output=results <db> path:C:/Users/ci/workspace@2/security/query.ql
+  ```
+### Bugs fixed
+
+- It is no longer an error to call `codeql pack create <path>` with a `<path>`
+  option pointing to a file name. The CLI will walk up the directory tree and 
+  run the command in the first directory containing the `qlpack.yml` or `codeql-pack.yml` file.
+- Fixed a concurrency error observed when using `codeql database import` or
+  `codeql database finalize` with multiple threads and multiple additional
+  databases on a C++ codebase.
+
 ## Release 2.11.0 (2022-09-28)
 
 ### Deprecation
