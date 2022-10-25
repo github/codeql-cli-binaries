@@ -17,16 +17,68 @@
      you know what to do).
 -->
 
+## Release 2.11.2 (2022-10-25)
+
+### Breaking changes
+
+- Bundling and publishing a CodeQL pack will no longer include nested
+  CodeQL packs. If you want to include a nested pack in your published pack,
+  then you must explicitly include it using the `include` property in the
+  top-level `qlpack.yml` file.
+
+  For example, if your package structure looks like this:
+
+  ```text
+  qlpack.yml
+  nested-pack
+     ∟ qlpack.yml
+       query.ql
+  ```
+
+  then the contents of `nested-pack` will not be included by default within
+  the published package. To include `nested-pack`, add an entry like this
+  to the top level `qlpack.yml` file:
+
+  ```yml
+  include:
+    - nested-pack/**
+  ```
+
+### Bugs fixed
+
+- Using the `--codescanning-config=<file>` option in
+  `codeql database init` will now correctly process the `paths` and
+  `pathsIgnore` properties of the configuration file in a way that is
+  identical to the behavior of the `codeql-action`. Previously, `paths`
+  or `pathsIgnore` entries that end in `/**` or start with `/`  were
+  incorrectly rejected by the CLI.
+
+- Fixed a bug where the `--compilation-cache` option to
+  `codeql pack publish` and `codeql pack create` was being ignored
+  when creating a query pack.  Now, the indicated cache is used
+  when pre-compiling the queries in it.
+
+- Fixed a bug that would make the "Show DIL" command in the VSCode
+  extension display nothing.
+
+### Other changes
+
+- Emit a detailed warning if package resolution fails, the legacy
+  `--search-path` option is provided, _and_ there is at least one
+  referenced pack that does not use legacy package resolution.
+  In this case, `--additional-packs` should be used to extend the
+  search to additional directories, instead of `--search-path`.
+
 ## Release 2.11.1 (2022-10-11)
 
-## Breaking changes
+### Breaking changes
 
 - Pack installation using the CodeQL Packaging beta will now fail if a
   compatible version cannot be found. This replaces the previous
   behavior where `codeql pack download` and related commands would
   instead install the latest version of the pack in this situation.
 
-## Deprecations
+### Deprecations
 
 - The `--[no-]count-lines` option to `codeql database create` and
   related commands is now deprecated and will be removed in a future
