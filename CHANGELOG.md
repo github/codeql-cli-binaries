@@ -17,6 +17,49 @@
      you know what to do).
 -->
 
+## Release 2.11.3 (2022-11-11)
+
+### Breaking changes
+
+- The `codeql pack ls --format json` deep plumbing command now returns
+  only the `name` and `version` properties for each found pack.
+
+### Potentially breaking changes
+
+- `codeql pack download`, `codeql pack install`, and `codeql pack add`
+  will ignore CodeQL packs with pre-release versions, unless the
+  `--allow-prerelease` option is passed to the command. This brings
+  these commands into alignment with `codeql pack publish` that will
+  avoid publishing CodeQL packs with pre-release versions unless the
+  `--allow-prerelease` option is specified. Pre-release versions have
+  the following format: `X.Y.Z-qualifier` where `X`, `Y`, and `Z` are
+  respectively the major, minor, and patch number. `qualifier` is the
+  pre-release version. For more information about pre-releases, see
+  the
+  [Semantic Versioning specification](https://semver.org/#spec-item-9).
+
+### Deprecations
+
+- The `--[no-]fast-compilation` option to `codeql query compile` is
+  now deprecated.
+
+### New features
+
+- `codeql resolve files` and `codeql database index-files` have a new
+  `--find-any` option, which finds at most one match.
+
+### Miscellaneous
+
+- The build of Apache Commons Text that is bundled with the CodeQL CLI
+  has been updated to version 1.10.0. While previous releases shipped
+  with version 1.6 of the library, no part of the CodeQL CLI
+  references the `StringSubstitutor` class that the recently disclosed
+  [CVE-2022-42889](https://github.com/advisories/GHSA-599f-7c49-w659)
+  vulnerability applies to. We therefore do not believe that running
+  previous releases of CodeQL exposes users to this vulnerability.
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.5.
+
 ## Release 2.11.2 (2022-10-25)
 
 ### Breaking changes
