@@ -16,6 +16,30 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.11.4 (2022-11-24)
+
+### New features
+
+- Kotlin support is now in beta. This means that Java analyses will also
+  include Kotlin code by default. Kotlin support can be disabled by
+  setting `CODEQL_EXTRACTOR_JAVA_AGENT_DISABLE_KOTLIN` to `true` in
+  the environment.
+  
+### Potentially breaking changes
+
+- CodeQL 2.11.1 to 2.11.3 contained a bug in [indirect build tracing](https://codeql.github.com/docs/codeql-cli/creating-codeql-databases/#using-indirect-build-tracing) on Windows
+  when using `codeql database init` with the [`--trace-process-level`](https://codeql.github.com/docs/codeql-cli/manual/database-init/#cmdoption-codeql-database-init-trace-process-level) flag.
+  In these versions, when `--trace-process-level` was set to a value greater than zero,
+  (or left at the default value of 1), CodeQL attempted to inject its build tracer
+  at a higher level in the process tree than the requested process level.
+  This could lead to errors of the form "No source code found" or
+  "Process tree ended before reaching required level".
+  From 2.11.4 onwards, the CodeQL build tracer is injected at the requested process level.
+
+### Deprecations
+
+- The `--[no-]fast-compilation` option to `codeql test run` is now
+  deprecated.
 
 ## Release 2.11.3 (2022-11-11)
 
