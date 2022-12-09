@@ -21,10 +21,6 @@
 
 ### Bugs Fixed
 
-- Fixed a bug where it was not possible to run queries in CodeQL query packs for C#
-  that use the legacy `libraryPathDependencies` property in their `qlpack.yml` file.
-  The associated error message complained about undefined extensional predicates.
-
 - Fixed a bug that could cause log summary generation to fail in vscode.
 
 ## Release 2.11.4 (2022-11-24)
