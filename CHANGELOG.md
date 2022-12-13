@@ -17,6 +17,27 @@
      you know what to do).
 -->
 
+## Release 2.11.6 (2022-12-13)
+
+### Breaking changes
+
+- Java and Kotlin analyses in this release of the CLI and all earlier
+  releases are incompatible with Kotlin 1.7.30 and later. To prevent
+  code scanning alerts being spuriously dismissed, Java and Kotlin
+  analyses will now fail when using Kotlin 1.7.30 or later.
+
+  If you are unable to use Kotlin 1.7.29 or earlier, you can disable
+  Kotlin support by setting
+  `CODEQL_EXTRACTOR_JAVA_AGENT_DISABLE_KOTLIN` to `true` in the
+  environment.
+
+### Bugs fixed
+
+- Fixed a bug where it was not possible to run queries in CodeQL query
+  packs for C# that use the legacy `libraryPathDependencies` property
+  in their `qlpack.yml` file. The associated error message complained
+  about undefined extensional predicates.
+
 ## Release 2.11.5 (2022-12-07)
 
 ### Bugs Fixed
