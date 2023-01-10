@@ -17,6 +17,61 @@
      you know what to do).
 -->
 
+## Release 2.12.0 (2023-01-10)
+
+### Breaking changes
+
+- The `--[no-]count-lines` option to `codeql database create` and related commands that was
+  deprecated in 2.11.1 has been removed. Users of this option should instead pass
+  `--[no-]calculate-baseline`.
+
+### New features
+
+- Query packs created by `codeql pack create`, `codeql pack bundle`, and `codeql pack release` now
+  contain precompiled queries in a new format that aims to be compatible with future (and, to a
+  certain extent, past) releases of the CodeQL CLI. Previously the precompiled queries were in a
+  format specific to each CLI release, and all other releases would need to re-compile queries.
+
+  Published packs contain precompiled queries in files with a `.qlx` extension located next to each
+  query's `.ql` source file.  In case of differences between the `.ql` and `.qlx` files, the `.qlx`
+  file takes priority when evaluating queries from the command line, so if you need to modify a
+  published pack, be sure to delete the `.qlx` files first.
+
+  A new `--precompile` flag to `codeql query compile` can be used to construct `*.qlx` file
+  explicitly, but in all usual cases it should be enough to rely on `codeql pack create` doing the
+  right thing.
+- The `codeql database init` command now accepts a PAT that allows you to download queries from
+  external, private repositories when using the `--codescanning-config <config-file>` option. For
+  example, you can specify the following queries block in the config file, which will checkout the main
+  branch of the `codeql-test/my-private-repository` repository and evaluate any queries found in that
+  repository:
+
+  ```yaml
+  queries:
+    - codeql-test/my-private-repository@main
+  ```
+
+  If the repository is private, you can add a `--external-repository-token-stdin` option and supply a
+  PAT with appropriate permissions via standard input. For more information on queries and external
+  repositories in Code Scanning, see [Using queries in QL packs](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs).
+- The baseline information produced by `codeql database init` and
+  `codeql database create` now accounts for
+  [`paths` and `paths-ignore` configuration](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan).
+- In the VS Code extension, recursive calls will be marked with inlay
+  hints. These can be disabled with the global inlay hints setting 
+  (`editor.inlayHints.enabled`). If you just want to disable them for 
+  codeql the settings can be scoped to just codeql files (language id is `ql`).
+  See [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings)
+  in the VS Code documentation for more information.
+- The CLI now gives a more helpful error message when asked to run queries on a
+  database that has not been finalized.
+
+### Bugs fixed
+
+- Fixed a bug where the `codeql pack install` command would fail if
+  a [CodeQL configuration file](https://codeql.github.com/docs/codeql-cli/specifying-command-options-in-a-codeql-configuration-file/#using-a-codeql-configuration-file)
+  is used and the `--additional-packs` option is specified.
+
 ## Release 2.11.6 (2022-12-13)
 
 ### Breaking changes
@@ -52,7 +107,7 @@
   include Kotlin code by default. Kotlin support can be disabled by
   setting `CODEQL_EXTRACTOR_JAVA_AGENT_DISABLE_KOTLIN` to `true` in
   the environment.
-  
+
 ### Potentially breaking changes
 
 - CodeQL 2.11.1 to 2.11.3 contained a bug in [indirect build tracing](https://codeql.github.com/docs/codeql-cli/creating-codeql-databases/#using-indirect-build-tracing) on Windows
@@ -187,9 +242,9 @@
   option. It does nothing for now, but in the future it will be used
   to control a trade-off between query performance and compatibility
   with older/newer releases of the QL evaluator.
-- `codeql database analyze` and related commands now support absolute 
-  paths containing the `@` or `:` characters when specifying which queries 
-  to run. To reference a query file, directory, or suite whose path contains 
+- `codeql database analyze` and related commands now support absolute
+  paths containing the `@` or `:` characters when specifying which queries
+  to run. To reference a query file, directory, or suite whose path contains
   a literal `@` or `:`, prefix the query specifier with `path:`, for example:
   ```shell
       codeql database analyze --format=sarif-latest --output=results <db> path:C:/Users/ci/workspace@2/security/query.ql
@@ -197,7 +252,7 @@
 ### Bugs fixed
 
 - It is no longer an error to call `codeql pack create <path>` with a `<path>`
-  option pointing to a file name. The CLI will walk up the directory tree and 
+  option pointing to a file name. The CLI will walk up the directory tree and
   run the command in the first directory containing the `qlpack.yml` or `codeql-pack.yml` file.
 - Fixed a concurrency error observed when using `codeql database import` or
   `codeql database finalize` with multiple threads and multiple additional
