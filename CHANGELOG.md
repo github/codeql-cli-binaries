@@ -17,6 +17,15 @@
      you know what to do).
 -->
 
+## Release 2.12.1 (2023-01-23)
+
+### New features
+
+ - Added a new command-line flag `--expect-discarded-cache`, which gives a hint
+   to the evaluator that the evaluation cache will be discarded after analysis
+   completes. This allows it to avoid some unnecessary writes to the cache, for
+   predicates that aren't needed by the query/suite being evaluated.
+
 ## Release 2.12.0 (2023-01-10)
 
 ### Breaking changes
