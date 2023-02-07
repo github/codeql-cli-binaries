@@ -17,6 +17,23 @@
      you know what to do).
 -->
 
+## Release 2.12.2 (2023-02-07)
+
+### Bugs fixed
+
+- Fixed a QL evaluator bug introduced in release 2.12.1 which could in
+  certain rare cases lead to wrong analysis results.
+
+- Fixed handling of `-Xclang <arg>` arguments passed to the `clang` compiler which
+  could cause missing extractions for C++ code bases.
+
+- Fixed a bug where the `--overwrite` option was failing for database clusters.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.6.
+
 ## Release 2.12.1 (2023-01-23)
 
 ### New features
