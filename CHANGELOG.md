@@ -17,6 +17,20 @@
      you know what to do).
 -->
 
+## Release 2.12.3 (2023-02-23)
+
+### New features
+
+- The CodeQL compiler now produces better error messages when it is unable
+  to find a QL library that the query being evaluated depends on.
+
+### Bugs fixed
+
+- Fixed a bug where the CLI would refuse to complete database creation
+  if the OS reports less than about 1.5 GB of physical memory. Now an
+  attempt will be made even on low-memory systems (but it might still
+  run out of memory unless there's swap space available).
+
 ## Release 2.12.2 (2023-02-07)
 
 ### Bugs fixed
