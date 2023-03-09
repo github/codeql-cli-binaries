@@ -17,6 +17,43 @@
      you know what to do).
 -->
 
+## Release 2.12.4 (2023-03-09)
+
+### Breaking changes
+
+- The default value of the `--mode` switch to `codeql pack install` has changed. The default is now `--mode minimal-update`.
+  Previously, it was `use-lock`.
+
+### New features
+
+- The per-pack compilation cache has been replaced with a global compilation cache
+  found within `~/.codeql`.
+- `codeql pack install` now uses a new algorithm to determine which versions of
+  the pack's dependencies to use, based on the [PubGrub](https://nex3.medium.com/pubgrub-2fb6470504f)
+  algorithm. The new algorithm is able to find a solution for many cases that
+  the previous algorithm would fail to solve. When the new algorithm is unable
+  to find a valid solution, it generates a detailed error message explaining
+  why there is no valid solution.
+- Added a new command, `codeql pack upgrade`. This command is similar to `codeql pack install`,
+  except that it ignores any existing lock file, installs the latest compatible version of each
+  dependency, and writes a new lock file. This is equivalent to `codeql pack install --mode update`.
+  Note that the `--mode` switch to `codeql pack install` is now deprecated.
+- Added a new command, `codeql pack ci`. This command is similar to `codeql pack install`,
+  except if the existing lock file is missing, or if it conflicts with the version constraints in
+  the `qlpack.yml` file, the command generates an error. This is equivalent to
+  `codeql pack install --mode verify`. Note that the `--mode` switch to `codeql pack install` is now
+  deprecated.
+
+### Deprecations
+
+- The `--freeze` switch for `codeql pack create`, `codeql pack bundle`, and `codeql pack publish`
+  is now deprecated and ignored, as there is no longer a cache within a pack.
+- The `--mode update` switch to `codeql pack resolve-dependencies` is now deprecated. Instead, use
+  the new `--mode upgrade` switch, which has identical behavior.
+- The `--mode` switch to `codeql pack install` is now deprecated.
+  - Instead of `--mode update`, use `codeql pack upgrade`.
+  - Instead of `--mode verify`, use `codeql pack ci`.
+
 ## Release 2.12.3 (2023-02-23)
 
 ### New features
