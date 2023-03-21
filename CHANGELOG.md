@@ -17,6 +17,29 @@
      you know what to do).
 -->
 
+## Release 2.12.5 (2023-03-21)
+
+### New features
+
+- The `codeql pack install` command now accepts a `--additional-packs`
+  option. This option takes a list of directories to search for
+  locally available packs when resolving which packs to install. Any
+  pack that is found locally through `--additional-packs` will
+  override any other version of a pack found in the package registry.
+  Locally resolved packs are not added to the lock file.
+
+  Because the use of `--additional-packs` when running
+  `codeql pack install` makes running queries dependent on the local
+  state of the machine initially invoking `codeql pack install`, a
+  warning is emitted if any pack is found outside of the package
+  registry. This warning can be suppressed by using the
+  `--no-strict-mode` option.
+
+### Bugs fixed
+
+- Fix a bug in `codeql query run` where queries whose path contain
+  colons cannot be run.
+
 ## Release 2.12.4 (2023-03-09)
 
 ### Breaking changes
