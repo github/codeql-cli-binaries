@@ -17,6 +17,29 @@
      you know what to do).
 -->
 
+## Release 2.12.6 (2023-04-04)
+
+### New features
+
+- Several experimental subcommands have been added in support of the
+  new [code scanning tool status page](https://github.blog/changelog/2023-03-28-code-scanning-shows-the-health-of-tools-enabled-on-a-repository/).
+  These include `codeql database add-diagnostic`,
+  `codeql database export-diagnostics`, and the
+  `codeql diagnostic add` and `codeql diagnostic export` plumbing
+  subcommands.
+
+### Bugs fixed
+
+- Fixed a bug in `codeql database analyze` and related commands
+  where the `--max-paths` option was not respected correctly when
+  multiple alerts with the same primary code location were grouped together.
+  (This grouping is the default behavior unless the `--no-group-alerts`
+  option is passed.)
+  This bug caused some SARIF files produced by CodeQL to exceed the limits
+  on the number of paths (`threadFlows`) accepted by code scanning,
+  leading to errors when uploading results.
+
+
 ## Release 2.12.5 (2023-03-21)
 
 ### New features
