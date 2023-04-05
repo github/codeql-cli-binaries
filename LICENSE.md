@@ -133,7 +133,7 @@ automatically update the Software when a new version is available.
 Support
 -------
 
-Because the Software is "as-is," GitHub may not provide support for it.
+Because the Software is "as-is," GitHub may elect not to provide support for it.
 
 Export Control
 --------------
