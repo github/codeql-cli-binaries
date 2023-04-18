@@ -17,7 +17,32 @@
      you know what to do).
 -->
 
+## Release 2.12.7 (2023-04-18)
+
+### Bugs fixed
+
+- Fixed a bug in `codeql database upload-results` where the subcommand
+  would fail with "A fatal error occurred: Invalid SARIF.", reporting
+  an `InvalidDefinitionException`. This issue occurred when the SARIF
+  file contained certain kinds of diagnostic information.
+
 ## Release 2.12.6 (2023-04-04)
+
+### Known issues
+
+- We recommend that customers using the CodeQL CLI in a third party CI
+  system do not upgrade to this release, due to an issue with `codeql 
+  github upload-results`. Instead, please use CodeQL 2.12.5, or, when
+  available, CodeQL 2.12.7 or 2.13.1.
+
+  This issue occurs when uploading certain kinds of diagnostic information and
+  causes the subcommand to fail with "A fatal error occurred: Invalid
+  SARIF.", reporting an `InvalidDefinitionException`.
+
+  Customers who wish to use CodeQL 2.12.6 or 2.13.0 can 
+  work around the problem by passing `--no-sarif-include-diagnostics`
+  to any invocations of `codeql database analyze` or `codeql database
+  interpret-results`.
 
 ### New features
 
