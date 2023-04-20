@@ -17,6 +17,73 @@
      you know what to do).
 -->
 
+## Release 2.13.0 (2023-04-20)
+
+### Known issues
+
+- We recommend that customers using the CodeQL CLI in a third party CI
+  system do not upgrade to this release, due to an issue with `codeql 
+  github upload-results`. Instead, please use CodeQL 2.12.5, or, when
+  available, CodeQL 2.12.7 or 2.13.1. For more information, see the
+  "Known issues" section for CodeQL 2.12.6.
+
+### Potentially breaking changes
+
+- In `codeql pack add`, the dependency that is added to the `qlpack.yml` file will now allow any
+  version of the pack that is compatible with the specified version (`^version`) in the following
+  cases:
+  - When no version is specified (`codeql pack add codeql/cpp-all`).
+  - When the version is specified as `latest` (`codeql pack add codeql/cpp-all@latest`).
+  - When a single version is specified (`codeql pack add codeql/cpp-all@1.0.0`).
+
+  The `^version` dependency allows any version of that pack with no breaking changes since `version`.
+  For example, `^1.2.3` would allow versions `1.2.3`, `1.2.5`, and `1.4.0`, but not `2.0.0`, because
+  changing the major version number to `2` indicates a breaking change.
+
+  Using `^version` ensures that the added pack is not needlessly constrained to an exact version by default.
+
+- Upper-case variable names are no longer accepted by the QL compiler.
+
+  Such variable names have produced a deprecation warning since
+  release 2.9.2 (released 2022-05-16), so QL code that compiles
+  without warnings with a recent release of the CLI should still work.
+
+### New features
+
+- `codeql database analyze` and related commands now export file
+  coverage information by default. GHAS customers using CodeQL in
+  third-party CI systems will now see file coverage information on the
+  [tool status page](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-the-tool-status-page)
+  without needing to modify their CI workflows.
+
+### Deprecations
+
+- The possibility to omit `override` annotations on class member
+  predicates that override a base class predicate has been deprecated.
+  This is to avoid confusion with shadowing behaviour in the
+  presence of final member predicates.
+
+  ```ql
+  class Foo extends Base {
+    final predicate foo() { ... }
+
+    predicate bar() { ... }
+
+    predicate baz() { ... }
+  }
+
+  class Bar extends Foo {
+    // This method shadows Foo::foo.
+    predicate foo() { ... }
+
+    // This used to override Foo::bar with a warning, is now deprecated.
+    predicate bar() { ... }
+
+    // This correctly overrides Foo::baz
+    override predicate baz() { ... }
+  }
+  ```
+
 ## Release 2.12.7 (2023-04-18)
 
 ### Bugs fixed
@@ -63,7 +130,6 @@
   This bug caused some SARIF files produced by CodeQL to exceed the limits
   on the number of paths (`threadFlows`) accepted by code scanning,
   leading to errors when uploading results.
-
 
 ## Release 2.12.5 (2023-03-21)
 
