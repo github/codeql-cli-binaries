@@ -14,6 +14,8 @@ This repo holds binaries for the CodeQL CLI.
    for placing it in a location where the CLI can find it.
 4. Read the rest of the [CodeQL CLI documentation](https://codeql.github.com/docs/codeql-cli/).
 
+Found a bug or have a wuestion? please raise an issue in the [github/codeql](https://github.com/github/codeq) repository.
+
 # License
 
 By downloading, you agree to the [GitHub CodeQL Terms & Conditions](https://securitylab.github.com/tools/codeql/license/).
