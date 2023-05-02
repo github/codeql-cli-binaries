@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report an issue or ask a question about CodeQL
+    url: https://github.com/github/codeql/issues/new/choose
+    about: Please create issues and ask questions in the `github/codeql` repository.
