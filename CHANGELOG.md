@@ -17,6 +17,20 @@
      you know what to do).
 -->
 
+## Release 2.13.1 (2023-05-03)
+
+### Bugs fixed
+
+- Fixed a bug in `codeql database upload-results` where the subcommand
+  would fail with "A fatal error occurred: Invalid SARIF.", reporting
+  an `InvalidDefinitionException`. This issue occurred when the SARIF
+  file contained certain kinds of diagnostic information.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.7.
+
 ## Release 2.13.0 (2023-04-20)
 
 ### Known issues
