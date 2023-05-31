@@ -17,6 +17,40 @@
      you know what to do).
 -->
 
+## Release 2.13.3 (2023-05-31)
+
+### New features
+
+- This release enhances our preliminary Swift support, setting the stage for the upcoming public beta.
+
+- The `codeql database bundle` command now supports the `--[no]-include-temp`
+  option. When enabled, this option will include the `temp` folder of the
+  database directory in the zip file of the bundled database. This folder
+  includes generated packages and queries, and query suites.
+
+- The structured log produced by `codeql generate log-summary` now includes a Boolean `isCached`
+ field for predicate events, where a `true` value indicates the predicate is a wrapper implementing
+ the `cached` annotation on another predicate. The wrapper depends on the underlying predicate that
+ the annotation was found on, and will usually have the same name, but it has a separate `raHash`.
+
+### Bugs fixed
+
+- Fixed a bug that could cause the compiler to infer incorrect binding sets for
+  non-direct calls to overriding member predicates that have stronger binding sets
+  than their root definitions.
+
+- Fixed a bug that could have caused the compiler to incorrectly infer that a
+  class matched a type signature. The bug only affected classes with overriding
+  member predicates that had stronger binding sets than their root definitions.
+
+- Fixed a bug where a query could not be run from VS Code
+  when there were packs nested within sibling directories 
+  of the query.
+
+## Release 2.13.2
+
+This release was skipped.
+
 ## Release 2.13.1 (2023-05-03)
 
 ### Bugs fixed
