@@ -17,6 +17,23 @@
      you know what to do).
 -->
 
+## Release 2.13.4 (2023-06-19)
+
+### New features
+
+- Temporary files and folders created by the CodeQL CLI will now be cleaned up
+  when each CLI command (and its internal JVM) shuts down normally.
+
+### Bugs fixed
+
+- Fixed an issue where indirect build tracing did not work in Azure DevOps
+  pipeline jobs in Windows containers. To use indirect build tracing in such
+  environments, ensure both the `--begin-tracing` and
+  `--trace-process-name=CExecSvc.exe` arguments are passed to
+  `codeql database init`.
+- Improved the error message for the `codeql pack create` command when the pack
+  being published has a dependency with no scope in its name.
+
 ## Release 2.13.3 (2023-05-31)
 
 ### New features
