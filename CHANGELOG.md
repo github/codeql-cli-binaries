@@ -17,6 +17,88 @@
      you know what to do).
 -->
 
+## Release 2.14.0 (2023-07-13)
+
+### Potentially breaking changes
+
+- The legacy option `--search-path` will now be used, if provided, when
+  searching for the dependencies of packages that have no lock file.
+- CodeQL query packs that specify their dependencies using the legacy
+  `libraryPathDependencies` property in `qlpack.yml`/`codeql-pack.yml`
+  files are no longer permitted to contain a `codeql-pack.lock.yml` lock file.
+  This will lead to a compilation error. This change is intended to prevent
+  confusing behavior arising from a mix of legacy (unversioned) and modern
+  (versioned) package dependencies. To fix this error, either delete the lock
+  file, or convert `libraryPathDependencies` to `dependencies`.
+- CodeQL CLI commands that create packages or update package lock files, such
+  as `codeql pack publish` and `codeql pack create`, will no longer work on
+  query packs that specify their dependencies using the legacy
+  `libraryPathDependencies` property. To fix this error, convert
+  `libraryPathDependencies` to `dependencies`.
+
+### Deprecations
+
+- Missing override annotations on class member predicates now raise
+  errors rather than warnings. This is to avoid confusion with the
+  shadowing behaviour in the presence of final member predicates.
+  ```ql
+  class Foo extends Base {
+    final predicate foo() { ... }
+
+    predicate bar() { ... }
+  }
+
+  class Bar extends Foo {
+    // This method shadows Foo::foo.
+    predicate foo() { ... }
+
+    // This used to override Foo::bar with a warning, now raises error.
+    predicate bar() { ... }
+  }
+  ```
+
+### Improvements
+
+- Unqualified imports can now be marked as deprecated to indicate that the
+  import may be removed in the future. Usage of names only reachable through
+  deprecated imports will generate deprecation warnings.
+- Classes declared inside a parameterized modules can final extend
+  parameters of the module as well as types that are declared outside
+  the parameterized module.
+- Fields are fully functional when extending types from within a module
+  instantiation.
+- Files with a `.yaml` extension will now be included in compiled
+  CodeQL packs. Previously, files with this extension were excluded
+  even though `.yml` files were included.
+- When interpreting results (e.g., using `bqrs interpret` or
+  `database interpret-results`), extra placeholders in alert messages are
+  treated as normal text. Previously, results with more placeholders than
+  placeholder values were skipped.
+- Windows users of the CodeQL extension for VS Code will see faster start times.
+- In VS Code, errors in the current file are rechecked when dependencies change.
+- In VS Code, autocomplete in large QL files is now faster.
+- Member predicates can shadow final member predicates of the same arity even
+  when the signatures are not fully matching.
+
+### Bugs fixed
+
+- Fixed super calls on final base classes (or final aliases) so that they
+  are now dispatched the same way as super calls on instanceof supertypes.
+- Fixed a bug where running `codeql database finalize` with a large number of
+  threads would fail due to running out of file descriptors.
+- Fixed a bug where `codeql database create --overwrite` would not work
+  with database clusters.
+- Fixed a bug where the CodeQL documentation coverage statistics were
+  incorrect.
+- Fixed a bug where the generated CodeQL libarary documentation could
+  generate invalid uris on windows.
+
+## Release 2.13.5 (2023-07-05)
+
+### New Features
+
+- The Swift extractor now supports Swift 5.8.1.
+
 ## Release 2.13.4 (2023-06-19)
 
 ### New features
