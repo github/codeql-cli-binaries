@@ -17,6 +17,10 @@
      you know what to do).
 -->
 
+## Release 2.14.1 (2023-07-27)
+
+- There are no user-facing changes in this release.
+
 ## Release 2.14.0 (2023-07-13)
 
 ### Potentially breaking changes
