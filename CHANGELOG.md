@@ -17,6 +17,35 @@
      you know what to do).
 -->
 
+## Release 2.14.2 (2023-08-11)
+
+### Breaking changes
+
+- The functionality provided by the `codeql execute query-server` subcommand
+  has been removed. The subcommand now responds to all JSON RPC requests with
+  an error response. Correspondingly, this release is no longer compatible with
+  versions of the CodeQL extension for Visual Studio Code prior to 1.7.6.
+
+  This change also breaks third-party CodeQL IDE integrations that still rely
+  on the `codeql execute query-server` subcommand. Maintainers of such CodeQL
+  IDE integrations should migrate to the `codeql execute query-server2`
+  subcommand at the earliest opportunity.
+
+### Improvements
+
+- Switched from prefix filtering of autocomplete suggestions in the language
+  server to client-side filtering. This improves autocomplete suggestions in
+  contexts with an autocompletion prefix.
+
+- The CodeQL language server now checks query metadata for errors. This allows
+  Visual Studio Code users to see errors in their query metadata without needing
+  to compile the query.
+
+### Bugs fixed
+
+- Fixed bug that made the `--warnings=hide` option do nothing in
+  `codeql database analyze` and other commands that _evaluate_ queries.
+
 ## Release 2.14.1 (2023-07-27)
 
 - There are no user-facing changes in this release.
