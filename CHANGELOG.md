@@ -17,6 +17,39 @@
      you know what to do).
 -->
 
+## Release 2.14.4 (2023-09-12)
+
+### Potentially breaking changes
+
+- The CodeQL CLI no longer supports the `SEMMLE_JAVA_ARGS` environment variable.
+  All previous versions of the CodeQL CLI perform command substitution on the
+  `SEMMLE_JAVA_ARGS` value (for example, replacing `'$(echo foo)'` with `'foo'`)
+  when starting a new Java virtual machine, which, depending on the execution
+  environment, may have security implications.  Users are advised to check their
+  environments for possible `SEMMLE_JAVA_ARGS` misuse.
+
+### New Features
+
+- The Java extractor now supports files that use Lombok.
+
+### Bugs fixed
+
+- `codeql database init` (and `github/codeql-action/init@v2` on GitHub Actions)
+  should no longer hang or crash for traced languages on 64-bit Windows machines
+  when certain antivirus software is installed.
+- During `codeql pack create` and `codeql pack publish`, a source version of a
+  pack coming from `--additional-packs` can explicitly be used to override a
+  requested pack version even if this source version is incompatible with the
+  requested version in the pack file. Previously, this would fail with a
+  confusing error message.
+- Fixed a bug where `codeql database interpret-results` hangs when a path query
+  produces a result that has no paths from source to sink.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is bundled with the CodeQL
+  CLI has been updated to version 17.0.8.
+
 ## Release 2.14.3 (2023-08-25)
 
 ### Breaking changes
