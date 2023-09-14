@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.14.5 (2023-09-14)
+
+### Bugs fixed
+
+- Fixed a JavaScript extractor crash that was introduced in 2.14.4.
+
 ## Release 2.14.4 (2023-09-12)
 
 ### Potentially breaking changes
