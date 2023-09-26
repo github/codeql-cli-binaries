@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.14.6 (2023-09-26)
+
+### Bugs fixed
+
+- The tracking of RAM usage has been improved. This fixes some cases
+  where CodeQL uses more RAM than requested.
+
 ## Release 2.14.5 (2023-09-14)
 
 ### Bugs fixed
