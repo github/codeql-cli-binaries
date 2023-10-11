@@ -17,6 +17,67 @@
      you know what to do).
 -->
 
+## Release 2.15.0 (2023-10-11)
+
+### Deprecations
+
+- `pragma[assume_small_delta]` is now deprecated. The pragma has no effect and
+  should be removed.
+
+- Missing override annotations on class fields now raise errors rather than
+  warnings. This is to avoid confusion with the shadowing behavior in the
+  presence of final fields.
+
+- The CodeQL CLI no longer supports ML-powered alerts. For more information,
+  including details of our work in the AI-powered security technology space,
+  see
+  "[CodeQL code scanning deprecates ML-powered alerts](https://github.blog/changelog/2023-09-29-codeql-code-scanning-deprecates-ml-powered-alerts/)."
+
+### New Features
+
+- The output of `codeql version --format json` now includes a `features`
+  property. Each key in the map identifies a feature of the CodeQL CLI. The
+  value for a key is always `true`. Going forward, whenever a significant new
+  feature is added to the CodeQL CLI, a corresponding entry will be added to the
+  `features` map. This is intended to make it easier for tools that invoke the
+  CodeQL CLI to know if the particular version of the CLI they are invoking
+  supports a given feature, without having to know exactly what CLI version
+  introduced that feature.
+
+### Improvements
+
+- You can now specify the CodeQL languages C/C++, Java/Kotlin, and
+  JavaScript/TypeScript using `--language c-cpp`, `--language java-kotlin`, and
+  `--language javascript-typescript` respectively. These new CodeQL language
+  names convey more clearly what languages each CodeQL language will analyze.
+
+  You can also reference these CodeQL languages via their secondary language
+  names (C/C++ via `--language c` or `--language cpp`, Java/Kotlin via
+  `--language java` or `--language kotlin`, and JavaScript/TypeScript via
+  `--language javascript` or `--language typescript`), however we recommend you
+  refer to them via the new primary CodeQL language names for improved clarity.
+
+- CodeQL now respects custom home directories set by the `$HOME` environment
+  variable on MacOS and Linux and `%USERPROFILE%` on Windows. When set, CodeQL
+  will use the variable's value to change the default location of downloaded
+  packages and the global compilation cache.
+
+- This release improves the quality of
+  [file coverage information](https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/about-the-tool-status-page#using-the-tool-status-page)
+  for repositories that vendor their dependencies. This is currently supported
+  for Go and JavaScript projects.
+
+### Bugs fixed
+
+- Fixed an issue with analyzing Python projects using Python 3.12.
+
+### QL language improvements
+
+- The QL language now has two new methods `codePointAt` and `codePointCount` on
+  the `string` type. The methods both return integers and act the same as the
+  similarly named Java methods on strings. For example, `"abc".codePointAt(2)`
+  is `99` and `("a" + 128512.toUnicode() + "c").codePointAt(1)` is a `128512`.
+
 ## Release 2.14.6 (2023-09-26)
 
 ### Bugs fixed
