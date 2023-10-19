@@ -17,6 +17,40 @@
      you know what to do).
 -->
 
+## Release 2.15.1 (2023-10-19)
+
+### Potentially Breaking Changes
+
+- The query server's `evaluation/trimCache` command was previously equivalent to the `codeql database cleanup --mode=gentle` CLI command, but is now equivalent to using `--mode=normal`. The new meaning of the command is to clear the entire evaluation cache of a database except for predicates annotated with the `cached` keyword.
+
+### Deprecations
+
+- The accepted values of the `codeql database cleanup --mode=` command line option have been renamed to bring them in line with what they are called in the VSCode extension and the query server:
+  - `--mode=brutal` is now `--mode=clear`.
+  - `--mode=normal` is now `--mode=trim`.
+  - `--mode=light` is now `--mode=fit`.
+  - The old names are deprecated, but will be accepted for backwards-compatibility reasons until further notice.
+
+### New Features
+
+- The output of `codeql version --format json` now includes a `features` property. Each key in the
+  map identifies a feature of the CodeQL CLI. The value for a key is always `true`. Going forward,
+  whenever a significant new feature is added to the CodeQL CLI, a corresponding entry will be added to the
+  `features` map. This is intended to make it easier for tools that invoke the CodeQL CLI to know
+  if the particular version of the CLI they are invoking supports a given feature, without having to
+  know exactly what CLI version introduced that feature.
+
+### Improvements
+
+- The list of failed tests at the end of a `codeql test run` is now sorted lexicographically.
+
+### Bugs fixed
+
+- Fixed a bug where the `$CODEQL_JAVA_HOME` environment variable was
+  erroneously ignored for certain subsidiary Java processes started by
+  `codeql`.
+- Fixed a bug in the CodeQL build tracer on Apple Silicon machines that prevented database creation if System Integrity Protection was disabled.
+
 ## Release 2.15.0 (2023-10-11)
 
 ### Deprecations
