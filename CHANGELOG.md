@@ -31,15 +31,6 @@
   - `--mode=light` is now `--mode=fit`.
   - The old names are deprecated, but will be accepted for backwards-compatibility reasons until further notice.
 
-### New Features
-
-- The output of `codeql version --format json` now includes a `features` property. Each key in the
-  map identifies a feature of the CodeQL CLI. The value for a key is always `true`. Going forward,
-  whenever a significant new feature is added to the CodeQL CLI, a corresponding entry will be added to the
-  `features` map. This is intended to make it easier for tools that invoke the CodeQL CLI to know
-  if the particular version of the CLI they are invoking supports a given feature, without having to
-  know exactly what CLI version introduced that feature.
-
 ### Improvements
 
 - The list of failed tests at the end of a `codeql test run` is now sorted lexicographically.
