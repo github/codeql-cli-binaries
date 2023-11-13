@@ -17,6 +17,46 @@
      you know what to do).
 -->
 
+## Release 2.15.2 (2023-11-13)
+
+### Breaking changes
+
+- C++ extraction has been updated to output more accurate C++ value categories.
+  This may cause unexpected alerts on databases extracted with an up-to-date CodeQL
+  when the queries are part of a query pack that was compiled with an earlier CodeQL.
+  To resolve this, please recompile the query pack with the latest CodeQL.
+
+### New features
+
+- `codeql database analyze` and `codeql database interpret-results` can now
+  output human-readable analysis summaries in a new format. This format provides file coverage
+  information and improves the way that diagnostic messages are displayed. The new format also includes a link to the tool status page when the `GITHUB_SERVER_URL` and `GITHUB_REPOSITORY` environment variables are set. Note that that page only exists on GitHub.com, or in GitHub Enterprise Server
+  version 3.9.0 or later. To enable this new format, pass the `--analysis-summary-v2` flag.  
+- CodeQL now supports
+  distinguishing file coverage information between related languages C and C++, Java and Kotlin,
+  and JavaScript and TypeScript. By default, file coverage information for each
+  of these pairs of languages is grouped together. To enable specific file coverage information for these languages, pass the
+  `--sublanguage-file-coverage` flag when initializing the database (with `codeql database create` or `codeql database init`) and when analyzing the database (with `codeql database analyze` or `codeql database interpret-results`). If you are uploading results to a GitHub instance, this flag requires GitHub.com or GitHub Enterprise Server version 3.12 or later.
+- All CLI commands now support `--common-caches`, which controls the location of the
+  cached data that is persisted between several runs of the CLI, such as downloaded QL packs
+  and compiled query plans.
+
+### Improvements
+
+- Model packs that are used in an analysis will now be included in an output SARIF results file. All model packs now include the `isCodeQLModelPack: true` property in their tool component property bag.
+- The default formatting of DIL now more closely resembles equivalent QL code.
+
+### Bugs fixed
+
+- Fixed a bug where `codeql github upload-results` would report a 403 error when attempting to upload to a GitHub Enterprise Server instance.
+- Fixed a bug in Python extraction where UTF-8 characters would cause
+  logging to fail on systems with non-UTF-8 default system encoding (for example, Windows systems).
+- The `resolve qlpacks --kind extension` command no longer resolves
+  extensions packs from the search path. This matches the behavior of
+  `resolve extensions-by-pack` and will ensure that extensions which are
+  resolved by `resolve qlpacks --kind extension` can also be resolved by
+  `resolve extensions-by-pack`.
+
 ## Release 2.15.1 (2023-10-19)
 
 ### Potentially Breaking Changes
