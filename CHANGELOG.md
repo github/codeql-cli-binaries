@@ -65,7 +65,7 @@
 
 ### Deprecations
 
-- The accepted values of the `--mode` option for `codeql database cleanup`  have been renamed to bring them in line with what they are called in the VSCode extension and the query server:
+- The accepted values of the `codeql database cleanup --mode=` command line option have been renamed to bring them in line with what they are called in the VSCode extension and the query server:
   - `--mode=brutal` is now `--mode=clear`.
   - `--mode=normal` is now `--mode=trim`.
   - `--mode=light` is now `--mode=fit`.
@@ -74,9 +74,6 @@
 ### Improvements
 
 - The list of failed tests at the end of a `codeql test run` is now sorted lexicographically.
-- The syntax of DIL now more closely resembles the QL source code that it is
-  compiled from. In particular, conjunctions and disjunctions now use the
-  familiar `and` and `or` keywords, and clauses are enclosed in curly braces.
 
 ### Bugs fixed
 
