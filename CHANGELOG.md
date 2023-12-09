@@ -1,4 +1,4 @@
-# CodeQL CLI changelog
+[@IsabelSchoepd](https://avatars.githubusercontent.com/u/20960374?v=4)
 
 <!-- *********************************
      **                             **
