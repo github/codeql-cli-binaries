@@ -20,34 +20,31 @@
 
 ### New features
 
-- A new compilation flag (`--fail-on-ambiguous-relation-name`) has been added to specify
-  that compilation should fail if the compiler generates an ambiguous relation name.
-- The new (advanced) command-line option `--[no-]linkage-aware-import` disables the
-  linkage-awareness phase of `codeql dataset import`, as a quick fix (at the expense of
-  database completeness) for C++ projects where this part of database creation consumes
-  too much memory. This option is available in the commands `database create`,
-  `database finalize`, `database import`, `dataset import`, `test extract`, and
-  `test run`.
-- The CodeQL language server now provides basic support for Rename, and you can
-  now use the Rename Symbol functionality in Visual Studio Code for CodeQL. The
-  current Rename support is less a refactoring tool and more a labor-saving
-  device. You may have to perform some manual edits after using Rename, but it
-  should still be faster and less work than renaming a symbol manually.
 - `codeql database analyze` now defaults to include markdown query help for all custom
   queries with help files available. To change the default behaviour you can pass the
   new flag `--sarif-include-query-help`, which provides the options `always` (which
   includes query help for all queries), `custom_queries_only` (the default) and `never`
   (which does not include query help for any query). The existing flag
   `--sarif-add-query-help` has been deprecated and will be removed in a future release.
+- The new (advanced) command-line option `--[no-]linkage-aware-import` disables the
+  linkage-awareness phase of `codeql dataset import`, as a quick fix (at the expense of
+  database completeness) for C++ projects where this part of database creation consumes
+  too much memory. This option is available in the commands `database create`,
+  `database finalize`, `database import`, `dataset import`, `test extract`, and
+  `test run`.
+- The CodeQL language server now provides basic support for Rename, and you can now use
+  the Rename Symbol functionality in Visual Studio Code for CodeQL. The current Rename
+  support is less a refactoring tool and more a labor-saving device. You may have to
+  perform some manual edits after using Rename, but it should still be faster and less
+  work than renaming a symbol manually.
 
 ### Improvements
 
-- The Find References feature in the CodeQL language server now supports all
-  CodeQL identifiers and offers improved performance compared to CodeQL CLI
-  2.14 releases.
-- The compiler generates shorter human-readable DIL and RA relation names. Due
-  to use of an extended character set, full VS Code support for short relation
-  names requires VS Code extension 1.9.4 or newer. 
+- The Find References feature in the CodeQL language server now supports all CodeQL
+  identifiers and offers improved performance compared to CodeQL CLI 2.14 releases.
+- The compiler generates shorter human-readable DIL and RA relation names. Due to use
+  of an extended character set, full VS Code support for short relation names requires
+  VS Code extension 1.9.4 or newer. 
 - `codeql database create` and `codeql database finalize` now log more diagnostic
   information during database finalization, including the size of each relation, their
   total size, and the rate at which they were written to disk.
@@ -56,14 +53,12 @@
 
 - Fixed an internal error in the compiler when arguments to the `codePointCount` string
   primitive were not bound.
-- Fixed a bug where `codeql database finalize` would fail if a
-  database under construction was moved between machines between
-  `codeql database init` and `codeql database finalize`.  This should
-  now work, as long as both commands are run by the same _release_ of
-  the CodeQL CLI and the extractors used are the ones bundled with the
-  CLI.
-- Fixed a bug where `codeql database run-queries` would fail in some
-  circumstances when the database path included an `@`.
+- Fixed a bug where `codeql database finalize` would fail if a database under construction
+  was moved between machines between `codeql database init` and `codeql database finalize`.
+  This should now work, as long as both commands are run by the same _release_ of the
+  CodeQL CLI and the extractors used are the ones bundled with the CLI.
+- Fixed a bug where `codeql database run-queries` would fail in some circumstances when
+  the database path included an `@`.
 
 ## Release 2.15.2 (2023-11-13)
 
