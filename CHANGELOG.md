@@ -16,6 +16,14 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.15.4 (2023-12-11)
+
+### Improvements
+
+- Parallelism in the evaluator has been improved, resulting in faster analysis when
+  running with many threads, particularly for large databases.
+
 ## Release 2.15.3 (2023-11-22)
 
 ### New features
