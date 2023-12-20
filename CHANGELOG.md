@@ -17,6 +17,29 @@
      you know what to do).
 -->
 
+## Release 2.15.5 (2023-12-20)
+
+### New features
+
+- A new extractor option has been added to the JavaScript/TypeScript extractor.
+  Set the environment variable `CODEQL_EXTRACTOR_JAVASCRIPT_OPTION_SKIP_TYPES`
+  to `true` to skip the extraction of types in TypeScript files.
+  Use this to speed up extraction if your codebase has a high volume of
+  TypeScript type information that causes a noticeable bottleneck for
+  TypeScript extraction. The majority of analysis results should be preserved
+  even when no types are extracted.
+
+### Bugs fixed
+
+- Fixed an issue where CodeQL would sometimes incorrectly report that no files
+  were scanned when running on Windows.
+  This affected the human-readable summary produced by `codeql database analyze`
+  and `codeql database interpret-results`, but did not impact the file coverage
+  information produced in the SARIF output and displayed on the tool status page.
+- When analyzing Swift codebases, CodeQL build tracing will now ignore the
+  `codesign` tool. This prevents errors in build commands or workflows on macOS
+  that include both CodeQL and code signing.
+
 ## Release 2.15.4 (2023-12-11)
 
 ### Improvements
