@@ -42,6 +42,11 @@
 
 ## Release 2.15.4 (2023-12-11)
 
+### New features
+
+- Java 21 is now fully supported, including support for new language features such as
+  pattern switches and record patterns.
+
 ### Improvements
 
 - Parallelism in the evaluator has been improved, resulting in faster analysis when
