@@ -16,6 +16,52 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.16.0 (2024-01-16)
+
+### New Features
+
+- Users specifying extra tracing configurations may now use the `GetRegisteredMatchers(languageId)` Lua function to retrieve the existing table of matchers registered to a given language. 
+
+### Improvements
+
+- The `Experimental` flag has been removed from all packaging and related commands.
+- The RA pretty-printer omits names of internal RA nodes and pretty-prints
+  binary unions with nested internal unions as n-ary unions. VS Code extension
+  v1.11.0 or newer is required to compute join order badness metrics in VS Code
+  for the new RA format. 
+
+
+### Potentially breaking changes
+
+- The Python extractor will no longer extract dependencies by default. See https://github.blog/changelog/2023-07-12-code-scanning-with-codeql-no-longer-installs-python-dependencies-automatically-for-new-users/ for more context. In versions until 2.17.0, it will be possible to restore the old behavior by setting `CODEQL_EXTRACTOR_PYTHON_FORCE_ENABLE_LIBRARY_EXTRACTION_UNTIL_2_17_0=1`.
+- The `--ram` option to `codeql database run-queries` and other
+  commands that execute queries is now interpreted more strictly.
+  Previously it was mostly a rough hint for how much memory to use,
+  and the actual memory footprint of the CodeQL process could be
+  hundreds of megabytes higher. From this release, CodeQL tries harder
+  to keep its _total_ memory consumption during evaluation below the
+  given limit.
+
+  The new behavior yields more predictable memory use, but since it
+  works by allocating less RAM, it can lead to more use of _disk_
+  storage for intermediate results compared to earlier releases with
+  the same `--ram` value, and consequently a slight performance
+  loss. In rare cases, for large databases, analysis may fail with a
+  Java `OutOfMemoryError`.
+
+  The cure for this is to increase `--ram` to be closer to the amount
+  of memory actually available for CodeQL. As a rule of thumb, it will
+  usually be possible to increase the value of `--ram` by 700 MB or
+  more, without actually using more resources than release 2.15.x
+  would with the old setting. An exact amount cannot stated, however,
+  since the actual memory footprint in earlier releases depended on
+  factors such as the size of the databases that were not fully taken
+  into account.
+
+  If you use the CodeQL Action, you do not need to do anything unless
+  you have manually overridden the Action's RAM setting. The Action
+  will automatically select a `--ram` setting that matches the version
+  of the CLI it uses.
 
 ## Release 2.15.5 (2023-12-20)
 
@@ -33,7 +79,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
@@ -44,8 +90,7 @@
 
 ### New features
 
-- Java 21 is now fully supported, including support for new language features such as
-  pattern switches and record patterns.
+- Java 21 is now fully supported, including support for new language features such as pattern switches and record patterns.
 
 ### Improvements
 
