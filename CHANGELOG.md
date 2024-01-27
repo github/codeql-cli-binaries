@@ -16,6 +16,22 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.16.1 (2024-01-25)
+
+### Improvements
+
+- When executing the `codeql database init` command, the CodeQL runner
+  executable path is now stored in the `CODEQL_RUNNER` environment variable.
+  Users of indirect tracing on MacOS with System Integrity Protection enabled
+  who previously had trouble with indirect tracing should prefix their build
+  command with this path. For example, `$CODEQL_RUNNER build.sh`.
+
+### QL language improvements
+
+- Name clashes between weak aliases (i.e. aliases that are not final aliases of
+  non-final entities) of the same target no longer cause ambiguity errors.
+
 ## Release 2.16.0 (2024-01-16)
 
 ### New Features
