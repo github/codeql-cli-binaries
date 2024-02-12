@@ -17,6 +17,10 @@
      you know what to do).
 -->
 
+## Release 2.16.2 (2024-02-12)
+
+- There are no user-facing changes in this release.
+
 ## Release 2.16.1 (2024-01-25)
 
 ### Improvements
