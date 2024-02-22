@@ -17,6 +17,32 @@
      you know what to do).
 -->
 
+## Release 2.16.3 (2024-02-22)
+
+### Security patches
+
+- Fixes CVE-2024-25129, a limited data exfiltration vulnerability that
+  could be triggered by untrusted databases or QL packs.  See the
+  [security advisory](https://github.com/github/codeql-cli-binaries/security/advisories/GHSA-gf8p-v3g3-3wph)
+  for more information.
+
+### New Features
+
+- A new extractor option has been added to the Python extractor.
+  Set the new extractor option `python_executable_name` or the environment variable
+  `CODEQL_EXTRACTOR_PYTHON_OPTION_PYTHON_EXECUTABLE_NAME` to one of `py`, `python` or `python3`
+  to override the default Python executable search and selection behavior of the Python extractor.
+  For example, on Windows machines, the Python extractor will expect to find `py.exe` on the
+  system `PATH` by default. Setting this extractor option or environment variable allows
+  overriding this behavior to look for a different name like `python` or `python3`.
+  More detail can be found in [the extractor option documentation](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
+
+### Bugs fixed
+
+- Fixed a bug where CodeQL may produce an invalid database when it exhausts
+  all available ID numbers. Now it detects the condition and reports an
+  error instead.
+
 ## Release 2.16.2 (2024-02-12)
 
 - There are no user-facing changes in this release.
