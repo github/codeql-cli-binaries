@@ -29,12 +29,17 @@
 ### New Features
 
 - A new extractor option has been added to the Python extractor.
-  Set the new extractor option `python_executable_name` or the environment variable
-  `CODEQL_EXTRACTOR_PYTHON_OPTION_PYTHON_EXECUTABLE_NAME` to one of `py`, `python` or `python3`
-  to override the default Python executable search and selection behavior of the Python extractor.
-  For example, on Windows machines, the Python extractor will expect to find `py.exe` on the
-  system `PATH` by default. Setting this extractor option or environment variable allows
-  overriding this behavior to look for a different name like `python` or `python3`.
+  Pass one of `--extractor-option python_executable_name=py`
+  or `--extractor-option python_executable_name=python`
+  or `--extractor-option python_executable_name=python3`
+  to `codeql database create` (or `codeql database trace-command` or,
+  for indirect tracing, `codeql database init`) to override the default
+  Python executable search and selection behavior of the Python
+  extractor. For example, on Windows machines, the Python extractor
+  will expect to find `py.exe` on the system `PATH` by default.
+  Setting this extractor option or environment variable allows
+  overriding this behavior to look for a different name.
+
   More detail can be found in [the extractor option documentation](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
 
 ### Bugs fixed
@@ -125,7 +130,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
