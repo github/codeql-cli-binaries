@@ -17,6 +17,39 @@
      you know what to do).
 -->
 
+## Release 2.16.4 (2024-03-11)
+
+### Potentially breaking changes
+
+- A number of internal command line options (`--builtin_functions_file`, `--clang_builtin_functions`,
+  `--disable-objc-default-synthesize-properties`, `--list_builtin_functions`, `--memory-limit-bytes`,
+  `--mimic_config`, and `--objc`) has been removed from the C/C++ extractor. It has never been
+  possible to pass these options through the CLI itself, but some customers with advanced setups may
+  have been passing them through internal undocumented interfaces. All of the removed options were
+  already no-ops, and will now generate errors.
+
+  The `--verbosity` command line option has also been removed. The option was an alias for
+  `--codeql-verbosity`, which should be used instead.
+
+### Improvements
+
+- The frontend of the C/C++ extractor has been updated, improving the
+  extractor's reliability and increasing its ability to extract source code.
+
+### Bugs fixed
+
+- When parsing user-authored YAML files such as `codeql-pack.yml`,
+  `qlpack.yml`, `codeql-workspace.yml`, and any YAML file defining a data
+  extension, unquoted string values starting with a `*` character are now
+  correctly interpreted as YAML aliases. Previously, they were interpreted
+  as strings, but with the first character skipped.
+
+  If you see a parse error similar to `while scanning an alias... unexpected`
+  `character found *(42)`,it likely means that you need to add quotes around
+  the indicated string value. The most common cause is unquoted glob patterns
+  that start with `*`, such as `include: **/*.yml`, which will need to be
+  quoted as `include: "**/*.yml"`.
+
 ## Release 2.16.3 (2024-02-22)
 
 ### Security patches
