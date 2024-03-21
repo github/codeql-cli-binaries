@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.16.5 (2024-03-21)
+
+### New features
+
+- Beta support has been added for analyzing Java codebases without needing a working build. To enable
+  this, pass the `--build-mode none` option to `codeql database create`.
+
 ## Release 2.16.4 (2024-03-11)
 
 ### Potentially breaking changes
@@ -61,22 +68,19 @@
 
 ### New Features
 
-- A new extractor option has been added to the Python extractor:
-  `python_executable_name`. You can use this option to override the default
-  process the extractor uses to find and select a Python executable. Pass one of
-  `--extractor-option python_executable_name=py` or `--extractor-option
-  python_executable_name=python` or `--extractor-option
-  python_executable_name=python3` to commands that run the extractor, for
-  example: `codeql database create`. 
+- A new extractor option has been added to the Python extractor.
+  Pass one of `--extractor-option python_executable_name=py`
+  or `--extractor-option python_executable_name=python`
+  or `--extractor-option python_executable_name=python3`
+  to `codeql database create` (or `codeql database trace-command` or,
+  for indirect tracing, `codeql database init`) to override the default
+  Python executable search and selection behavior of the Python
+  extractor. For example, on Windows machines, the Python extractor
+  will expect to find `py.exe` on the system `PATH` by default.
+  Setting this extractor option or environment variable allows
+  overriding this behavior to look for a different name.
 
-  On Windows machines, the Python extractor will expect to find `py.exe` on the
-  system `PATH` by default. If the Python executable has a different name, you
-  can set the new extractor option to override this value and look for
-  `python.exe` or `python3.exe`.
-
-  For more information about using the extractor option with the CodeQL CLI, see
-  [Extractor
-  options](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
+  More detail can be found in [the extractor option documentation](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
 
 ### Bugs fixed
 
@@ -107,7 +111,7 @@
 
 ### New Features
 
-- Users specifying extra tracing configurations may now use the `GetRegisteredMatchers(languageId)` Lua function to retrieve the existing table of matchers registered to a given language. 
+- Users specifying extra tracing configurations may now use the `GetRegisteredMatchers(languageId)` Lua function to retrieve the existing table of matchers registered to a given language.
 
 ### Improvements
 
@@ -115,7 +119,7 @@
 - The RA pretty-printer omits names of internal RA nodes and pretty-prints
   binary unions with nested internal unions as n-ary unions. VS Code extension
   v1.11.0 or newer is required to compute join order badness metrics in VS Code
-  for the new RA format. 
+  for the new RA format.
 
 
 ### Potentially breaking changes
@@ -212,7 +216,7 @@
   identifiers and offers improved performance compared to CodeQL CLI 2.14 releases.
 - The compiler generates shorter human-readable DIL and RA relation names. Due to use
   of an extended character set, full VS Code support for short relation names requires
-  VS Code extension 1.9.4 or newer. 
+  VS Code extension 1.9.4 or newer.
 - `codeql database create` and `codeql database finalize` now log more diagnostic
   information during database finalization, including the size of each relation, their
   total size, and the rate at which they were written to disk.
@@ -242,7 +246,7 @@
 - `codeql database analyze` and `codeql database interpret-results` can now
   output human-readable analysis summaries in a new format. This format provides file coverage
   information and improves the way that diagnostic messages are displayed. The new format also includes a link to the tool status page when the `GITHUB_SERVER_URL` and `GITHUB_REPOSITORY` environment variables are set. Note that that page only exists on GitHub.com, or in GitHub Enterprise Server
-  version 3.9.0 or later. To enable this new format, pass the `--analysis-summary-v2` flag.  
+  version 3.9.0 or later. To enable this new format, pass the `--analysis-summary-v2` flag.
 - CodeQL now supports
   distinguishing file coverage information between related languages C and C++, Java and Kotlin,
   and JavaScript and TypeScript. By default, file coverage information for each
@@ -591,7 +595,7 @@
   member predicates that had stronger binding sets than their root definitions.
 
 - Fixed a bug where a query could not be run from VS Code
-  when there were packs nested within sibling directories 
+  when there were packs nested within sibling directories
   of the query.
 
 ## Release 2.13.2
@@ -617,7 +621,7 @@ This release was skipped.
 ### Known issues
 
 - We recommend that customers using the CodeQL CLI in a third party CI
-  system do not upgrade to this release, due to an issue with `codeql 
+  system do not upgrade to this release, due to an issue with `codeql
   github upload-results`. Instead, please use CodeQL 2.12.5, or, when
   available, CodeQL 2.12.7 or 2.13.1. For more information, see the
   "Known issues" section for CodeQL 2.12.6.
@@ -693,7 +697,7 @@ This release was skipped.
 ### Known issues
 
 - We recommend that customers using the CodeQL CLI in a third party CI
-  system do not upgrade to this release, due to an issue with `codeql 
+  system do not upgrade to this release, due to an issue with `codeql
   github upload-results`. Instead, please use CodeQL 2.12.5, or, when
   available, CodeQL 2.12.7 or 2.13.1.
 
@@ -701,7 +705,7 @@ This release was skipped.
   causes the subcommand to fail with "A fatal error occurred: Invalid
   SARIF.", reporting an `InvalidDefinitionException`.
 
-  Customers who wish to use CodeQL 2.12.6 or 2.13.0 can 
+  Customers who wish to use CodeQL 2.12.6 or 2.13.0 can
   work around the problem by passing `--no-sarif-include-diagnostics`
   to any invocations of `codeql database analyze` or `codeql database
   interpret-results`.
@@ -867,8 +871,8 @@ This release was skipped.
   `codeql database create` now accounts for
   [`paths` and `paths-ignore` configuration](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#specifying-directories-to-scan).
 - In the VS Code extension, recursive calls will be marked with inlay
-  hints. These can be disabled with the global inlay hints setting 
-  (`editor.inlayHints.enabled`). If you just want to disable them for 
+  hints. These can be disabled with the global inlay hints setting
+  (`editor.inlayHints.enabled`). If you just want to disable them for
   codeql the settings can be scoped to just codeql files (language id is `ql`).
   See [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings)
   in the VS Code documentation for more information.
