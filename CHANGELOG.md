@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.16.6 (2024-03-26)
+
+### Bugs fixed
+
+- Fixes a bug where extractor logs would be output at a lower than expected
+  verbosity level when using the `codeql database create` command.
+
 ## Release 2.16.5 (2024-03-21)
 
 ### New features
@@ -170,7 +177,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
