@@ -17,6 +17,34 @@
      you know what to do).
 -->
 
+## Release 2.17.0 (2024-04-04)
+
+### Deprecations
+
+- The `--[no-]analysis-summary-v2` and `--[no-]new-analysis-summary` options
+  that were used to enable (or disable) improved summary information printed at
+  the end of a `codeql database analyze` invocation are no longer supported.
+  Improved summary information is now enabled for all invocations.
+- Support for overwriting default CodeQL SARIF run properties using the
+  `--sarif-run-property` command line option has been removed. This removes the
+  ability to overwrite the `semmle.formatSpecifier`, `metricResults`, and
+  `codeqlConfigSummary` properties in the SARIF run file.
+
+### Improvements
+
+- TRAP import (a part of `codeql database create` and `codeql database finalize`)
+  now performs better in low-memory situations. (Put another way, it now needs
+  less RAM to achieve the same performance as before.)
+
+- The worst-case performance of transitive closure computation (using
+  the `+` or `*` postfix operators or the `fastTC` higher-order
+  primitive in QL) has been greatly improved.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.2.
+
 ## Release 2.16.6 (2024-03-26)
 
 ### Bugs fixed
@@ -75,19 +103,22 @@
 
 ### New Features
 
-- A new extractor option has been added to the Python extractor.
-  Pass one of `--extractor-option python_executable_name=py`
-  or `--extractor-option python_executable_name=python`
-  or `--extractor-option python_executable_name=python3`
-  to `codeql database create` (or `codeql database trace-command` or,
-  for indirect tracing, `codeql database init`) to override the default
-  Python executable search and selection behavior of the Python
-  extractor. For example, on Windows machines, the Python extractor
-  will expect to find `py.exe` on the system `PATH` by default.
-  Setting this extractor option or environment variable allows
-  overriding this behavior to look for a different name.
+- A new extractor option has been added to the Python extractor:
+  `python_executable_name`. You can use this option to override the default
+  process the extractor uses to find and select a Python executable. Pass one of
+  `--extractor-option python_executable_name=py` or `--extractor-option
+  python_executable_name=python` or `--extractor-option
+  python_executable_name=python3` to commands that run the extractor, for
+  example: `codeql database create`. 
 
-  More detail can be found in [the extractor option documentation](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
+  On Windows machines, the Python extractor will expect to find `py.exe` on the
+  system `PATH` by default. If the Python executable has a different name, you
+  can set the new extractor option to override this value and look for
+  `python.exe` or `python3.exe`.
+
+  For more information about using the extractor option with the CodeQL CLI, see
+  [Extractor
+  options](https://docs.github.com/en/code-security/codeql-cli/using-the-advanced-functionality-of-the-codeql-cli/extractor-options).
 
 ### Bugs fixed
 
@@ -177,7 +208,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
