@@ -17,6 +17,26 @@
      you know what to do).
 -->
 
+## Release 2.17.1 (2024-04-24)
+
+### Deprecations
+
+- The `--mode` option and `-m` alias to `codeql database create`,
+  `codeql database cleanup`, and `codeql dataset cleanup` has been
+  deprecated. Instead, use the new `--cache-cleanup` option, which has
+  identical behavior.
+
+### Improvements
+
+- Improved the diagnostic message produced when no code is processed
+  when creating a database. If a build mode was specified using
+  `--build-mode`, the message is now tailored to your build mode.
+
+### Miscellaneous
+
+- The `scc` tool used by the CodeQL CLI to calculate source code baseline
+  information has been updated to version [3.2.0](https://github.com/boyter/scc/releases/tag/v3.2.0).
+
 ## Release 2.17.0 (2024-04-04)
 
 ### Deprecations
