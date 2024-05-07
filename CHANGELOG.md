@@ -17,6 +17,34 @@
      you know what to do).
 -->
 
+## Release 2.17.2 (2024-05-07)
+
+### Known issues
+
+- The beta support for analyzing Swift in this release and all
+  previous releases requires `g++-13` when running on Linux. Users
+  analyzing Swift using the `ubuntu-latest`, `ubuntu-22.04`, or
+  `ubuntu-20.04` runner images for GitHub Actions should update their
+  workflows to install `g++-13`. For more information, see [the runner
+  images
+  announcement](https://github.com/actions/runner-images/issues/9679).
+
+### Improvements
+
+- When uploading a SARIF file to GitHub using `codeql github
+  upload-results`, the CodeQL CLI now waits for the file to be
+  processed by GitHub. If any errors occurred during processing of the
+  analysis results, the command will log these and return a non-zero
+  exit code. To disable this behaviour, pass the
+  `--no-wait-for-processing` flag.
+
+  By default, the command will wait for the SARIF file to be processed
+  for a maximum of 2 minutes, however this is configurable with the
+  `--wait-for-processing-timeout` option.
+- The build tracer is no longer enabled when using the [`none` build
+  mode](https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages#codeql-build-modes)
+  to analyze a compiled language, thus improving performance.
+
 ## Release 2.17.1 (2024-04-24)
 
 ### Deprecations
