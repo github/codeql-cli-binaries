@@ -17,6 +17,21 @@
      you know what to do).
 -->
 
+## Release 2.17.3 (2024-05-17)
+
+### Improvements
+
+- The language server that our IDE integration is built on now defaults
+  to fine-grained dependency tracking for incremental error-checking
+  after file changes. This slightly improves the latency of refreshing
+  errors after local source code edits and will enable significant
+  speedups in the future.
+- We now properly handle globs (such as `folder/**/*.py`) in `paths` configuration
+  to specify what files to include for Python analysis (see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning#specifying-directories-to-scan).
+- TRAP import (a part of `codeql database create` and `codeql database finalize`)
+  now supports allocating 2^32 IDs during the import process. The previous limit
+  was 2^31 IDs.
+
 ## Release 2.17.2 (2024-05-07)
 
 ### Known issues
@@ -256,7 +271,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
