@@ -17,6 +17,63 @@
      you know what to do).
 -->
 
+## Release 2.17.5 (2024-06-12)
+
+### Breaking changes
+
+- All the commands that output SARIF will output a minified version to reduce the size.
+  The `codeql database analyze`, `codeql database interpret-results`, `codeql generate query-help`, and `codeql bqrs interpret` commands support the option `--no-sarif-minify` to output a pretty printed SARIF file.
+
+- A number of breaking changes have been made to the `semmle-extractor-options`
+  functionality available for C and C++ CodeQL tests.
+
+  - The Arm, Intel, and CodeWarrior compilers are no longer supported and the
+    `--armcc`, `--intel`, `--codewarrior` flags are now ignored, as are all the
+    flags that only applied to those compilers.
+  - The `--threads` and `-main-file-name` options, which did not have any effect
+    on tests, are now ignored. Any specification of these options as part of
+    `semmle-extractor-options` should be removed.
+  - Support for `--linker`, all flags that would only invoke the preprocessor,
+    and the `/clr` flag have been removed, as those flags would never produce any
+    usable test output.
+  - Support for the `--include_path_environment` flag has been removed. All include
+    paths should directly be specified as part of `semmle-extractor-options`.
+  - Microsoft C/C++ compiler response files specified via `@some_file_name` are
+    now ignored. Instead, all options should directly be specified as part of
+    `semmle-extractor-options`.
+  - Support for Microsoft `#import` preprocessor directive has been removed, as
+    support depends on the availability of the Microsoft C/C++ compiler, and
+    availability cannot be guaranteed on all platforms while executing tests.
+  - Support for the Microsoft `/EHa`, `/EHs`, `/GX`, `/GZ`, `/Tc`, `/Tp`, and `/Zl`
+    flags, and all `/RTC` flags have been removed. Any specification of these
+    options as part of `semmle-extractor-options` should be removed.
+  - Support for the Apple-specific `-F` and `-iframework` flags has been removed.
+    The `-F` flag can still be used by replacing `-F <directory>` by
+    `--edg -F --edg <directory>`. Any occurrence of `-iframework <arg>` should be
+    replaced by `--edg --sys_framework --edg <arg>`.
+  - Support for the `/TC`, `/TP`, and `-x` flags has been removed. Please ensure
+    all C, respectively C++, source files have a `.c`, respectively `.cpp`,
+    extension.
+  - The `--build_error_dir`, `-db`, `--edg_base_dir`, `--error_limit`,
+    `--src_archive`, `--trapfolder`, and `--variadic_macros` flags are now ignored.
+
+  The above changes do not affect the creation of databases through the CodeQL CLI,
+  or when calling the C/C++ extractor directly with the `--mimic` or `--linker` flags.
+  Similar functionality continues to be supported in those scenarios, except for
+  CodeWarrior and the `--edg_base_dir`, `--include_path_environment`, `/Tc`, and `/Tp`
+  flags, which were never supported.
+
+### Improvements
+
+- `codeql generate log-summary` now reports completed pipeline runs that
+  are part of an incomplete recursive predicate.
+
+### Miscellaneous
+
+- The OWASP Java HTML Sanitizer library used by the CodeQL CLI for internal
+  documentation generation commands has been updated to version
+  [20240325.1](https://github.com/OWASP/java-html-sanitizer/releases/tag/release-20240325.1).  
+
 ## Release 2.17.4 (2024-06-03)
 
 - There are no user-facing changes in this release.
