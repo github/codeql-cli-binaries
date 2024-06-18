@@ -76,7 +76,8 @@
 
 ## Release 2.17.4 (2024-06-03)
 
-- There are no user-facing changes in this release.
+### New features
+
 - CodeQL package management is now generally available, and all GitHub-produced
   CodeQL packages have had their version numbers increased to 1.0.0.
 
