@@ -16,6 +16,17 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.17.6 (2024-06-27)
+
+### New features
+
+- Beta support is now available for analyzing C# codebases without needing a working build. To use
+  this, pass the `--build-mode none` option to `codeql database create`.
+
+### Improvements
+
+- The `--model-packs` option is now publicly available. This option allows commands like `codeql database analyze`
+  to accept a list of model packs that are used to augment the analysis of all queries involved in the analysis.
 
 ## Release 2.17.5 (2024-06-12)
 
@@ -335,7 +346,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
