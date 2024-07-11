@@ -16,6 +16,72 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.18.0 (2024-07-11)
+
+### Breaking changes
+
+- A number of breaking changes have been made to the C and C++ CodeQL
+  environment:
+  - The environment no longer defines any GNU-specific builtin macros.
+    If these macros are still needed, please define them via
+    `semmle-extractor-options`.
+  - The `--force-recompute` option is no longer directly supported by
+    `semmle-extractor-options`. Instead, `--edg --force-recompute`
+    should be specified.
+  - The `--gnu_version` and `--microsoft_version` options that can be
+    specified via `semmle-extractor-options` are now synonyms, and only
+    one should be specified as part of `semmle-extractor-options`.
+    Furthermore,  is also no longer possible to specify these options
+    via the following syntax.
+
+    - `--edg --gnu_version --edg <version number>`, and
+    - `--edg --microsoft_version --edg <version number>`
+
+    The shorter `--gnu_version <version number>` and
+    `--microsoft_version <version number>` should be used.
+- The `--build_error_dir` and `--predefined_macros` command line options
+  have been removed from the C/C++ extractor. It has never been possible
+  to pass these options through the CLI, but some customers with advanced
+  setups may have been passing them through internal undocumented interfaces.
+  Passing the option `--build_error_dir` did not have any effect, and it
+  is safe to remove the option. The `--predefined_macros` option should
+  have been unnecessary, as long as the extractor was invoked with the
+  `--mimic` option.
+
+### Regressions
+
+- Compilation of QL queries is about 30% slower than in previous releases. This only affects users who write custom queries, and only at compilation time, not at run time. This regression will be fixed in the upcoming 2.18.1 release.
+
+### Improvements
+
+- Introduced the `--include-logs` option to the `codeql database bundle`
+  command. This new feature allows users to include logs in the generated
+  database bundle, allowing for a more complete treatment of the bundle, and
+  bringing the tool capabilities up-to-speed with the documentation.
+- `codeql database init` and `codeql database create` now support the
+  `--force-overwrite` option. When this option is specified, the command will
+  delete the specified database directory even if it does not look like a
+  database directory. This option is only recommended for automation. For
+  directcommand line commands, it is recommended to use the `--overwrite`
+  option, which includes extra protection and will refuse to delete a
+  directory that does not look like a database directory.
+- Extract `.xsaccess`, `*.xsjs` and `*.xsjslib` files for SAP HANA XS as
+  Javascript.
+- We have updated many compiler error messages and warnings to improve their
+  readability and standardize their grammar.
+  Where necessary, please use the `--learn` option for the `codeql test run`
+  command.
+
+### Bugs fixed
+
+- Where a MacOS unsigned binary cannot be signed, CodeQL will now continue
+  trying to trace compiler invocations created by that process and its
+  children. In particular this means that Bazel builds on MacOS are now
+  traceable.
+- Fixed a bug where test discovery would fail if there is a syntax error in a
+  qlpack file. Now, a warning message will be printed and discovery will
+  continue.
+
 ## Release 2.17.6 (2024-06-27)
 
 ### New features
