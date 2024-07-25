@@ -16,6 +16,57 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.18.1 (2024-07-25)
+
+# Security Updates
+
+- Fixes CVE-2024-41807, an arbitrary file overwrite that can be triggered when
+  using untrusted third-party queries from a git repository. See the
+  [security advisory](https://github.com/github/codeql-cli-binaries/security/advisories/GHSA-x4gx-f2xv-6wj9)
+  for more information.
+- The following dependencies have been updated. These updates include
+  security fixes in the respective libraries that prevent
+  out-of-bounds accesses or denial-of-service in scenarios where
+  untrusted files are processed. These scenarios are not likely to be
+  encountered in most uses of CodeQL and code scanning, and only
+  apply to advanced use cases where precompiled query packs,
+  database ZIP files, or database TRAP files are obtained from
+  untrusted sources and then processed on a trusted machine.
+    - airlift/aircompressor is updated to version 0.27.
+    - Apache Ant is updated to version 1.10.11.
+    - Apache Commons Compress is updated to version 1.26.0.
+    - Apache Commons IO is updated to version 2.15.1.
+    - Apache Commons Lang3 is updated to version 3.14.0.
+    - jsoup is updated to version 1.15.3.
+    - Logback is updated to version 1.2.13.
+    - Snappy is updated to version 0.5.
+
+### New features
+
+- The *experimental* type `QlBuiltins::BigInt` of arbitrary-precision integers
+  has been introduced. To opt in to this API, compile your queries with
+  `--allow-experimental=bigint`. Big integers can be constructed using the
+  `.toBigInt()` methods of `int` and `string`. The built-in operations are:
+  - comparisons: `=`, `!=`, `<`, `<=`, `>`, `>=`,
+  - conversions: `.toString()`, `.toInt()`,
+  - arithmetic: binary `+`, `-`, `*`, `/`, `%`, unary `-`,
+  - bitwise operations: `.bitAnd(BigInt)`, `.bitOr(BigInt)`,
+    `.bitXor(BigInt)`, `.bitShiftLeft(int)`, `.bitShiftRightSigned(int)`,
+    `.bitNot()`,
+  - aggregates: `min`, `max`, (`strict`)`sum`, (`strict`)`count`, `avg`,
+    `rank`, `unique`, `any`.
+  - other: `.pow(int)`, `.abs()`, `.gcd(BigInt)`, `.minimum(BigInt)`,
+    `.maximum(BigInt)`.
+- `codeql test run` now supports postprocessing of test results. When .qlref
+  files specify a path to a `postprocess` query, then this is evaluated after
+  the test query to transform the test outputs prior to concatenating them into
+  the `actual` results.
+
+### Improvements
+
+- The 30% QL query compilation slowdown noted in 2.18.0 has been fixed.
+
 ## Release 2.18.0 (2024-07-11)
 
 ### Breaking changes
@@ -412,7 +463,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
