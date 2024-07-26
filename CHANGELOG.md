@@ -19,10 +19,11 @@
 
 ## Release 2.18.1 (2024-07-25)
 
-# Security Updates
+### Security Updates
 
-- Fixes CVE-2024-41807, an arbitrary file overwrite that can be triggered when
-  using untrusted third-party queries from a git repository. See the
+- Resolves CVE-2023-4759, an arbitrary file overwrite in Eclipse JGit
+  that can be triggered when using untrusted third-party queries from a
+  git repository. See the
   [security advisory](https://github.com/github/codeql-cli-binaries/security/advisories/GHSA-x4gx-f2xv-6wj9)
   for more information.
 - The following dependencies have been updated. These updates include
