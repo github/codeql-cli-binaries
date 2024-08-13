@@ -16,6 +16,16 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.18.2 (2024-08-13)
+
+### Deprecations
+
+- Swift analysis on Ubuntu is no longer supported. Please migrate to macOS if this affects you.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.3.
 
 ## Release 2.18.1 (2024-07-25)
 
@@ -464,7 +474,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
