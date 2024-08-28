@@ -16,6 +16,11 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.18.3 (2024-08-28)
+
+- There are no user-facing changes in this release.
+
 ## Release 2.18.2 (2024-08-13)
 
 ### Deprecations
