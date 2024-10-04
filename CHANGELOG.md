@@ -17,6 +17,22 @@
      you know what to do).
 -->
 
+## Release 2.19.1 (2024-10-04)
+
+### New Features
+
+- The command `codeql generate query-help` now supports Markdown help files.
+  The Markdown help format is commonly used in custom CodeQL query packs. This new
+  feature allows us to generate SARIF reporting descriptors for CodeQL queries that
+  include Markdown help directly from a query Markdown help file.
+
+- Added a new command, `codeql resolve packs`. This command shows each step in the
+  pack search process, including what packs were found in each step. With the
+  `--show-hidden-packs` option, it can also show details on which packs were hidden
+  by packs found earlier in the search sequence. `codeql resolve packs` is intended
+  as a replacement for most uses of `codeql resolve qlpacks`, whose output is both
+  less detailed and less accurate.
+
 ## Release 2.19.0 (2024-09-18)
 
 ### Improvements
@@ -236,7 +252,7 @@
 
 - The OWASP Java HTML Sanitizer library used by the CodeQL CLI for internal
   documentation generation commands has been updated to version
-  [20240325.1](https://github.com/OWASP/java-html-sanitizer/releases/tag/release-20240325.1).  
+  [20240325.1](https://github.com/OWASP/java-html-sanitizer/releases/tag/release-20240325.1).
 
 ## Release 2.17.4 (2024-06-03)
 
@@ -400,7 +416,7 @@
   `--extractor-option python_executable_name=py` or `--extractor-option
   python_executable_name=python` or `--extractor-option
   python_executable_name=python3` to commands that run the extractor, for
-  example: `codeql database create`. 
+  example: `codeql database create`.
 
   On Windows machines, the Python extractor will expect to find `py.exe` on the
   system `PATH` by default. If the Python executable has a different name, you
