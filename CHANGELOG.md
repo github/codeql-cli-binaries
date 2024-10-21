@@ -17,6 +17,23 @@
      you know what to do).
 -->
 
+## Release 2.19.2 (2024-10-21)
+
+### Potentially breaking changes
+
+- The Python extractor will no longer extract the standard library by default, relying instead on models of the standard library. This should result in significantly faster extraction and analysis times, while the effect on alerts should be minimal. It will for a while be possible to force extraction of the standard library by setting the environment variable `CODEQL_EXTRACTOR_PYTHON_EXTRACT_STDLIB` to `1`.
+
+### Miscellaneous
+
+- The database relation `sourceLocationPrefix` is changed for databases created with
+  `codeql test run`. Instead of containing the path of the enclosing qlpack, it now
+  contains the actual path of the test, similar to if one had run `codeql database create`
+  on the test folder. For example, for a test such as
+  `<checkout>/cpp/ql/test/query-tests/Security/CWE/CWE-611/XXE.qlref` we now populate
+  `sourceLocationPrefix` with `<checkout>/cpp/ql/test/query-tests/Security/CWE/CWE-611/`
+  instead of `<checkout>/cpp/ql/test/`. This change typically impacts calls to
+  `File.getRelativePath()`, and may as a result change the expected test output.
+
 ## Release 2.19.1 (2024-10-04)
 
 ### New Features
@@ -515,7 +532,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
