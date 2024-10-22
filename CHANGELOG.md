@@ -23,6 +23,10 @@
 
 - The Python extractor will no longer extract the standard library by default, relying instead on models of the standard library. This should result in significantly faster extraction and analysis times, while the effect on alerts should be minimal. It will for a while be possible to force extraction of the standard library by setting the environment variable `CODEQL_EXTRACTOR_PYTHON_EXTRACT_STDLIB` to `1`.
 
+### Bugs fixed
+
+- The 2.19.1 release contained a bug in the query evaluator that under rare conditions could lead to wrong alerts or resource exhaustion. Although we have never seen the problem outside of internal testing, we encourage users on 2.19.1 to upgrade to 2.19.2.
+
 ### Miscellaneous
 
 - The database relation `sourceLocationPrefix` is changed for databases created with
