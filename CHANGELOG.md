@@ -17,6 +17,48 @@
      you know what to do).
 -->
 
+## Release 2.19.3 (2024-11-07)
+
+### Bugs fixed
+
+- Fixed a bug where using `codeql database import` to combine multiple non-empty
+  databases may produce a corrupted database. (The bug does not affect using
+  `codeql database finalize --additional-dbs` to combine multiple databases.)
+
+- Fixed a bug where uses of a `QlBuiltins::ExtensionId` variable that was not
+  bound to a value could be incorrectly accepted in some cases. In many cases,
+  this would result in a crash.
+
+- CodeQL would sometimes refuse to run with more than around 1,500 GB of RAM
+  available, complaining that having so much memory was "unrealistic". The
+  amount of memory CodeQL is able to make any meaningful use of still tops out
+  at about that value, but it will now gracefully accept that so large
+  computers do in fact exist.
+
+- Fixed a bug in command-line parsing where a misspelled option could sometimes
+  be misinterpreted as, e.g., the name of a query to run. Now every command-line
+  argument that begins with a dash is assumed to be intended as an option
+  (unless it comes after the `--` separator), and an appropriate error is
+  emitted if that is not a recognized one.
+
+  The build command in `codeql database trace-command` is exempted from this for
+  historical reasons, but we strongly recommend putting a `--` before the entire
+  build command there, in case a future `codeql` version starts recognizing
+  options that you intended to be part of the build command.
+
+### Miscellaneous
+
+- The CodeQL Bundle is now available as an artifact that is compressed using
+  [Zstandard](https://en.wikipedia.org/wiki/Zstd). This artifact is
+  smaller and faster to decompress than the original, gzip-compressed bundle. The CodeQL bundle
+  is a tar archive containing tools, scripts, and various CodeQL-specific files.
+
+  If you are currently using the CodeQL Bundle, you may want to consider switching to the
+  Zstandard variant of the bundle. You can download the new form of the CodeQL Bundle from the
+  [codeql-action releases page](https://github.com/github/codeql-action/releases/tag/codeql-bundle-v2.19.3)
+  by selecting the appropriate bundle with the `.zst` extension. The gzip-compressed bundles will
+  continue to be available for backwards compatibility.
+
 ## Release 2.19.2 (2024-10-21)
 
 ### Potentially breaking changes
@@ -536,7 +578,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
