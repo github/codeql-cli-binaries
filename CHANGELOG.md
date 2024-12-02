@@ -16,6 +16,26 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.19.4 (2024-12-02)
+
+### Improvements
+
+- CodeQL now supports passing values containing the equals character (`=`) to extractor options via
+  the `--extractor-option` flag. This allows cases like `--extractor-option opt=key=value`, which
+  sets the extractor option `opt` to hold the value `key=value`, whereas previously that would have
+  been rejected with an error.
+- The `codeql pack bundle` command now sets the numeric user and group IDs of entries in the generated
+  `tar` archive to `0`. This avoids failures like `IllegalArgumentException: user id '7111111' is too big ( > 2097151 )`
+  when the numeric user ID is too large.
+
+### Bugs fixed
+
+- On MacOS, `arch -arm64` commands no longer fail when they are executed via `codeql database create --command`,
+  via `codeql database trace-command`, or are run after `codeql database init --begin-tracing`. Note
+  that build commands invoked this way still will not normally be traced, so this is useful only for
+  running ancillary commands which are incidental to building your code.
+- Fixed a bug where `codeql test run` would not preserve test
+  databases on disk after a test failed.
 
 ## Release 2.19.3 (2024-11-07)
 
