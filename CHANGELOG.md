@@ -16,6 +16,20 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.20.0 (2024-12-09)
+
+### New features
+
+- The [`QlBuiltins::BigInt` type](https://codeql.github.com/docs/ql-language-reference/modules/#bigint) of
+  arbitrary precision integers is generally available and no longer hidden behind the
+  `--allow-experimental=bigint` CLI feature flag.
+
+### Miscellaneous
+
+- Backslashes are now escaped when writing output in the Graphviz DOT format (`--format=dot`).
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL CLI has been updated to version
+  21.0.5.
+
 ## Release 2.19.4 (2024-12-02)
 
 ### Improvements
