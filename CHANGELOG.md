@@ -18,6 +18,12 @@
 -->
 ## Release 2.20.0 (2024-12-09)
 
+### Known issues
+
+- The Windows executable for this release is labeled with an incorrect version number
+  within its properties: the version number should be 2.20.0 rather than 2.19.4.
+  `codeql version` reports the correct version number.
+
 ### New features
 
 - The [`QlBuiltins::BigInt` type](https://codeql.github.com/docs/ql-language-reference/modules/#bigint) of
@@ -612,7 +618,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
