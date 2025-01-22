@@ -16,6 +16,23 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.20.2 (2025-01-22)
+
+### Improvements
+
+- `codeql database create` and `codeql database finalize` now write relations to disk in a new, compressed format. As a result, databases will generally take up less space on disk, whether zipped or unzipped. Note that databases in this format can only be read and analyzed using CodeQL version 2.20.1 onwards. Attempting to analyze such a database with CodeQL version 2.20.0 or older will fail, with an error message like the following:
+  ```
+  UnsortedExtensionalError: Tuples that were assumed to be in order are not: [123456777, 777654321, 123456777]<[777654321, 123456777, 777654321]
+  ```
+
+### Enhancements
+
+- Added the `.bitLength()` method to `QlBuiltins::BigInt`.
+
+### Bugs Fixed
+
+- Fixed a bug where CodeQL would crash on rare occasions while merging SARIF files before uploading results.
+
 ## Release 2.20.1 (2025-01-09)
 
 ### Improvements
