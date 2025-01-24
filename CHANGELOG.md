@@ -16,6 +16,19 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.20.3 (2025-01-24)
+
+### Security Updates
+
+- Resolves a security vulnerability where CodeQL databases or logs produced by the CodeQL CLI may contain the environment variables from the time of
+  database creation. This includes any secrets stored in an environment variables. For more information, see the
+  [CodeQL CLI security advisory](https://github.com/github/codeql-cli-binaries/security/advisories/GHSA-gqh3-9prg-j95m).
+
+  All users of CodeQL should follow the advice in the CodeQL advisory mentioned above or upgrade to this version or a later version of CodeQL.
+
+  If you are using the CodeQL Action, also see the related [CodeQL Action security advisory](https://github.com/github/codeql-action/security/advisories/GHSA-vqf5-2xx6-9wfm).
+
 ## Release 2.20.2 (2025-01-22)
 
 ### Improvements
