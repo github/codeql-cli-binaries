@@ -16,6 +16,21 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.20.4 (2025-02-06)
+
+### New features
+
+- Using the `actions` language (for analysis of GitHub Actions workflows) no longer requires
+  the `CODEQL_ENABLE_EXPERIMENTAL_FEATURES` environment variable to be set. Support for analysis
+  of GitHub Actions workflows remains in public preview.
+
+### Bugs fixed
+
+- Fixed a bug where CodeQL for Java would fail with an SSL exception while trying to download `maven`.
+
+### Miscellaneous
+
+- The build of the [logback-core](https://logback.qos.ch/) library that is used for logging in the CodeQL CLI has been updated to version 1.3.15.
 
 ## Release 2.20.3 (2025-01-24)
 
@@ -661,7 +676,7 @@
 
 - Fixed an issue where CodeQL would sometimes incorrectly report that no files
   were scanned when running on Windows.
-  This affected the human-readable summary produced by `codeql database analyze`
+  This affected the human-readable summary produced by `codeql database analyze`
   and `codeql database interpret-results`, but did not impact the file coverage
   information produced in the SARIF output and displayed on the tool status page.
 - When analyzing Swift codebases, CodeQL build tracing will now ignore the
