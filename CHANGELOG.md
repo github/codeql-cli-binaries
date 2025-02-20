@@ -16,6 +16,21 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.20.5 (2025-02-20)
+
+### Breaking changes
+
+- Removed support for `QlBuiltins::BigInt`s in the `avg()` aggregate.
+
+- A number of breaking changes have been made to the C and C++ CodeQL test environment as used by `codeql test run`:
+  - The `-Xclang-only=<arg>` option is no longer supported by `semmle-extractor-options`. Instead, when either `--clang` or `--clang_version` is specified the option should be replaced by `<arg>` only, otherwise the option should be omitted.
+  - The `--sys_include <arg>` and `--preinclude <arg>` options are no longer supported by `semmle-extractor-options`. Instead, `--edg <option_name> --edg <arg>` should be specified.
+  - The `-idirafter <arg>` option is no longer supported by `semmle-extractor-options`. Instead, `--edg --sys_include --edg <arg>` should be specified.
+  - The `-imacros <arg>` option is no longer supported by `semmle-extractor-options`. Instead, `--edg --preinclude_macros --edg <arg>` should be specified.
+  - The `/FI <arg>` option is no longer supported by `semmle-extractor-options`. Instead, `--edg --preinclude --edg <arg>` should be specified.
+  - The `-Wreserved-user-defined-literal`, `-Wno-reserved-user-defined-literal`, `-fwritable-strings`, `/Zc:rvalueCast`, `/Zc:rvalueCast-`, and `/Zc:wchar_t-` options are no longer supported by `semmle-extractor-options`. Instead, `--edg --reserved_user_defined_literal`, `--edg --no-reserved_user_defined_literal`, `--edg --no_const_string_literals`, `--edg --no_preserve_lvalues_with_same_type_casts`, `--edg --preserve_lvalues_with_same_type_casts`, and `--edg --no_wchar_t_keyword` should be specified, respectively.
+  - The `/Fo <arg>` option is no longer supported by `semmle-extractor-options`. The option should be omitted.
+
 ## Release 2.20.4 (2025-02-06)
 
 ### New features
