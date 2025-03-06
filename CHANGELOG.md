@@ -16,6 +16,17 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.20.6 (2025-03-06)
+
+### Miscellaneous
+
+- The CodeQL XML extractor is now able to parse documents in a wider array of
+  character sets.
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.6.
+
 ## Release 2.20.5 (2025-02-20)
 
 ### Breaking changes
