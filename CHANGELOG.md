@@ -17,6 +17,10 @@
      you know what to do).
 -->
 
+## Release 2.20.7 (2025-03-18)
+
+- There are no user-facing changes in this release.
+
 ## Release 2.20.6 (2025-03-06)
 
 ### Miscellaneous
