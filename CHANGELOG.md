@@ -17,6 +17,14 @@
      you know what to do).
 -->
 
+## Release 2.21.0 (2025-04-03)
+
+### Miscellaneous
+
+- On macOS the `CODEQL_TRACER_RELOCATION_EXCLUDE` environment variable can now be used to exclude certain paths from the
+  tracer relocation and tracing process. This environment variable accepts newline-separated regex patterns of binaries
+  to be excluded.  
+
 ## Release 2.20.7 (2025-03-18)
 
 - There are no user-facing changes in this release.
