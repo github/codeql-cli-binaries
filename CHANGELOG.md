@@ -17,6 +17,26 @@
      you know what to do).
 -->
 
+## Release 2.21.1 (2025-04-22)
+
+### Bugs fixed
+
+- Fixed a bug in CodeQL analysis for GitHub Actions in the presence
+  of a code scanning configuration file containing `paths-ignore`
+  exclusion patterns but not `paths` inclusion patterns.
+  Previously, such a configuration incorrectly led to all YAML, HTML,
+  JSON, and JS source files being extracted,
+  except for those filtered by `paths-ignore`.
+  This in turn led to performance issues on large codebases.
+  Now, only workflow and Action metadata YAML files relevant to the
+  GitHub Actions analysis will be extracted,
+  except for those filtered by `paths-ignore`.
+  This matches the default behavior when no configuration file
+  is provided.
+  The handling of `paths` inclusion patterns is unchanged:
+  if provided, only those paths will be considered,
+  except for those filtered by `paths-ignore`.
+
 ## Release 2.21.0 (2025-04-03)
 
 ### Miscellaneous
