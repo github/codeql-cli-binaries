@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.21.2 (2025-05-01)
+
+### Bugs fixed
+
+- `codeql generate log-summary` now correctly includes `dependencies`
+  maps in predicate events for `COMPUTED_EXTENSIONAL` predicates.
+
 ## Release 2.21.1 (2025-04-22)
 
 ### Bugs fixed
