@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.21.3 (2025-05-15)
+
+### Miscellaneous
+
+- Windows binaries for the CodeQL CLI are now built with `/guard:cf`, enabling [Control Flow Guard](https://learn.microsoft.com/en-us/windows/win32/secbp/control-flow-guard).
+
 ## Release 2.21.2 (2025-05-01)
 
 ### Bugs fixed
