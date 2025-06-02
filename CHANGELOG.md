@@ -17,6 +17,20 @@
      you know what to do).
 -->
 
+## Release 2.21.4 (2025-06-02)
+
+### Deprecations
+
+- The `clang_vector_types`, `clang_attributes`, and `flax-vector-conversions` command
+  line options have been removed from the C/C++ extractor. These options were introduced
+  as workarounds to frontend limitations in earlier versions of the extractor and are
+  no longer needed when calling the extractor directly.
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.7.
+
 ## Release 2.21.3 (2025-05-15)
 
 ### Miscellaneous
