@@ -17,6 +17,28 @@
      you know what to do).
 -->
 
+## Release 2.22.0 (2025-06-11)
+
+### Breaking changes
+
+- A number of breaking changes have been made to the C and C++ CodeQL test
+  environment as used by `codeql test run`:
+  - Options starting with a `/` are no longer supported by
+    `semmle-extractor-options`. Any option starting with a `/` should be
+    replaced by the equivalent option starting with a `-`, e.g., `/D` should be
+    replaced by `-D`.
+  - Preprocessor command line options of the form `-D<macro>#<def>` are no
+    longer supported by `semmle-extractor-options`. `-D<macro>=<def>` should be
+    used instead.
+  - The `/Fp` and `-o` options are no longer supported by
+    `semmle-extractor-options`. The options should be omitted.
+  - The `-emit-pch`, `-include-pch`, `/Yc`, and `/Yu` options, and the
+    `--preinclude` option taking a pre-compiled header as its argument, are no
+    longer supported by `semmle-extractor-options`. Any test that makes use of
+    this should be replaced by a test that invokes the CodeQL CLI with the
+    `create database` option and that runs the relevant queries on the created
+    database.
+
 ## Release 2.21.4 (2025-06-02)
 
 ### Deprecations
