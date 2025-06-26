@@ -17,6 +17,16 @@
      you know what to do).
 -->
 
+## Release 2.22.1 (2025-06-26)
+
+### New features
+
+- Rust language support is now in public preview.
+
+### Miscellaneous
+
+- The version of `jgit` used by the CodeQL CLI has been updated to `6.10.1.202505221210-r`.
+
 ## Release 2.22.0 (2025-06-11)
 
 ### Breaking changes
