@@ -17,6 +17,14 @@
      you know what to do).
 -->
 
+## Release 2.22.3 (2025-08-06)
+
+### New features
+
+- The `codeql database cleanup` command now takes the `--cache-cleanup=overlay`
+  option, which trims the cache to just the data that will be useful when
+  evaluating against an overlay.
+
 ## Release 2.22.2 (2025-07-29)
 
 ### Bug fix
