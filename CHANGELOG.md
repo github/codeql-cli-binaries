@@ -17,6 +17,10 @@
      you know what to do).
 -->
 
+## Release 2.22.4 (2025-08-21)
+
+- There are no user-facing changes in this release.
+
 ## Release 2.22.3 (2025-08-06)
 
 ### New features
