@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.23.0 (2025-09-04)
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.8.
+
 ## Release 2.22.4 (2025-08-21)
 
 - There are no user-facing changes in this release.
