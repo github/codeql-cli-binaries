@@ -17,6 +17,20 @@
      you know what to do).
 -->
 
+## Release 2.23.1 (2025-09-23)
+
+### New features
+
+- CodeQL now adds the sources and sinks of path alerts to the `relatedLocations`
+  property of SARIF results if they are not included as the primary location or
+  within the alert message. This means that path alerts will show on PRs if a
+  source or sink is added or modified, even for queries that don't follow the
+  common convention of selecting the sink as the primary location and mentioning
+  the source in the alert message.
+
+- CodeQL now populates file coverage information for GitHub Actions on
+  [the tool status page for code scanning](https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/about-the-tool-status-page#viewing-the-tool-status-page-for-a-repository).
+
 ## Release 2.23.0 (2025-09-04)
 
 ### Miscellaneous
