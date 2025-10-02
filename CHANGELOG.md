@@ -17,6 +17,16 @@
      you know what to do).
 -->
 
+## Release 2.23.2 (2025-10-02)
+
+### New features
+
+- CodeQL Go analysis now supports the "Git Source" type for [private package registries](https://docs.github.com/en/code-security/securing-your-organization/enabling-security-features-in-your-organization/giving-org-access-private-registries). This is in addition to the existing support for the "GOPROXY server" type.
+
+### Fixes
+
+- The `codeql generate query-help` command now prepends the query's name (taken from the `.ql` file) as a level-one heading when processing markdown query help, for consistency with help generated from a `.qhelp` file.
+
 ## Release 2.23.1 (2025-09-23)
 
 ### New features
