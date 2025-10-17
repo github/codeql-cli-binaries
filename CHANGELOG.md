@@ -17,13 +17,40 @@
      you know what to do).
 -->
 
+## Release 2.23.3 (2025-10-17)
+
+### Breaking changes
+
+- The `--permissive` command line option has been removed from the C/C++ extractor,
+  and passing the option will make the extractor fail. The option was introduced to
+  make the extractor accept the following invalid code, which is accepted by gcc with
+  the `-fpermissive` flag:
+
+  ```cpp
+  void f(char*);
+  void g() {
+    const char* str = "string";
+    f(str);
+  }
+  ```
+
+  The `--permissive` option was removed, as under some circumstances it would break the extractor's ability to parse valid C++ code. When calling the extractor directly, 
+  `--permissive` should no longer be passed. The above code will fail to parse, and we
+  recommend the code being made `const`-correct.
+
+### Bugs fixed
+
+- Fixed a bug that made many `codeql` subcommands fail with the
+  message `not in while, until, select, or repeat loop` on Linux or
+  macOS systems where `/bin/sh` is `zsh`.
+
 ## Release 2.23.2 (2025-10-02)
 
 ### New features
 
 - CodeQL Go analysis now supports the "Git Source" type for [private package registries](https://docs.github.com/en/code-security/securing-your-organization/enabling-security-features-in-your-organization/giving-org-access-private-registries). This is in addition to the existing support for the "GOPROXY server" type.
 
-### Fixes
+### Bugs Fixed
 
 - The `codeql generate query-help` command now prepends the query's name (taken from the `.ql` file) as a level-one heading when processing markdown query help, for consistency with help generated from a `.qhelp` file.
 
