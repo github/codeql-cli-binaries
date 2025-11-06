@@ -6,11 +6,14 @@ on:
 jobs:
   label:
     name: Label issue
-    runs-on: ubuntu-latest
-    if: github.event.action == 'opened'
+    runs-on: ubuntu-slim
+    permissions:
+      issues: write
     steps:
       - name: Label issue
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo '{"labels": ["CLI"]}' | gh api repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: CLI
