@@ -17,6 +17,16 @@
      you know what to do).
 -->
 
+## Release 2.23.5 (2025-11-13)
+
+### Breaking changes
+
+- In order to make a `@kind path-problem` query diff-informed, the `getASelectedSourceLocation` and `getASelectedSinkLocation` predicates in the dataflow configuration now need to be overridden to always return the location of the source/sink _in addition to_ any other locations that are selected by the query. See the [QLdoc](https://github.com/github/codeql/blob/d122534398c5eb9182a23a9ad65caa5937d627b5/shared/dataflow/codeql/dataflow/DataFlow.qll#L474) for more details.
+
+## Release 2.23.4
+
+This release was skipped.
+
 ## Release 2.23.3 (2025-10-17)
 
 ### Breaking changes
