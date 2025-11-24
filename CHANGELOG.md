@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.23.6 (2025-11-24)
+
+### Breaking changes
+
+- The LGTM results format for uploading to LGTM has been removed.
+
 ## Release 2.23.5 (2025-11-13)
 
 ### Breaking changes
