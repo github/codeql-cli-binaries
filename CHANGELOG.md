@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.23.7 (2025-12-05)
+
+### Deprecations
+
+- The `--save-cache` flag to `codeql database run-queries` and other commands that execute queries has been deprecated. This flag previously instructed the evaluator to aggressively write intermediate results to the disk cache, but now has no effect.
+
 ## Release 2.23.6 (2025-11-24)
 
 ### Breaking changes
@@ -3995,3 +4001,4 @@ become available.
 ## Release 2.0.0 (2019-11-14)
 
 -   First public release.
+
