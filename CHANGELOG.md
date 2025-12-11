@@ -16,6 +16,9 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.23.8 (2025-12-10)
+
+This release contains no CLI changes.
 
 ## Release 2.23.7 (2025-12-05)
 
