@@ -16,6 +16,13 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.23.9 (2026-01-09)
+
+### Deprecations
+
+- Support for Kotlin version 1.6 and 1.7 has been deprecated and will be removed from CodeQL version 2.24.1. Starting with version 2.24.1, users will need to use Kotlin version >= 1.8 to extract Kotlin databases.
+
 ## Release 2.23.8 (2025-12-10)
 
 This release contains no CLI changes.
@@ -4004,4 +4011,3 @@ become available.
 ## Release 2.0.0 (2019-11-14)
 
 -   First public release.
-
