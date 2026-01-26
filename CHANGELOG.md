@@ -17,6 +17,16 @@
      you know what to do).
 -->
 
+## Release 2.24.0 (2026-01-26)
+
+### Miscellaneous
+
+- The OWASP Java HTML Sanitizer library used by the CodeQL CLI for internal
+  documentation generation commands has been updated to version
+  [20260102.1](https://github.com/OWASP/java-html-sanitizer/releases/tag/release-20260102.1).
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.9.
+
 ## Release 2.23.9 (2026-01-09)
 
 ### Deprecations
