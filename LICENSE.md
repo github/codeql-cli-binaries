@@ -33,7 +33,7 @@ below:
   * Use the Software to demonstrate the Software.
 
   * Test CodeQL queries that are released under an OSI-approved
-    Licence to confirm that new versions of those queries continue to
+    License to confirm that new versions of those queries continue to
     find the right vulnerabilities.
 
 Here's what you may also do with the Software, but only with an Open
@@ -169,7 +169,7 @@ provision of these Terms will not constitute a waiver of such right or
 provision.
 
 _Entire Agreement._ These Terms, together with any open source
-software licenses referenced above, constitutes the entire agreement
+software licenses referenced above, constitute the entire agreement
 between you and GitHub regarding your use of the Software, superseding
 any prior agreements between you and GitHub (including, but not
 limited to, any prior versions of these Terms) regarding such use.
