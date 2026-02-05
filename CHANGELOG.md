@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.24.1 (2026-02-05)
+
+### Miscellaneous
+
+- The vulnerable xwork-core 2.3.37 test dependency (CVE-2025-68493) has been removed. The CodeQL Java library has been updated to support both legacy Struts 2.x-6.x package names and Struts 7.x package names for analyzing user code.
+
 ## Release 2.24.0 (2026-01-26)
 
 ### Miscellaneous
