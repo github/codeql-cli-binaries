@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.24.2 (2026-02-20)
+
+### Bug Fixes
+
+- Fixed SARIF output to generate RFC 1738 compatible file URIs. File URIs now always use the `file:///` format instead of `file:/` for better interoperability with SARIF consumers.
+
 ## Release 2.24.1 (2026-02-05)
 
 ### Miscellaneous
@@ -82,7 +88,7 @@ This release was skipped.
   }
   ```
 
-  The `--permissive` option was removed, as under some circumstances it would break the extractor's ability to parse valid C++ code. When calling the extractor directly, 
+  The `--permissive` option was removed, as under some circumstances it would break the extractor's ability to parse valid C++ code. When calling the extractor directly,
   `--permissive` should no longer be passed. The above code will fail to parse, and we
   recommend the code being made `const`-correct.
 
@@ -231,7 +237,7 @@ This release was skipped.
 
 - On macOS the `CODEQL_TRACER_RELOCATION_EXCLUDE` environment variable can now be used to exclude certain paths from the
   tracer relocation and tracing process. This environment variable accepts newline-separated regex patterns of binaries
-  to be excluded.  
+  to be excluded.
 
 ## Release 2.20.7 (2025-03-18)
 
