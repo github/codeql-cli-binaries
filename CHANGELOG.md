@@ -17,6 +17,13 @@
      you know what to do).
 -->
 
+## Release 2.24.3 (2026-03-05)
+
+### Bug Fixes
+
+- Fixed a race condition that could cause flaky failures in overlay CodeQL tests. Test extraction now skips `*.testproj` directories by name, preventing interference from concurrently cleaned-up test databases.
+- Fixed spurious "OOPS" warnings that could appear in help output for commands using mutually exclusive option groups, such as `codeql query run`.
+
 ## Release 2.24.2 (2026-02-20)
 
 ### Bug Fixes
