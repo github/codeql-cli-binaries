@@ -16,6 +16,20 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.25.0 (2026-03-19)
+
+### Breaking Changes
+
+- `codeql database interpret-results` and `codeql database analyze` no longer attempt to reconstruct file baseline information from databases created with CLI versions before 2.11.2.
+
+### Bug Fixes
+
+- Upgraded Jackson library from 2.16.1 to 2.18.6 to address a high-severity denial of service vulnerability (GHSA-72hv-8253-57qq) in jackson-core's async JSON parser.
+- Upgraded snakeyaml (which is a dependency of jackson-dataformat-yaml) from 2.2 to 2.3.
+
+## Release 2.24.4 (2026-03-16)
+
+This release was skipped.
 
 ## Release 2.24.3 (2026-03-05)
 
