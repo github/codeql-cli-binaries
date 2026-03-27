@@ -16,6 +16,16 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.25.1 (2026-03-27)
+
+### Bug Fixes
+
+- Fixed a bug where extraction could fail on YAML files containing emoji.Collapse commentComment on lines R24 to R25henrymercer commented on Mar 26, 2026 henrymerceron Mar 26, 2026More actions  
+
+### Miscellaneous
+
+- Upgraded snakeyaml (which is a dependency of jackson-dataformat-yaml) from 2.3 to 2.6.
+
 ## Release 2.25.0 (2026-03-19)
 
 ### Breaking Changes
