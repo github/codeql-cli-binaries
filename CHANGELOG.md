@@ -20,7 +20,7 @@
 
 ### Bug Fixes
 
-- Fixed a bug where extraction could fail on YAML files containing emoji.Collapse commentComment on lines R24 to R25henrymercer commented on Mar 26, 2026 henrymerceron Mar 26, 2026More actions  
+- Fixed a bug where extraction could fail on YAML files containing emoji.
 
 ### Miscellaneous
 
