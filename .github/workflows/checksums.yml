@@ -1,0 +1,33 @@
+name: Release Assets
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  checksums:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Download all assets for the release that triggered the workflow
+          gh release download "${{ github.event.release.tag_name }}" --dir ./assets
+
+      - name: Generate Checksums
+        run: |
+          cd assets
+          # Generate SHA-256 hashes for all downloaded files, excluding any existing checksums.txt
+          sha256sum * > ../checksums.txt
+
+      - name: Upload Checksums to Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" checksums.txt --clobber
