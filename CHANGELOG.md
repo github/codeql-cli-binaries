@@ -16,6 +16,14 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+
+## Release 2.25.2 (2026-04-15)
+
+### Miscellaneous
+
+- The build of Eclipse Temurin OpenJDK that is used to run the CodeQL
+  CLI has been updated to version 21.0.10.
+
 ## Release 2.25.1 (2026-03-27)
 
 ### Bug Fixes
