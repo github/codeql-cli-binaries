@@ -17,6 +17,17 @@
      you know what to do).
 -->
 
+## Release 2.25.3 (2026-05-01)
+
+### Improvements
+
+- The `codeql database finalize` command now accepts the `--working-dir`
+  flag. When specified, any extractor pre-finalize scripts will be run in
+  that directory. If the flag is not used, the scripts will run in the source
+  root directory (maintaining existing behavior). The flag will also be
+  automatically passed through when running the higher-level
+  `codeql database create` command.
+
 ## Release 2.25.2 (2026-04-15)
 
 ### Miscellaneous
