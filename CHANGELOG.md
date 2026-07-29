@@ -16,6 +16,11 @@
      checklist for a CLI release, you can edit here. But then
      you know what to do).
 -->
+## Release 2.26.2 (2026-07-23)
+
+### Breaking Changes
+
+- Removed support for parsing `[[`-style links in alert messages. This was an undocumented legacy feature that allowed query authors to embed links inline in select clause message strings using `[["text"|"url"]]` syntax. Queries should use `$@` placeholder pairs instead.
 
 ## Release 2.26.1 (2026-07-15)
 
