@@ -17,6 +17,42 @@
      you know what to do).
 -->
 
+## Release 2.27.2 (2026-10-07)
+
+### Improvements
+
+- Error and warning messages printed to standard error are now labelled with an
+  `ERROR: ` or `WARNING: ` prefix. Previously only diagnostics carried such a
+  label, so the severity of other messages was not apparent in plain-text
+  output. Structured output is unaffected: log files, SARIF, and stored
+  diagnostics continue to record severity without the prefix.
+- The `codeql query compile` command now accepts the `--dil-constants`
+  flag. When specified along with `--dump-dil`, the emitted DIL
+  will include the values of predicates that have been optimized into
+  constant tuple sets. Otherwise, these constants are omitted. This flag
+  also enables pretty-printing of constant tuple sets for higher-level
+  commands that involve query compilation.
+
+### Bug Fixes
+
+- Fixed a crash in `codeql resolve queries` (and other commands that
+  resolve query suites) that reported a fatal internal error when a suite
+  entry's `qlpack:` or `from:` value was not a valid QL pack name. Such
+  input now produces a clear, user-facing error instead.
+- Fixed a bug in the handling of YAML data extensions that would quietly accept integers outside of
+  the signed 64-bit range, truncating them to smaller values. (Values outside of the signed 32-bit
+  range, but inside the signed 64-bit range, were correctly rejected.) Now, all integers outside of
+  the signed 32-bit range are rejected and will cause evaluation to fail.
+
+### Miscellaneous
+
+- CLI commands that load data extensions, such as `codeql database run-queries`,
+  previously emitted a warning for each file-pattern from the `dataExtensions`
+  list of a `qlpack.yml` manifest that failed to match any extension files.
+  This check has been relaxed, and will now only emit a warning if none of the
+  patterns match any files (i.e. when there is at least one pattern but no
+  extensions are found).
+
 ## Release 2.27.1 (2026-09-22)
 
 ### Miscellaneous
