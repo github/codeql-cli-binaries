@@ -17,6 +17,27 @@
      you know what to do).
 -->
 
+## Release 2.27.3 (2026-10-20)
+
+### Breaking Changes
+
+- With the release of macOS 27 and Xcode 27, Apple stopped shipping multi-architecture x86-64/arm64 binaries. These binaries are required by CodeQL to perform traced analysis. For this reason, CodeQL's `autobuild` and `manual` build modes will not be supported for compiled languages on macOS 27 with any Xcode version, and on macOS 26 when Xcode 27 is selected.
+
+### Improvements
+
+- Data extension files now support JSON syntax, with the same structure as
+  existing YAML data extensions. Java-style comments (`// ...` and `/* ... */`)
+  are also supported. Files using the `.json` extension will be parsed as JSON,
+  while all other files will continue to be parsed as YAML.
+- The `codeql test run` feature to load a data extension named `<test>.ext.yml`
+  when running `<test>.ql` or `<test>.qlref` has been updated to support JSON
+  data extensions, and files named `<test>.ext.json` will now also be loaded
+  automatically.
+
+### Bug Fixes
+
+- Fixed a bug that caused database downgrades to fail for GitHub Actions databases.
+
 ## Release 2.27.2 (2026-10-07)
 
 ### Improvements
