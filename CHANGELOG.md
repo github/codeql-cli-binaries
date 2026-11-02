@@ -17,6 +17,18 @@
      you know what to do).
 -->
 
+## Release 2.27.4 (2026-11-02)
+
+### Security Fixes
+
+- `codeql pack bundle` and `codeql pack publish` now check that each file added to the pack archive
+  is still inside the pack root after symbolic links are resolved. Files that resolve to a location
+  outside the pack root are omitted from the archive with a warning.
+
+### Bug Fixes
+
+- The CodeQL CLI now writes messages from the Java virtual machine, such as warnings and initialization errors, to standard error instead of standard output. Previously, these messages could corrupt the output of commands that print JSON or other machine-readable output.
+
 ## Release 2.27.3 (2026-10-20)
 
 ### Breaking Changes
