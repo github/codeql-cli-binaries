@@ -17,6 +17,30 @@
      you know what to do).
 -->
 
+## Release 2.27.5 (2026-11-19)
+
+### Breaking Changes
+
+- The C/C++ extractor no longer supports Brotli compression. Users invoking the extractor directly should replace `--trap-compression=brotli` or `--tar-entry-compression=brotli` with the corresponding `zstd` option. The `--brotli-quality` option has also been removed.
+
+### Security Fixes
+
+- When invoked by `codeql test run`, extractors for XML, YAML, and Java `.properties` files run in a
+  mode that traverses the source root directory and extracts all relevant files. This mode has been
+  updated so that it no longer follows symbolic links.
+
+### Bug Fixes
+
+- When choosing the default queries for a language whose extractor is found on `--search-path`, the CLI now uses the extractor's `default_queries` property instead of `codeql/<language>-queries`.
+- `codeql test run` now accepts `.qlref` consistency queries passed via `--consistency-queries` as it already does for ordinary unit tests, and applies the same `.qlref` precedence: if a `.ql` file has a synonymous `.qlref` file, the `.qlref` file is resolved and run instead, and the `.ql` file is skipped.
+
+### Query Language Changes
+
+- The `string` type now has built-in member predicates `startsWith(string prefix)`,
+  `endsWith(string suffix)`, and `contains(string substring)`. These perform
+  case-sensitive matching of literal strings, without wildcards or regular
+  expressions. All three predicates hold for an empty argument.
+
 ## Release 2.27.4 (2026-11-02)
 
 ### Security Fixes
