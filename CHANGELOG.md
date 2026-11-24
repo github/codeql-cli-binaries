@@ -17,6 +17,12 @@
      you know what to do).
 -->
 
+## Release 2.27.6 (2026-11-24)
+
+### Security Fixes
+
+- To mitigate Java4Shell (CVE-2026-114938), the JDK bundled with the CodeQL CLI has been updated to Temurin jdk-25.0.5.1+2. The Java extractor now disables HotSpot Base64 intrinsics when it launches with its bundled JDK.
+
 ## Release 2.27.5 (2026-11-19)
 
 ### Breaking Changes
